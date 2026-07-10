@@ -1,0 +1,468 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<script src="./support.js"></script>
+</head>
+<body>
+<x-dc>
+<helmet data-dc-atomics>
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet">
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js"></script>
+<style>
+  body { margin:0; background:var(--nk-c4, #faf8f3); color:var(--nk-c0, #221e1a); font-family:'Inter',sans-serif; scroll-behavior:smooth; }
+  a { color:var(--nk-c2, #45A29E); text-decoration:none; }
+  a:hover { color:var(--nk-c2h, #2f7268); }
+  h1,h2,h3,h4 { font-family:'Space Grotesk',sans-serif; margin:0; }
+  [data-reveal] { opacity:0; transform:translateY(28px); transition:opacity .7s ease-out, transform .7s ease-out; }
+  [data-reveal].is-visible { opacity:1; transform:translateY(0); }
+  ::selection { background: var(--nk-sel, rgba(122,35,49,0.2)); }
+</style>
+</helmet>
+
+<div style="{{ rootStyle }}">
+
+  <!-- NAV -->
+  <nav id="siteNav" style="background:transparent;border-bottom:1px solid transparent;position:fixed;top:0;left:0;width:100%;z-index:50;transition:background-color .25s ease, border-color .25s ease, padding .25s ease, box-shadow .25s ease;">
+    <div class="container d-flex align-items-center justify-content-between" style="padding:18px 12px;transition:padding .25s ease;">
+      <a href="Home.dc.html" id="navLogo" style="font-family:'Space Grotesk',sans-serif;font-weight:600;font-size:19px;color:var(--nk-c4, #faf8f3);letter-spacing:.2px;transition:color .25s ease;">
+        N.&nbsp;E.&nbsp;Karantanis
+      </a>
+      <button class="navbar-toggler d-lg-none" id="navTogglerBtn" type="button" data-bs-toggle="collapse" data-bs-target="#navMenu" style="border:1px solid rgba(var(--nk-c4-rgb, 243,239,230),0.3);border-radius:6px;padding:6px 10px;transition:border-color .25s ease;">
+        <span style="display:block;width:20px;height:2px;background:var(--nk-c4, #faf8f3);margin:4px 0;transition:background-color .25s ease;"></span>
+        <span style="display:block;width:20px;height:2px;background:var(--nk-c4, #faf8f3);margin:4px 0;transition:background-color .25s ease;"></span>
+      </button>
+      <div class="collapse navbar-collapse d-lg-flex flex-grow-0" id="navMenu">
+        <div class="d-flex flex-lg-row flex-column gap-lg-4 gap-3 align-items-lg-center" id="navLinksRow" style="font-size:15px;font-weight:500;padding:16px 0 4px;margin-left:auto;">
+          <a href="Home.dc.html" style="color:var(--nk-c4, #faf8f3);transition:color .25s ease;">Home</a>
+          <a href="About.dc.html" style="color:var(--nk-c4, #faf8f3);transition:color .25s ease;">About &amp; CV</a>
+          <a href="Blog.dc.html" style="color:var(--nk-c4, #faf8f3);transition:color .25s ease;">Blog</a>
+          <a href="https://www.linkedin.com/in/nekarantanis/" style="background:var(--nk-c1, #66FCF1);color:var(--nk-c0, #0B0C10);padding:9px 18px;border-radius:3px;font-weight:600;border:3px solid transparent;transition:background .2s,border-color .2s,transform .2s,box-shadow .2s;" style-hover="background:var(--nk-c0, #221e1a);border-color:var(--nk-c1, #c9a24a);color:var(--nk-c4, #faf8f3);transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.18);">Connect on LinkedIn</a>
+        </div>
+      </div>
+    </div>
+  </nav>
+
+  <!-- PAGE HEADER -->
+  <header style="background-color:var(--nk-c0, #221e1a);background-image:radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);background-size:24px 24px;color:var(--nk-c3, #f3efe6);position:relative;overflow:hidden;">
+    <svg viewBox="0 0 200 200" style="position:absolute;top:-70px;right:-40px;width:260px;height:260px;opacity:0.12;z-index:0;">
+      <circle cx="100" cy="100" r="100" fill="var(--nk-c1, #c9a24a)"></circle>
+    </svg>
+    <div class="container" style="padding:80px 12px 72px;position:relative;z-index:1;">
+      <div class="d-flex align-items-center gap-3" style="margin-bottom:16px;">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c1, #c9a24a)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" style="width:36px;height:36px;flex-shrink:0;">
+          <path d="M22 10L12 5 2 10l10 5 10-5z"></path>
+          <path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path>
+          <path d="M22 10v6"></path>
+        </svg>
+        <div style="text-transform:uppercase;letter-spacing:2px;font-size:13px;font-weight:600;color:var(--nk-c1, #c9a24a);">Curriculum Vitae</div>
+      </div>
+      <h1 style="font-size:42px;font-weight:600;color:var(--nk-c4, #faf8f3);margin-bottom:16px;">Experience &amp; Qualifications</h1>
+      <p style="font-size:17px;line-height:1.6;color:#c9c2b6;max-width:680px;">
+        Presented thematically rather than chronologically &mdash; leadership, digital, and research have run in parallel throughout my career.
+      </p>
+    </div>
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="position:absolute;left:0;bottom:-1px;width:100%;height:44px;display:block;z-index:1;">
+      <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" style="fill:var(--nk-c3, #f3efe6);"></path>
+    </svg>
+  </header>
+
+  <!-- SECTION NAV -->
+  <div style="background:var(--nk-c3, #f3efe6);border-bottom:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.08);position:sticky;top:69px;z-index:40;">
+    <div class="container d-flex flex-wrap gap-2" style="padding:14px 12px;">
+      <a href="#leadership" style="font-size:14px;font-weight:600;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);color:var(--nk-c0, #221e1a);padding:8px 16px;border-radius:20px;transition:transform .2s,box-shadow .2s;" style-hover="transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.12);">Leadership</a>
+      <a href="#digital" style="font-size:14px;font-weight:600;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);color:var(--nk-c0, #221e1a);padding:8px 16px;border-radius:20px;transition:transform .2s,box-shadow .2s;" style-hover="transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.12);">Digital</a>
+      <a href="#research" style="font-size:14px;font-weight:600;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);color:var(--nk-c0, #221e1a);padding:8px 16px;border-radius:20px;transition:transform .2s,box-shadow .2s;" style-hover="transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.12);">Research</a>
+      <a href="#education" style="font-size:14px;font-weight:600;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);color:var(--nk-c0, #221e1a);padding:8px 16px;border-radius:20px;transition:transform .2s,box-shadow .2s;" style-hover="transform:translateY(-3px);box-shadow:0 8px 20px rgba(0,0,0,0.12);">Education</a>
+    </div>
+  </div>
+
+  <!-- LEADERSHIP SECTION -->
+  <section id="leadership" style="background-color:var(--nk-c4, #faf8f3);background-image:radial-gradient(rgba(0,0,0,0.035) 1px, transparent 1px);background-size:24px 24px;">
+    <div class="container" style="padding:76px 12px 20px;">
+      <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--nk-c2, #45A29E);text-transform:uppercase;margin-bottom:10px;">Section A</div>
+      <h2 style="font-size:30px;margin-bottom:44px;">Leadership in Education</h2>
+    </div>
+
+    <!-- PeoplePlus -->
+    <div class="container" style="padding-bottom:56px;" data-reveal>
+      <div class="row g-4">
+        <div class="col-lg-3">
+          <div style="width:100%;max-width:200px;height:90px;display:flex;align-items:center;justify-content:center;border-radius:8px;margin-bottom:12px;background:transparent;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="logo-peopleplus" shape="rounded" radius="8" fit="contain" placeholder="Logo" hint-size="200px,90px" style="width:100%;height:100%;max-height:90px;"></x-import>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin-bottom:4px;">PeoplePlus</div>
+          <div style="font-size:13px;color:#8a8175;">HMP Pentonville</div>
+          <div style="font-size:13px;color:#8a8175;">Sep 2017 &ndash; Present</div>
+        </div>
+        <div class="col-lg-9">
+          <div style="border-left:3px solid var(--nk-c2, #45A29E);padding-left:28px;">
+            <p style="font-size:15px;line-height:1.7;color:#5b5348;margin-bottom:28px;">
+              Committed to social change and enabling people to transform their lives, my leadership journey brought me to the education provision in one of the UK&rsquo;s most demanding prisons &mdash; HMP Pentonville &mdash; enhancing the quality of education and learner outcomes while enabling teachers to lead learners toward a fulfilling life and away from reoffending.
+            </p>
+            <div style="background:var(--nk-c3, #f3efe6);border-radius:6px;padding:28px 30px;">
+              <div style="font-size:13px;color:#8a8175;font-weight:600;margin-bottom:4px;">JUL 2022 &mdash; PRESENT</div>
+              <h3 style="font-size:19px;margin-bottom:16px;">Education Manager</h3>
+              <ul style="font-size:15px;line-height:1.7;color:#5b5348;padding-left:20px;margin-bottom:20px;">
+                <li>Leading the strategic and day-to-day management of education in HMP Pentonville, a high-pressure Category B prison, ensuring a stable, high-quality learning environment.</li>
+                <li>Overseeing a multidisciplinary team delivering tailored learning plans, functional skills, and vocational pathways.</li>
+                <li>Refreshing curriculum design to remain responsive to learner profiles, employer expectations, and Ofsted requirements.</li>
+                <li>Driving quality improvement through the SAR/QIP cycle, structured learning walks, and learner voice activity.</li>
+                <li>Building partnerships with Prison Governors, Industries, and external agencies to integrate education into wider rehabilitative pathways.</li>
+                <li>Enhancing staff capability through CPD focused on trauma-informed practice, behaviour management, and adaptive teaching.</li>
+                <li>Ensuring robust contract delivery and responsible management of the site&rsquo;s education budget.</li>
+              </ul>
+              <div class="d-flex flex-wrap gap-2">
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Secure Facility Leadership</span>
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Budget Management</span>
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Justice System</span>
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Strategic Direction</span>
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Reduction of Reoffending</span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+
+    <!-- Capel Manor -->
+    <div class="container" style="padding-bottom:20px;" data-reveal>
+      <div class="row g-4">
+        <div class="col-lg-3">
+          <div style="width:100%;max-width:200px;height:90px;display:flex;align-items:center;justify-content:center;border-radius:8px;margin-bottom:12px;background:transparent;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="logo-capelmanor" shape="rounded" radius="8" fit="contain" placeholder="Logo" hint-size="200px,90px" style="width:100%;height:100%;max-height:90px;"></x-import>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin-bottom:4px;">Capel Manor College</div>
+          <div style="font-size:13px;color:#8a8175;">Enfield, Brooks Farm, Crystal Palace, Gunnersbury Park, Regent&rsquo;s Park, Mottingham</div>
+          <div style="font-size:13px;color:#8a8175;margin-top:6px;">Sep 2017 &ndash; Mar 2025</div>
+        </div>
+        <div class="col-lg-9">
+          <div style="border-left:3px solid var(--nk-c2, #45A29E);padding-left:28px;">
+            <p style="font-size:15px;line-height:1.7;color:#5b5348;margin-bottom:28px;">
+              London&rsquo;s only specialist environmental college. My journey in leadership began here, gaining experience in Further and Higher Education and in managing animal collections across zoos and farms &mdash; leading the transformation of the School of Animal Management and Saddlery through the Covid-19 pandemic and beyond.
+            </p>
+
+            <div style="background:var(--nk-c3, #f3efe6);border-radius:6px;padding:28px 30px;margin-bottom:20px;">
+              <div style="font-size:13px;color:#8a8175;font-weight:600;margin-bottom:4px;">APR 2022 &mdash; MAR 2025</div>
+              <h3 style="font-size:19px;margin-bottom:16px;">Director of Studies, Land-Based (Animal Management and Saddlery)</h3>
+              <ul style="font-size:15px;line-height:1.7;color:#5b5348;padding-left:20px;margin-bottom:20px;">
+                <li>Leading a team of 100+ across five campuses, implementing a cloud-based governance system adopted college-wide.</li>
+                <li>Improved achievement from a &minus;4.5% shortfall against the national average to exceeding it by 2%.</li>
+                <li>Driving the strategy for an intranet and digital governance platform, standardising processes and resource sharing.</li>
+                <li>Restructured educational offerings and animal collections across four campuses, delivering 12% in cost savings.</li>
+                <li>Driving the Attendance Working Group, improving attendance to exceed 5% over the national average.</li>
+                <li>Contributing to national EdTech efforts via the Landex Learning Materials and Technology Committee and JISC T&amp;L Forum.</li>
+                <li>Collaborating with Worshipful Companies to reinvigorate saddlery, shoemaking, and leathercraft training, with a &pound;150k growth in budget.</li>
+                <li>Saw 20+ new teachers through CET and DET programmes.</li>
+              </ul>
+              <div class="d-flex flex-wrap gap-2">
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Large Team Leadership</span>
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Microsoft SharePoint &amp; Teams</span>
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Zoo &amp; Farm Management</span>
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Business Development</span>
+                <span style="font-size:12.5px;background:var(--nk-c4, #faf8f3);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Sponsorship &amp; Partnerships</span>
+              </div>
+            </div>
+
+            <div style="padding:20px 4px;border-top:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.08);">
+              <div style="font-size:13px;color:#8a8175;font-weight:600;margin-bottom:4px;">APR 2020 &mdash; MAY 2022</div>
+              <h4 style="font-size:16px;margin-bottom:10px;">Curriculum Leader, then Head of Animal Management and Saddlery</h4>
+              <ul style="font-size:14.5px;line-height:1.65;color:#5b5348;padding-left:20px;margin:0;">
+                <li>Spearheaded a culture of self-assessment leading to an 88% achievement rate, above the national benchmark.</li>
+                <li>Personally moved the digital infrastructure to cloud services and workflows via Microsoft 365, college-wide.</li>
+                <li>Mentored and trained four new Team Leaders across the School&rsquo;s largest team of Higher and Further lecturers.</li>
+              </ul>
+            </div>
+
+            <div style="padding:20px 4px;border-top:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.08);">
+              <div style="font-size:13px;color:#8a8175;font-weight:600;margin-bottom:4px;">SEP 2019 &mdash; MAR 2020</div>
+              <h4 style="font-size:16px;margin-bottom:10px;">Team Leader</h4>
+              <ul style="font-size:14.5px;line-height:1.65;color:#5b5348;padding-left:20px;margin:0;">
+                <li>Led a team of lecturers delivering a wide portfolio of animal-focused courses.</li>
+                <li>Collaborated with three major national awarding bodies to ascertain fulfilment of educational standards.</li>
+              </ul>
+            </div>
+
+            <div style="padding:20px 4px;border-top:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.08);">
+              <div style="font-size:13px;color:#8a8175;font-weight:600;margin-bottom:4px;">SEP 2017 &mdash; AUG 2019</div>
+              <h4 style="font-size:16px;margin-bottom:10px;">Higher and Further Education Course Manager</h4>
+              <ul style="font-size:14.5px;line-height:1.65;color:#5b5348;padding-left:20px;margin:0;">
+                <li>Accomplished over 95% achievement rates across all courses of responsibility.</li>
+                <li>Reached 100% satisfaction rates in HE courses as measured in the NSS.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- DIGITAL SECTION -->
+  <section id="digital" style="background:var(--nk-c3, #f3efe6);">
+    <div class="container" style="padding:76px 12px;" data-reveal>
+      <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--nk-c2, #45A29E);text-transform:uppercase;margin-bottom:10px;">Section B</div>
+      <h2 style="font-size:30px;margin-bottom:44px;">Digital Design</h2>
+      <div class="row g-4">
+        <div class="col-lg-3">
+          <div style="width:100%;max-width:200px;height:90px;display:flex;align-items:center;justify-content:center;border-radius:8px;margin-bottom:12px;background:transparent;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="logo-mesh" shape="rounded" radius="8" fit="contain" placeholder="Logo" hint-size="200px,90px" style="width:100%;height:100%;max-height:90px;"></x-import>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin-bottom:4px;">Mesh Web Development</div>
+          <div style="font-size:13px;color:#8a8175;">Sep 2015 &ndash; Aug 2017</div>
+        </div>
+        <div class="col-lg-9">
+          <div style="border-left:3px solid var(--nk-c2, #45A29E);padding-left:28px;background:var(--nk-c4, #faf8f3);border-radius:0 6px 6px 0;padding-top:28px;padding-bottom:28px;padding-right:30px;">
+            <div style="font-size:13px;color:#8a8175;font-weight:600;margin-bottom:4px;">DIGITAL PROJECT MANAGER / OWNER</div>
+            <ul style="font-size:15px;line-height:1.7;color:#5b5348;padding-left:20px;margin-bottom:20px;">
+              <li>Founded own business, building the online presence of multiple small businesses.</li>
+              <li>Bridged creative professionals and business owners to tailor effective digital products.</li>
+              <li>Designed and developed visual materials using HTML, CSS, JavaScript, SQL, Adobe Illustrator and Photoshop.</li>
+            </ul>
+            <div class="d-flex flex-wrap gap-2">
+              <span style="font-size:12.5px;background:var(--nk-c3, #f3efe6);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">WordPress</span>
+              <span style="font-size:12.5px;background:var(--nk-c3, #f3efe6);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">UX/UI Design</span>
+              <span style="font-size:12.5px;background:var(--nk-c3, #f3efe6);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">HTML/CSS/JS/PHP/SQL</span>
+              <span style="font-size:12.5px;background:var(--nk-c3, #f3efe6);border:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.12);padding:5px 12px;border-radius:16px;color:#5b5348;">Digital Marketing</span>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- RESEARCH SECTION -->
+  <section id="research" style="background-color:var(--nk-c4, #faf8f3);background-image:radial-gradient(rgba(0,0,0,0.035) 1px, transparent 1px);background-size:24px 24px;position:relative;overflow:hidden;">
+    <div class="container" style="padding:76px 12px;" data-reveal>
+      <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--nk-c2, #45A29E);text-transform:uppercase;margin-bottom:10px;">Section C</div>
+      <h2 style="font-size:30px;margin-bottom:44px;">Biological Research</h2>
+      <div class="row g-4">
+        <div class="col-lg-3">
+          <div style="width:100%;max-width:200px;height:90px;display:flex;align-items:center;justify-content:center;border-radius:8px;margin-bottom:12px;background:transparent;">
+            <x-import component-from-global-scope="image-slot" from="./image-slot.js" id="logo-auth" shape="rounded" radius="8" fit="contain" placeholder="Logo" hint-size="200px,90px" style="width:100%;height:100%;max-height:90px;"></x-import>
+          </div>
+          <div style="font-family:'Space Grotesk',sans-serif;font-size:20px;margin-bottom:4px;">Aristotle University of Thessaloniki</div>
+          <div style="font-size:13px;color:#8a8175;">Jul 2012 &ndash; Mar 2017; Jan 2020 &ndash; Aug 2021</div>
+        </div>
+        <div class="col-lg-9">
+          <div style="border-left:3px solid var(--nk-c2, #45A29E);padding-left:28px;">
+            <div style="background:var(--nk-c3, #f3efe6);border-radius:6px;padding:28px 30px;margin-bottom:20px;">
+              <div style="font-size:13px;color:#8a8175;font-weight:600;margin-bottom:4px;">POSTDOCTORAL RESEARCHER &middot; JAN 2020 &ndash; DEC 2021</div>
+              <ul style="font-size:15px;line-height:1.7;color:#5b5348;padding-left:20px;margin-bottom:16px;">
+                <li>Co-designed a project evaluating wildcat (<em>Felis silvestris silvestris</em>) spatial behaviour using telemetry within protected areas of Northern Greece.</li>
+                <li>Used telemetry collars, camera traps, and biological signs of presence to map wildcat movements and nesting.</li>
+                <li>Led the deployment of <a href="http://www.wildcatproject.gr" style="font-weight:600;">wildcatproject.gr</a> to disseminate scientific knowledge and educate the public on conservation status.</li>
+                <li>Findings published in peer-reviewed conferences and journals.</li>
+              </ul>
+            </div>
+            <div style="padding:0 4px;">
+              <div style="font-size:13px;color:#8a8175;font-weight:600;margin-bottom:4px;">POSTGRADUATE RESEARCHER &middot; JUL 2012 &ndash; MAR 2017</div>
+              <ul style="font-size:15px;line-height:1.7;color:#5b5348;padding-left:20px;margin-bottom:16px;">
+                <li>Designed and executed a long-term project on ecological implications of biomechanics in the evolution of eutherian mammals, with a focus on primates.</li>
+                <li>Developed novel methods in high-speed experimental video recording and advanced statistical data analysis.</li>
+                <li>Contributed to teaching Morphology and Systematics of Chordata, Comparative Animal Anatomy and Histology, and Biological Anthropology.</li>
+                <li>Awarded a Doctorate of Philosophy in Biology unanimously by an international panel.</li>
+                <li>Published 10 peer-reviewed articles in high impact-factor international journals.</li>
+              </ul>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <svg viewBox="0 0 1440 100" preserveAspectRatio="none" style="position:absolute;left:0;bottom:-1px;width:100%;height:48px;display:block;z-index:1;">
+      <path d="M0,50 C240,0 480,90 720,45 C960,5 1200,85 1440,40 L1440,100 L0,100 Z" style="fill:var(--nk-c0, #221e1a);"></path>
+    </svg>
+  </section>
+
+  <!-- EDUCATION -->
+  <section id="education" style="background-color:var(--nk-c0, #221e1a);background-image:radial-gradient(rgba(255,255,255,0.05) 1px, transparent 1px);background-size:24px 24px;position:relative;overflow:hidden;">
+    <div class="container" style="padding:76px 12px 88px;position:relative;z-index:1;" data-reveal>
+      <div style="font-size:13px;font-weight:700;letter-spacing:1.5px;color:var(--nk-c1, #c9a24a);text-transform:uppercase;margin-bottom:10px;">Qualifications</div>
+      <h2 style="font-size:30px;color:var(--nk-c4, #faf8f3);margin-bottom:44px;">Education</h2>
+
+      <div class="row g-4 mb-4">
+        <div class="col-lg-3">
+          <div style="font-size:13px;color:#a39a8d;">2021</div>
+        </div>
+        <div class="col-lg-9" style="border-left:3px solid var(--nk-c1, #c9a24a);padding-left:28px;">
+          <h3 style="font-size:19px;color:var(--nk-c4, #faf8f3);margin-bottom:6px;">Senior Education Leadership Programme</h3>
+          <div style="font-size:14px;color:#a39a8d;margin-bottom:12px;">in&gt;pd &middot; University of East London</div>
+          <ul style="font-size:14.5px;line-height:1.65;color:#c9c2b6;padding-left:20px;margin:0;">
+            <li>Gained a clear understanding of the senior leader&rsquo;s role in effective organisational management.</li>
+            <li>Learned to inspire, influence, and build high-performing teams.</li>
+            <li>Equipped with strategic leadership skills and a range of management techniques and tools.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-lg-3">
+          <div style="font-size:13px;color:#a39a8d;">2012 &ndash; 2017</div>
+        </div>
+        <div class="col-lg-9" style="border-left:3px solid var(--nk-c1, #c9a24a);padding-left:28px;">
+          <h3 style="font-size:19px;color:var(--nk-c4, #faf8f3);margin-bottom:6px;">Doctorate of Philosophy in Biology</h3>
+          <div style="font-size:14px;color:#a39a8d;margin-bottom:12px;">Aristotle University of Thessaloniki</div>
+          <ul style="font-size:14.5px;line-height:1.65;color:#c9c2b6;padding-left:20px;margin:0;">
+            <li>Doctoral thesis: &ldquo;Adaptive Patterns and Processes in Mammalian Arboreality.&rdquo;</li>
+            <li>Funded research placements at the Primate Research Institute of Kyoto University and Adam Mickiewicz University.</li>
+            <li>Published 10 peer-reviewed articles in high impact-factor international journals.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row g-4 mb-4">
+        <div class="col-lg-3">
+          <div style="font-size:13px;color:#a39a8d;">2009 &ndash; 2010</div>
+        </div>
+        <div class="col-lg-9" style="border-left:3px solid var(--nk-c1, #c9a24a);padding-left:28px;">
+          <h3 style="font-size:19px;color:var(--nk-c4, #faf8f3);margin-bottom:6px;">MSc in Human Evolution and Behaviour</h3>
+          <div style="font-size:14px;color:#a39a8d;margin-bottom:12px;">University College London</div>
+          <ul style="font-size:14.5px;line-height:1.65;color:#c9c2b6;padding-left:20px;margin:0;">
+            <li>Solid practical and theoretical grounding in human evolution, palaeoanthropology, and primate evolution.</li>
+            <li>Thesis on the comparative positional behaviour of three captive callithricid species.</li>
+          </ul>
+        </div>
+      </div>
+
+      <div class="row g-4">
+        <div class="col-lg-3">
+          <div style="font-size:13px;color:#a39a8d;">2003 &ndash; 2009</div>
+        </div>
+        <div class="col-lg-9" style="border-left:3px solid var(--nk-c1, #c9a24a);padding-left:28px;">
+          <h3 style="font-size:19px;color:var(--nk-c4, #faf8f3);margin-bottom:6px;">BSc in Biology</h3>
+          <div style="font-size:14px;color:#a39a8d;margin-bottom:12px;">Aristotle University of Thessaloniki</div>
+          <ul style="font-size:14.5px;line-height:1.65;color:#c9c2b6;padding-left:20px;margin:0;">
+            <li>Specialised in Molecular Biology, Genetics, and Biotechnology.</li>
+            <li>BSc thesis: &ldquo;Handedness of Wild Silvery Woolly Monkeys (<em>Lagothrix poeppigii</em>).&rdquo;</li>
+          </ul>
+        </div>
+      </div>
+
+      <!-- Training & Certifications -->
+      <div class="row g-4" style="margin-top:12px;">
+        <div class="col-lg-3">
+          <div style="font-size:13px;color:#a39a8d;">Ongoing</div>
+        </div>
+        <div class="col-lg-9" style="border-left:3px solid var(--nk-c1, #66FCF1);padding-left:28px;">
+          <h3 style="font-size:19px;color:var(--nk-c4, #faf8f3);margin-bottom:16px;">Training &amp; Certifications</h3>
+          <div class="d-flex flex-wrap gap-2">
+            <span style="font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:16px;color:#e8e4da;">Qualified Teacher Status (QTS)</span>
+            <span style="font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:16px;color:#e8e4da;">Certified Microsoft Innovative Educator</span>
+            <span style="font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:16px;color:#e8e4da;">Leadership and Policy: Education Transformation Framework &middot; Microsoft</span>
+            <span style="font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:16px;color:#e8e4da;">Adult Mental Health Aware &middot; Mental Health First Aid England</span>
+            <span style="font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:16px;color:#e8e4da;">Leadership &amp; Followership (Level 1) &middot; Open University</span>
+            <span style="font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:16px;color:#e8e4da;">Assessment &amp; Quality Assurance (Level 3 &amp; 4) &middot; City &amp; Guilds</span>
+            <span style="font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:16px;color:#e8e4da;">Senior Education Leadership Programme &middot; CIPD</span>
+            <span style="font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:16px;color:#e8e4da;">Advancing Leadership &middot; FE Associates</span>
+            <span style="font-size:13px;background:rgba(255,255,255,0.06);border:1px solid rgba(255,255,255,0.12);padding:7px 14px;border-radius:16px;color:#e8e4da;">Change Management Professional Certificate &middot; LinkedIn Learning / PMI</span>
+          </div>
+          <div style="font-size:13.5px;color:#a39a8d;margin-top:18px;">
+            Languages: Cambridge Certificate of Proficiency in English &amp; ESOL (Greece) &middot; Goethe-Zertifikat B1 Deutsch &middot; Greek (native)
+          </div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer style="background:var(--nk-c4, #faf8f3);border-top:1px solid rgba(var(--nk-c0-rgb, 34,30,26),0.1);">
+    <div class="container d-flex flex-column flex-sm-row justify-content-between align-items-sm-center gap-3" style="padding:28px 12px;font-size:13px;color:#8a8175;">
+      <div>&copy; 2026 N. E. Karantanis. All rights reserved.</div>
+      <div class="d-flex gap-4">
+        <a href="Home.dc.html" style="color:#8a8175;">Home</a>
+        <a href="About.dc.html" style="color:#8a8175;">About &amp; CV</a>
+        <a href="Blog.dc.html" style="color:#8a8175;">Blog</a>
+      </div>
+    </div>
+  </footer>
+
+</div>
+
+</x-dc>
+<script type="text/x-dc" data-dc-script data-props="{&quot;palette&quot;: {&quot;editor&quot;: &quot;color&quot;, &quot;default&quot;: [&quot;#0B0C10&quot;, &quot;#66FCF1&quot;, &quot;#45A29E&quot;, &quot;#C5C6C7&quot;, &quot;#EAEBEC&quot;], &quot;tsType&quot;: &quot;string[]&quot;, &quot;section&quot;: &quot;Theme&quot;, &quot;options&quot;: [[&quot;#0B0C10&quot;, &quot;#66FCF1&quot;, &quot;#45A29E&quot;, &quot;#C5C6C7&quot;, &quot;#EAEBEC&quot;], [&quot;#17252A&quot;, &quot;#2B7A78&quot;, &quot;#3AAFA9&quot;, &quot;#DEF2F1&quot;, &quot;#FEFFFF&quot;], [&quot;#221e1a&quot;, &quot;#c9a24a&quot;, &quot;#7a2331&quot;, &quot;#f3efe6&quot;, &quot;#faf8f3&quot;], [&quot;#0b1f3a&quot;, &quot;#3d5a80&quot;, &quot;#5b7fa6&quot;, &quot;#e8edf3&quot;, &quot;#ffffff&quot;]]}}">
+class Component extends DCLogic {
+  componentDidMount() {
+    const els = document.querySelectorAll('[data-reveal]');
+    if (!('IntersectionObserver' in window)) {
+      els.forEach(el => el.classList.add('is-visible'));
+    } else {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            entry.target.classList.add('is-visible');
+            io.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      els.forEach(el => io.observe(el));
+    }
+
+    const nav = document.getElementById('siteNav');
+    if (nav) {
+      const inner = nav.querySelector(':scope > div');
+      const logo = document.getElementById('navLogo');
+      const linksRow = document.getElementById('navLinksRow');
+      const togglerBtn = document.getElementById('navTogglerBtn');
+      const plainLinks = linksRow ? Array.from(linksRow.children).slice(0, -1) : [];
+      const togglerBars = togglerBtn ? Array.from(togglerBtn.querySelectorAll('span')) : [];
+      this._onScroll = () => {
+        const scrolled = window.scrollY > 24;
+        nav.style.background = scrolled ? 'var(--nk-c4)' : 'transparent';
+        nav.style.borderBottomColor = scrolled ? 'rgba(var(--nk-c0-rgb, 34,30,26),0.1)' : 'transparent';
+        nav.style.boxShadow = scrolled ? '0 2px 16px rgba(0,0,0,0.08)' : 'none';
+        if (inner) inner.style.padding = scrolled ? '8px 12px' : '18px 12px';
+        if (logo) logo.style.color = scrolled ? 'var(--nk-c0)' : 'var(--nk-c4)';
+        plainLinks.forEach(a => { a.style.color = scrolled ? 'var(--nk-c0)' : 'var(--nk-c4)'; });
+        if (togglerBtn) togglerBtn.style.borderColor = scrolled ? 'rgba(var(--nk-c0-rgb, 34,30,26),0.2)' : 'rgba(var(--nk-c4-rgb, 243,239,230),0.3)';
+        togglerBars.forEach(s => { s.style.background = scrolled ? 'var(--nk-c0)' : 'var(--nk-c4)'; });
+      };
+      this._onScroll();
+      window.addEventListener('scroll', this._onScroll, { passive: true });
+    }
+  }
+  componentWillUnmount() {
+    if (this._onScroll) window.removeEventListener('scroll', this._onScroll);
+  }
+  hexToRgb(hex) {
+    const h = hex.replace('#', '');
+    const n = h.length === 3 ? h.split('').map(c => c + c).join('') : h;
+    const r = parseInt(n.substring(0, 2), 16) || 0;
+    const g = parseInt(n.substring(2, 4), 16) || 0;
+    const b = parseInt(n.substring(4, 6), 16) || 0;
+    return [r, g, b];
+  }
+  darken(hex, amt) {
+    const [r, g, b] = this.hexToRgb(hex);
+    const d = v => Math.max(0, Math.round(v * (1 - amt)));
+    return `rgb(${d(r)}, ${d(g)}, ${d(b)})`;
+  }
+  renderVals() {
+    const p = this.props.palette && this.props.palette.length === 5
+      ? this.props.palette
+      : ['#221e1a', '#c9a24a', '#7a2331', '#f3efe6', '#faf8f3'];
+    const rgb = i => this.hexToRgb(p[i]).join(', ');
+    return {
+      rootStyle: {
+        width: '100%',
+        overflowX: 'hidden',
+        '--nk-c0': p[0],
+        '--nk-c1': p[1],
+        '--nk-c1h': this.darken(p[1], 0.2),
+        '--nk-c2': p[2],
+        '--nk-c2h': this.darken(p[2], 0.2),
+        '--nk-c3': p[3],
+        '--nk-c4': p[4],
+        '--nk-c0-rgb': rgb(0),
+        '--nk-c1-rgb': rgb(1),
+        '--nk-c4-rgb': rgb(4),
+        '--nk-sel': `rgba(${rgb(2)}, 0.2)`
+      }
+    };
+  }
+}
+</script>
+</body>
+</html>
