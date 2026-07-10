@@ -1,2 +1,0 @@
-# nekarantanis
-My personal website
