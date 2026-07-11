@@ -1,0 +1,13 @@
+{
+  "permissions": {
+    "allow": [
+      "Bash(sed -i 's|href=\"bootstrap\\\\.min\\\\.css\"|href=\"css/bootstrap.min.css\"|; s|src=\"bootstrap\\\\.bundle\\\\.min\\\\.js\"|src=\"js/bootstrap.bundle.min.js\"|' Home.dc.html About.dc.html Blog.dc.html)",
+      "Bash(sed -i 's|href=\"\\\\.\\\\./bootstrap\\\\.min\\\\.css\"|href=\"../css/bootstrap.min.css\"|; s|src=\"\\\\.\\\\./bootstrap\\\\.bundle\\\\.min\\\\.js\"|src=\"../js/bootstrap.bundle.min.js\"|' blog/*.dc.html)",
+      "Bash(python3 /tmp/claude-1000/-home-eneekay-Documents-nekarantanis-github-nekarantanis/5a1ecbfd-e6af-4257-ad76-867c82d27353/scratchpad/gen_posts.py)",
+      "Bash(sed -i 's|N\\\\.\\\\&nbsp;E\\\\.\\\\&nbsp;Karantanis</a>|N.\\\\&nbsp;E.\\\\&nbsp;Karantanis, PhD</a>|' *.html blog/*.html)",
+      "Bash(sed -i 's|\\\\&copy; 2026 N\\\\. E\\\\. Karantanis\\\\. All rights reserved\\\\.|\\\\&copy; 2026 N. E. Karantanis, PhD. All rights reserved.|' *.html blog/*.html)",
+      "Bash(sed -i 's| style=\"border-top:1px solid rgba\\(var\\(--nk-c0-rgb\\),0.1\\);\"||' *.html blog/*.html)",
+      "Bash(cd /home/eneekay/Documents/nekarantanis_github/nekarantanis *)"
+    ]
+  }
+}
