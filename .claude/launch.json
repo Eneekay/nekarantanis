@@ -6,6 +6,12 @@
       "runtimeExecutable": "python3",
       "runtimeArgs": ["-m", "http.server", "8123"],
       "port": 8123
+    },
+    {
+      "name": "rendered-site",
+      "runtimeExecutable": "python3",
+      "runtimeArgs": ["/tmp/claude-1000/-home-eneekay-Documents-nekarantanis-github-nekarantanis/28a16f53-11f2-47c2-9f99-642d121b34ec/scratchpad/render_and_serve.py"],
+      "port": 8300
     }
   ]
 }
