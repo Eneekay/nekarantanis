@@ -7,7 +7,9 @@
       "Bash(sed -i 's|N\\\\.\\\\&nbsp;E\\\\.\\\\&nbsp;Karantanis</a>|N.\\\\&nbsp;E.\\\\&nbsp;Karantanis, PhD</a>|' *.html blog/*.html)",
       "Bash(sed -i 's|\\\\&copy; 2026 N\\\\. E\\\\. Karantanis\\\\. All rights reserved\\\\.|\\\\&copy; 2026 N. E. Karantanis, PhD. All rights reserved.|' *.html blog/*.html)",
       "Bash(sed -i 's| style=\"border-top:1px solid rgba\\(var\\(--nk-c0-rgb\\),0.1\\);\"||' *.html blog/*.html)",
-      "Bash(cd /home/eneekay/Documents/nekarantanis_github/nekarantanis *)"
+      "Bash(cd /home/eneekay/Documents/nekarantanis_github/nekarantanis *)",
+      "Bash(find /tmp -iname \"*.png\" -newer /home/eneekay/Documents/nekarantanis_github/nekarantanis/LICENSE -mmin -240 2>/dev/null | head -50; echo \"---\"; find /tmp/claude-1000 -maxdepth 4 -type d 2>/dev/null | head -30; echo \"---home search---\"; find /home/eneekay -maxdepth 5 -iname \"*aristotle*\" -o -iname \"*mesh*logo*\" -o -iname \"*peopleplus*\" 2>/dev/null | grep -v Documents/nekarantanis_github/nekarantanis | head -30)",
+      "Bash(python3 -c \"print\\('no python http yet'\\)\")"
     ]
   }
 }

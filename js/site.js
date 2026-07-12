@@ -1,4 +1,23 @@
+function syncLogoWidths() {
+  document.querySelectorAll('.logo-slot').forEach(slot => {
+    const title = slot.nextElementSibling;
+    if (!title) return;
+    const clone = title.cloneNode(true);
+    clone.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;top:0;height:auto;width:auto;white-space:nowrap;';
+    document.body.appendChild(clone);
+    const naturalWidth = clone.getBoundingClientRect().width;
+    clone.remove();
+    const parentWidth = slot.parentElement.getBoundingClientRect().width;
+    const width = Math.min(naturalWidth, parentWidth);
+    if (width > 0) slot.style.width = Math.round(width) + 'px';
+  });
+}
+
 document.addEventListener('DOMContentLoaded', () => {
+  syncLogoWidths();
+  window.addEventListener('resize', syncLogoWidths);
+  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncLogoWidths);
+
   const revealEls = document.querySelectorAll('[data-reveal]');
   if (revealEls.length) {
     if (!('IntersectionObserver' in window)) {
