@@ -17,7 +17,7 @@ title: Blog
       <span class="eyebrow gold mb-0">Learning to Lead</span>
     </div>
     <h1 class="fs-42 fw-semibold text-c4 mb-3">Notes on Leadership &amp; Education</h1>
-    <p class="fs-17 text-cream mw-680">
+    <p class="fs-17 text-cream mw-680 typewriter--on-dark" data-typewriter>
       Reflections from the frontline of secure-facility education, large-team leadership, and digital transformation in Further Education.
     </p>
   </div>
@@ -32,7 +32,7 @@ title: Blog
   <div class="container pad-64-12-24">
     <div class="row" data-reveal>
       <div class="col-12">
-        <a href="{{ featured.url }}" class="bg-c4 text-c0 d-grid featured-post-card">
+        <a href="{{ featured.url | relative_url }}" class="bg-c4 text-c0 d-grid featured-post-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--xxl">{% include post-icon.html icon=featured.icon %}</svg>
           <div>
             <div class="fs-13 fw-semibold text-faint ls-1 text-uppercase mb-2">Featured &middot; {{ featured.category }}</div>
@@ -52,7 +52,7 @@ title: Blog
     <div class="row g-4">
       {% for post in site.posts offset: 1 %}
       <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal>
-        <a href="{{ post.url }}" class="post-card hover-card">
+        <a href="{{ post.url | relative_url }}" class="post-card hover-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=post.icon %}</svg>
           <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">{{ post.category }} &middot; {{ post.date | date: "%d %b %Y" }}</div>
           <h3 class="fs-19 mb-2">{{ post.title }}</h3>
@@ -68,16 +68,20 @@ title: Blog
 </section>
 
 <!-- CTA -->
-<section class="section-dark-dotted">
-  <div class="container pad-64-12">
+<section class="section-dark-dotted position-relative overflow-hidden">
+  <div class="container position-relative pad-88-12-72 z-1">
     <div class="row align-items-center g-4">
       <div class="col-lg-8">
-        <h2 class="fs-26 fw-semibold text-c4 mb-2">More writing on nekarantanis.co.uk</h2>
-        <p class="fs-16 text-cream mb-0">The original blog remains live at nekarantanis.co.uk for anything not yet migrated here.</p>
+        <h2 class="fs-28 fw-semibold text-c4 mb-2 typewriter--on-dark" data-typewriter>Open to conversations about senior education leadership roles.</h2>
+        <p class="fs-16 text-cream mb-0 typewriter--on-dark" data-typewriter>Reach out directly or review the full career history and qualifications.</p>
       </div>
-      <div class="col-lg-4 d-flex justify-content-lg-end">
-        <a href="https://nekarantanis.co.uk/learning-to-lead" class="btn-nk btn-nk-outline">Visit Full Archive</a>
+      <div class="col-lg-4 d-flex flex-lg-row flex-column gap-3 justify-content-lg-end">
+        <a href="About.html" class="btn-nk btn-nk-outline">Full CV</a>
+        <a href="https://www.linkedin.com/in/nekarantanis/" class="btn-nk btn-nk-solid-c1">LinkedIn</a>
       </div>
     </div>
   </div>
+  <svg class="wave-divider wave-divider--48" viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <path d="M0,40 C240,90 480,10 720,45 C960,80 1200,15 1440,50 L1440,100 L0,100 Z" class="fill-c4"></path>
+  </svg>
 </section>

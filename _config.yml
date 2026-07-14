@@ -1,6 +1,8 @@
 title: N. E. Karantanis
 description: "Portfolio and blog of N. E. Karantanis, PhD — education leadership, CV, and writing."
 lang: en
+url: "https://nekarantanis.co.uk"
+baseurl: ""
 
 markdown: kramdown
 kramdown:

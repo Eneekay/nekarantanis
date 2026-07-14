@@ -1,23 +1,4 @@
-function syncLogoWidths() {
-  document.querySelectorAll('.logo-slot').forEach(slot => {
-    const title = slot.nextElementSibling;
-    if (!title) return;
-    const clone = title.cloneNode(true);
-    clone.style.cssText = 'position:absolute;visibility:hidden;left:-9999px;top:0;height:auto;width:auto;white-space:nowrap;';
-    document.body.appendChild(clone);
-    const naturalWidth = clone.getBoundingClientRect().width;
-    clone.remove();
-    const parentWidth = slot.parentElement.getBoundingClientRect().width;
-    const width = Math.min(naturalWidth, parentWidth);
-    if (width > 0) slot.style.width = Math.round(width) + 'px';
-  });
-}
-
 document.addEventListener('DOMContentLoaded', () => {
-  syncLogoWidths();
-  window.addEventListener('resize', syncLogoWidths);
-  if (document.fonts && document.fonts.ready) document.fonts.ready.then(syncLogoWidths);
-
   const revealEls = document.querySelectorAll('[data-reveal]');
   if (revealEls.length) {
     if (!('IntersectionObserver' in window)) {
@@ -32,6 +13,74 @@ document.addEventListener('DOMContentLoaded', () => {
         });
       }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
       revealEls.forEach(el => io.observe(el));
+    }
+  }
+
+  // Typewriter effect: reveals text one character at a time as each element
+  // scrolls into view. The character just typed sits in the accent colour
+  // until the next one appears, at which point it settles to the normal
+  // text colour; once the final character has likewise settled, only the
+  // underscore cursor is left, blinking at the same 75ms cadence as typing.
+  const twEls = document.querySelectorAll('[data-typewriter]');
+  if (twEls.length) {
+    const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const SPEED = 75;
+
+    const runTypewriter = (el) => {
+      const text = el.textContent.trim();
+      if (!text) return;
+      // Reserve the element's fully-typed height up front, so the section
+      // doesn't grow taller line by line as the text wraps while typing.
+      el.style.minHeight = el.getBoundingClientRect().height + 'px';
+      el.textContent = '';
+
+      const cursor = document.createElement('span');
+      cursor.className = 'tw-cursor';
+      cursor.textContent = '_';
+      el.appendChild(cursor);
+
+      if (reduceMotion) {
+        cursor.remove();
+        el.textContent = text;
+        return;
+      }
+
+      const chars = Array.from(text);
+      let i = 0;
+      let prevSpan = null;
+
+      const tick = () => {
+        if (i < chars.length) {
+          const span = document.createElement('span');
+          span.className = 'tw-char tw-char--accent';
+          span.textContent = chars[i];
+          el.insertBefore(span, cursor);
+          if (prevSpan) prevSpan.classList.remove('tw-char--accent');
+          prevSpan = span;
+          i++;
+          setTimeout(tick, SPEED);
+        } else {
+          setTimeout(() => {
+            if (prevSpan) prevSpan.classList.remove('tw-char--accent');
+            cursor.classList.add('tw-cursor--blink');
+          }, SPEED);
+        }
+      };
+      tick();
+    };
+
+    if ('IntersectionObserver' in window) {
+      const twIo = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            runTypewriter(entry.target);
+            twIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      twEls.forEach(el => twIo.observe(el));
+    } else {
+      twEls.forEach(runTypewriter);
     }
   }
 
