@@ -21,6 +21,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // until the next one appears, at which point it settles to the normal
   // text colour; once the final character has likewise settled, only the
   // underscore cursor is left, blinking at the same 75ms cadence as typing.
+  document.querySelectorAll('.post-body-inner blockquote p').forEach(p => p.setAttribute('data-typewriter', ''));
   const twEls = document.querySelectorAll('[data-typewriter]');
   if (twEls.length) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
