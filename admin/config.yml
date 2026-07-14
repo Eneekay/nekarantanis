@@ -14,8 +14,12 @@ backend:
   branch: jekyll-decap-cms # change to main once this branch is merged and live
   # base_url: https://<your-netlify-site>.netlify.app
 
-# Uncomment to test locally without GitHub auth, via `npx decap-server`
-# local_backend: true
+# Local testing without GitHub auth, via `npx decap-server`.
+# Port 8082 here because 8081 (decap-server's default) was already taken
+# by something else on this machine — change back to `true` (default 8081)
+# if that's not the case for you, or adjust to whatever's free.
+local_backend:
+  url: http://localhost:8082/api/v1
 
 media_folder: "uploads"
 public_folder: "/uploads"
