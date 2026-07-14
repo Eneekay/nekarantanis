@@ -1,0 +1,35 @@
+title: N. E. Karantanis
+description: "Portfolio and blog of N. E. Karantanis, PhD — education leadership, CV, and writing."
+lang: en
+
+markdown: kramdown
+kramdown:
+  input: GFM
+  hard_wrap: false
+
+permalink: /blog/:slug.html
+
+collections:
+  posts:
+    output: true
+
+defaults:
+  - scope:
+      path: ""
+    values:
+      base: ""
+      layout: default
+  - scope:
+      path: ""
+      type: posts
+    values:
+      layout: post
+      base: "../"
+
+exclude:
+  - README.md
+  - LICENSE
+  - Gemfile
+  - Gemfile.lock
+  - vendor
+  - node_modules

@@ -437,9 +437,10 @@ h1, h2, h3, h4 {
 .wave-divider--56 { height: 56px; }
 .wave-divider--64 { height: 64px; }
 
-.article-body p { font-size: 17px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 22px; }
+.post-body-inner > p { font-size: 17px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 22px; }
+.post-body-inner > p:first-of-type { font-size: 20px; font-weight: 500; line-height: 1.7; color: var(--nk-c0); margin-bottom: 32px; }
 .post-body-inner blockquote { border-left: 4px solid var(--nk-c2); margin: 40px 0; padding: 8px 0 8px 28px; }
-.post-body-inner blockquote p { font-family: 'Space Grotesk', sans-serif; line-height: 1.5; }
+.post-body-inner blockquote p { font-size: 22px; font-weight: 500; font-family: 'Space Grotesk', sans-serif; line-height: 1.5; color: var(--nk-c0); margin: 0; }
 
 .scroll-hint { animation: scrollBounce 1.8s ease-in-out infinite; cursor: pointer; }
 #scrollHint svg { width: 22px; height: 34px; display: block; pointer-events: none; }

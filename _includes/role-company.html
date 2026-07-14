@@ -1,0 +1,38 @@
+{% assign c = include.company %}
+<div class="col-lg-3">
+  <div class="logo-slot">
+    <img src="{{ c.logo }}" alt="{{ c.company }} logo">
+  </div>
+  <div class="fs-20 mb-1 ff-grotesk">{{ c.company }}</div>
+  {% if c.subtitle and c.subtitle != "" %}<div class="fs-13 text-faint">{{ c.subtitle }}</div>{% endif %}
+  <div class="fs-13 text-faint{% if c.subtitle and c.subtitle != "" %} mt-1{% endif %}">{{ c.dates }}</div>
+</div>
+<div class="col-lg-9">
+  <div class="timeline-accent">
+    <p class="fs-15 text-muted-warm mb-4">{{ c.blurb }}</p>
+    {% for position in c.positions %}
+      {% if position.primary %}
+      <div class="info-card{% if c.positions.size > 1 %} mb-3{% endif %}">
+        <div class="fs-13 text-faint fw-semibold mb-1">{{ position.dates }}</div>
+        <h3 class="fs-19 mb-3">{{ position.title }}</h3>
+        <ul class="fs-15 text-muted-warm mb-3 pl-20">
+          {% for b in position.bullets %}<li>{{ b }}</li>{% endfor %}
+        </ul>
+        {% if position.tags %}
+        <div class="d-flex flex-wrap gap-2">
+          {% for t in position.tags %}<span class="tag-pill">{{ t }}</span>{% endfor %}
+        </div>
+        {% endif %}
+      </div>
+      {% else %}
+      <div class="subrole">
+        <div class="fs-13 text-faint fw-semibold mb-1">{{ position.dates }}</div>
+        <h4 class="fs-16 mb-2">{{ position.title }}</h4>
+        <ul class="fs-14-5 text-muted-warm mb-0 pl-20">
+          {% for b in position.bullets %}<li>{{ b }}</li>{% endfor %}
+        </ul>
+      </div>
+      {% endif %}
+    {% endfor %}
+  </div>
+</div>
