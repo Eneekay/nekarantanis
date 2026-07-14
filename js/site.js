@@ -131,8 +131,8 @@ document.addEventListener('DOMContentLoaded', () => {
           visible: true,
           phase1: (i * 1.9 + seed * 3) % (Math.PI * 2),
           phase2: (i * 3.1 + seed * 5) % (Math.PI * 2),
-          speed1: 0.22 + seed * 0.22,                // primary drift, rad/s (slow at rest)
-          speed2: 0.34 + (1 - seed) * 0.3,            // secondary drift, rad/s
+          speed1: 0.29 + seed * 0.29,                // primary drift, rad/s (slow at rest)
+          speed2: 0.44 + (1 - seed) * 0.39,           // secondary drift, rad/s
           freqRatio: 1.4 + seed * 0.6,                // secondary swell wavelength vs primary
           ampMain: 21 + seed * 11,                    // primary swell, within the 0-100 viewBox
           ampRatio: 0.3 + (1 - seed) * 0.22,          // secondary swell as a fraction of primary
