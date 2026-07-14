@@ -24,7 +24,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const twEls = document.querySelectorAll('[data-typewriter]');
   if (twEls.length) {
     const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    const SPEED = 75;
+    const SPEED = 85;
 
     const runTypewriter = (el) => {
       const text = el.textContent.trim();

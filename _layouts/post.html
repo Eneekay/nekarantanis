@@ -9,7 +9,7 @@ layout: default
       <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--lg">{% include post-icon.html icon=page.icon %}</svg>
       <div class="fs-13 fw-semibold text-gold text-uppercase ls-15">{{ page.category }}</div>
     </div>
-    <h1 class="fs-post-title fw-semibold text-c4 mb-3">{{ page.title }}</h1>
+    <h1 class="fs-post-title fw-semibold text-c4 mb-3 typewriter--on-dark" data-typewriter>{{ page.title }}</h1>
     <div class="fs-14 text-faint-dark">{{ page.date | date: "%d %b %Y" }}</div>
   </div>
   <svg class="wave-divider" viewBox="0 0 1440 100" preserveAspectRatio="none">
