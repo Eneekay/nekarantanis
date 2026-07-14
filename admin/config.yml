@@ -11,7 +11,7 @@
 backend:
   name: github
   repo: Eneekay/nekarantanis
-  branch: jekyll-decap-cms # change to main once this branch is merged and live
+  branch: main
   # base_url: https://<your-netlify-site>.netlify.app
 
 # Local testing without GitHub auth, via `npx decap-server`.
