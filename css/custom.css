@@ -353,6 +353,21 @@ h1, h2, h3, h4 {
 .home-hero-blob-1   { position: absolute; top: -80px; left: -80px; width: 360px; height: 360px; opacity: 0.1; z-index: 0; }
 .home-hero-blob-2   { position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08; z-index: 0; }
 
+@keyframes blob-float {
+  0%, 100% { transform: translate(0, 0) scale(1); }
+  50% { transform: translate(14px, -12px) scale(1.045); }
+}
+.about-header-blob, .blog-header-blob, .home-hero-blob-1, .home-hero-blob-2 {
+  animation: blob-float 20s ease-in-out infinite;
+}
+.home-hero-blob-1 { animation-duration: 19s; animation-delay: -4s; }
+.home-hero-blob-2 { animation-duration: 23s; animation-delay: -11s; }
+.about-header-blob { animation-duration: 21s; animation-delay: -7s; }
+.blog-header-blob { animation-duration: 25s; animation-delay: -15s; }
+@media (prefers-reduced-motion: reduce) {
+  .about-header-blob, .blog-header-blob, .home-hero-blob-1, .home-hero-blob-2 { animation: none; }
+}
+
 /* ---------- cards ---------- */
 
 .hover-card { transition: transform .25s ease, box-shadow .25s ease; }
