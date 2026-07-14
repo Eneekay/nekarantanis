@@ -38,7 +38,9 @@
       "Bash(pkill -f \"http.server 820\")",
       "Bash(python3 -m http.server 8210)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8210/Home.html)",
-      "Bash(xargs -r kill)"
+      "Bash(xargs -r kill)",
+      "Bash(git fetch *)",
+      "Bash(git ls-remote *)"
     ]
   }
 }
