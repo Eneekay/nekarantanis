@@ -12,7 +12,7 @@ backend:
   name: github
   repo: Eneekay/nekarantanis
   branch: main
-  # base_url: https://<your-netlify-site>.netlify.app
+  base_url: https://dummt.netlify.app
 
 # Local testing without GitHub auth, via `npx decap-server`.
 # Port 8082 here because 8081 (decap-server's default) was already taken
