@@ -1,7 +1,18 @@
+# Auth setup (one-time, needs a GitHub OAuth App + a free auth proxy):
+#   1. Create/use a Netlify account and make a site there (it only needs to
+#      exist — it does not need to host the actual content).
+#   2. GitHub -> Settings -> Developer settings -> OAuth Apps -> New OAuth App
+#        Homepage URL:            https://<your-netlify-site>.netlify.app
+#        Authorization callback:  https://api.netlify.com/auth/done
+#   3. Netlify -> that site -> Site configuration -> General -> OAuth ->
+#      paste the GitHub Client ID + Client Secret from step 2.
+#   4. Uncomment base_url below, pointing at the Netlify site from step 1.
+#   5. Once this branch is merged and live, change `branch:` to `main`.
 backend:
   name: github
   repo: Eneekay/nekarantanis
   branch: jekyll-decap-cms # change to main once this branch is merged and live
+  # base_url: https://<your-netlify-site>.netlify.app
 
 # Uncomment to test locally without GitHub auth, via `npx decap-server`
 # local_backend: true
