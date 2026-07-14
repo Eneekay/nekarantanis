@@ -47,7 +47,7 @@ title: About & CV
     <div class="heading-rule mb-5"></div>
   </div>
 
-  {% assign leadership_companies = site.data.roles | where: "section", "leadership" %}
+  {% assign leadership_companies = site.data.roles.roles | where: "section", "leadership" %}
   {% for company in leadership_companies %}
   <div class="container {% if forloop.last %}pb-20{% else %}pb-56{% endif %}" data-reveal>
     <div class="row g-4">
@@ -67,7 +67,7 @@ title: About & CV
     </div>
     <div class="heading-rule mb-5"></div>
     <div class="row g-4">
-      {% assign digital_companies = site.data.roles | where: "section", "digital" %}
+      {% assign digital_companies = site.data.roles.roles | where: "section", "digital" %}
       {% for company in digital_companies %}{% include role-company.html company=company %}{% endfor %}
     </div>
   </div>
@@ -83,7 +83,7 @@ title: About & CV
     </div>
     <div class="heading-rule mb-5"></div>
     <div class="row g-4">
-      {% assign research_companies = site.data.roles | where: "section", "research" %}
+      {% assign research_companies = site.data.roles.roles | where: "section", "research" %}
       {% for company in research_companies %}{% include role-company.html company=company %}{% endfor %}
     </div>
   </div>
