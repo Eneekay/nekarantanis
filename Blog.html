@@ -1,21 +1,7 @@
 ---
-base: ""
+layout: default
+title: Blog
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>Blog — N. E. Karantanis</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/custom.css" rel="stylesheet">
-</head>
-<body>
-
-{% include nav.html %}
-
 <!-- PAGE HEADER -->
 <header class="section-dark-dotted text-c3 position-relative overflow-hidden">
   <svg viewBox="0 0 200 200" class="blog-header-blob">
@@ -31,7 +17,7 @@ base: ""
       <span class="eyebrow gold mb-0">Learning to Lead</span>
     </div>
     <h1 class="fs-42 fw-semibold text-c4 mb-3">Notes on Leadership &amp; Education</h1>
-    <p class="fs-17 text-cream mw-680">
+    <p class="fs-17 text-cream mw-680 typewriter--on-dark" data-typewriter>
       Reflections from the frontline of secure-facility education, large-team leadership, and digital transformation in Further Education.
     </p>
   </div>
@@ -40,21 +26,18 @@ base: ""
   </svg>
 </header>
 
+{% assign featured = site.posts.first %}
 <!-- FEATURED POST -->
 <section class="bg-c3">
   <div class="container pad-64-12-24">
     <div class="row" data-reveal>
       <div class="col-12">
-        <a href="blog/Legacy-of-Learning.html" class="bg-c4 text-c0 d-grid featured-post-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--xxl">
-            <path d="M12 21s-7-4.5-9.5-9A5.5 5.5 0 0 1 12 6a5.5 5.5 0 0 1 9.5 6C19 16.5 12 21 12 21z"></path>
-          </svg>
+        <a href="{{ featured.url | relative_url }}" class="bg-c4 text-c0 d-grid featured-post-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--xxl">{% include post-icon.html icon=featured.icon %}</svg>
           <div>
-            <div class="fs-13 fw-semibold text-faint ls-1 text-uppercase mb-2">Featured &middot; Leadership &middot; Personal</div>
-            <h2 class="fs-26 mb-3">The Legacy of Learning: A Personal Journey (or Why I Am an Education Leader)</h2>
-            <p class="fs-15-5 text-muted-warm mb-3 mw-640">
-              Every single day I&rsquo;m reminded of why I chose education as my life&rsquo;s work &mdash; it is, I believe, our greatest equaliser.
-            </p>
+            <div class="fs-13 fw-semibold text-faint ls-1 text-uppercase mb-2">Featured &middot; {{ featured.category }}</div>
+            <h2 class="fs-26 mb-3">{{ featured.title }}</h2>
+            <p class="fs-15-5 text-muted-warm mb-3 mw-640">{{ featured.summary }}</p>
             <span class="fs-14-5 fw-semibold text-c2">Read the full post &rarr;</span>
           </div>
         </a>
@@ -67,105 +50,16 @@ base: ""
 <section class="bg-c3">
   <div class="container pad-24-12-88">
     <div class="row g-4">
-
-      <div class="col-md-6 col-lg-4 td-0" data-reveal>
-        <a href="blog/SARQIP-Cycle.html" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M9 11l3 3 8-8"></path>
-            <path d="M21 12v6a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h11"></path>
-          </svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">Quality &amp; Compliance &middot; 03 Sep 2024</div>
-          <h3 class="fs-19 mb-2">Making the SAR/QIP cycle useful instead of just compliant</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">Turning a regulatory requirement into a genuine improvement tool for teaching teams.</p>
+      {% for post in site.posts offset: 1 %}
+      <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal>
+        <a href="{{ post.url | relative_url }}" class="post-card hover-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=post.icon %}</svg>
+          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">{{ post.category }} &middot; {{ post.date | date: "%d %b %Y" }}</div>
+          <h3 class="fs-19 mb-2">{{ post.title }}</h3>
+          <p class="fs-14-5 text-muted-warm mb-0">{{ post.summary }}</p>
         </a>
       </div>
-
-      <div class="col-md-6 col-lg-4 td-08" data-reveal>
-        <a href="blog/Research-To-Practice.html" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-1.5z"></path>
-            <path d="M6 3v18"></path>
-          </svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">Research &amp; Practice &middot; 17 May 2024</div>
-          <h3 class="fs-19 mb-2">What ten years of academic research taught me about running a team</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">Reflections from a career that moved from primate biomechanics to prison education.</p>
-        </a>
-      </div>
-
-      <div class="col-md-6 col-lg-4 td-16" data-reveal>
-        <a href="blog/Restructuring-Campuses.html" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M12 21s7-7.58 7-12a7 7 0 1 0-14 0c0 4.42 7 12 7 12z"></path>
-            <circle cx="12" cy="9" r="2.5"></circle>
-          </svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">Change Management &middot; 08 Feb 2024</div>
-          <h3 class="fs-19 mb-2">Restructuring four campuses without losing staff trust</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">A practical account of the sequencing, communication, and budget trade-offs behind a 12% cost saving.</p>
-        </a>
-      </div>
-
-      <div class="col-md-6 col-lg-4 td-0" data-reveal>
-        <a href="blog/Mentoring-New-Teachers.html" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <path d="M22 10L12 5 2 10l10 5 10-5z"></path>
-            <path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path>
-          </svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">Mentoring &middot; 20 Nov 2023</div>
-          <h3 class="fs-19 mb-2">What I look for when mentoring a new teacher through CET/DET</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">The habits that separate a competent lesson from a confident teacher.</p>
-        </a>
-      </div>
-
-      <div class="col-md-6 col-lg-4 td-08" data-reveal>
-        <a href="blog/Cloud-Culture-Project.html" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <rect x="3" y="4" width="18" height="14" rx="2"></rect>
-            <path d="M8 21h8M12 18v3"></path>
-          </svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">Digital &amp; Data &middot; 14 Sep 2023</div>
-          <h3 class="fs-19 mb-2">Why moving to the cloud is a culture project, not an IT project</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">What we learned rolling out shared governance systems across a five-campus college.</p>
-        </a>
-      </div>
-
-      <div class="col-md-6 col-lg-4 td-16" data-reveal>
-        <a href="blog/Leading-Without-Losing-The-Thread.html" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="8" r="4"></circle>
-            <path d="M4 20c0-4.4 3.6-6 8-6s8 1.6 8 6"></path>
-          </svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">Team Leadership &middot; 02 Jun 2023</div>
-          <h3 class="fs-19 mb-2">Leading 100 people across five sites without losing the thread</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">Notes on governance, delegation, and staying close to the work when you can&rsquo;t be everywhere at once.</p>
-        </a>
-      </div>
-
-      <div class="col-md-6 col-lg-4 td-0" data-reveal>
-        <a href="blog/Do-We-Need-A-Leader.html" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="12" cy="12" r="9"></circle>
-            <path d="M15 9l-2 6-6 2 2-6 6-2z"></path>
-          </svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">Leadership &middot; 31 Jan 2023</div>
-          <h3 class="fs-19 mb-2">Do We Need a Leader?</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">Leaders exist &mdash; but does the group they lead actually consider them effective?</p>
-        </a>
-      </div>
-
-      <div class="col-md-6 col-lg-4 td-08" data-reveal>
-        <a href="blog/How-To-Lead-A-Team.html" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
-            <circle cx="9" cy="8" r="3"></circle>
-            <path d="M2 20c0-3.5 3-5 7-5s7 1.5 7 5"></path>
-            <circle cx="17" cy="9" r="2.3"></circle>
-            <path d="M17 12.5c2.4 0 4 1.2 4 3.5"></path>
-          </svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">Leadership &middot; 11 Apr 2022</div>
-          <h3 class="fs-19 mb-2">How to Lead a Team</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">Do you believe in magic recipes for success? There are, however, things successful leaders have in common.</p>
-        </a>
-      </div>
-
+      {% endfor %}
     </div>
   </div>
   <svg class="wave-divider wave-divider--inline wave-divider--48" viewBox="0 0 1440 100" preserveAspectRatio="none">
@@ -178,8 +72,8 @@ base: ""
   <div class="container position-relative pad-88-12-72 z-1">
     <div class="row align-items-center g-4">
       <div class="col-lg-8">
-        <h2 class="fs-28 fw-semibold text-c4 mb-2">Open to conversations about senior education leadership roles.</h2>
-        <p class="fs-16 text-cream mb-0">Reach out directly or review the full career history and qualifications.</p>
+        <h2 class="fs-28 fw-semibold text-c4 mb-2 typewriter--on-dark" data-typewriter>Open to conversations about senior education leadership roles.</h2>
+        <p class="fs-16 text-cream mb-0 typewriter--on-dark" data-typewriter>Reach out directly or review the full career history and qualifications.</p>
       </div>
       <div class="col-lg-4 d-flex flex-lg-row flex-column gap-3 justify-content-lg-end">
         <a href="About.html" class="btn-nk btn-nk-outline">Full CV</a>
@@ -191,10 +85,3 @@ base: ""
     <path d="M0,40 C240,90 480,10 720,45 C960,80 1200,15 1440,50 L1440,100 L0,100 Z" class="fill-c4"></path>
   </svg>
 </section>
-
-{% include footer.html %}
-
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/site.js"></script>
-</body>
-</html>

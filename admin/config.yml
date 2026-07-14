@@ -1,0 +1,78 @@
+# Auth setup (one-time, needs a GitHub OAuth App + a free auth proxy):
+#   1. Create/use a Netlify account and make a site there (it only needs to
+#      exist — it does not need to host the actual content).
+#   2. GitHub -> Settings -> Developer settings -> OAuth Apps -> New OAuth App
+#        Homepage URL:            https://<your-netlify-site>.netlify.app
+#        Authorization callback:  https://api.netlify.com/auth/done
+#   3. Netlify -> that site -> Site configuration -> General -> OAuth ->
+#      paste the GitHub Client ID + Client Secret from step 2.
+#   4. Uncomment base_url below, pointing at the Netlify site from step 1.
+#   5. Once this branch is merged and live, change `branch:` to `main`.
+backend:
+  name: github
+  repo: Eneekay/nekarantanis
+  branch: jekyll-decap-cms # change to main once this branch is merged and live
+  # base_url: https://<your-netlify-site>.netlify.app
+
+# Local testing without GitHub auth, via `npx decap-server`.
+# Port 8082 here because 8081 (decap-server's default) was already taken
+# by something else on this machine — change back to `true` (default 8081)
+# if that's not the case for you, or adjust to whatever's free.
+local_backend:
+  url: http://localhost:8082/api/v1
+
+media_folder: "uploads"
+public_folder: "/uploads"
+
+collections:
+  - name: "posts"
+    label: "Blog Posts"
+    label_singular: "Post"
+    folder: "_posts"
+    create: true
+    slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{date}}"
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - { label: "Category", name: "category", widget: "string", hint: "Shown as the small label above the title, e.g. \"Quality & Compliance\"" }
+      - label: "Icon"
+        name: "icon"
+        widget: "select"
+        options: ["heart", "check", "book", "pin", "cap", "cloud", "person", "compass", "team"]
+      - { label: "Card summary", name: "summary", widget: "text", hint: "Short blurb shown on the Blog listing card (not shown on the post itself)." }
+      - { label: "Tags", name: "tags", widget: "list" }
+      - { label: "Body", name: "body", widget: "markdown", hint: "The first paragraph is shown larger as the lede. Use a Markdown blockquote (> ...) for the pull-quote." }
+
+  - name: "about"
+    label: "About Page"
+    files:
+      - name: "roles"
+        label: "Career Roles"
+        file: "_data/roles.yml"
+        fields:
+          - label: "Roles"
+            name: "roles"
+            widget: "list"
+            summary: "{{fields.company}}"
+            fields:
+              - label: "Section"
+                name: "section"
+                widget: "select"
+                options: ["leadership", "digital", "research"]
+              - { label: "Company / Institution", name: "company", widget: "string" }
+              - { label: "Logo path", name: "logo", widget: "string", hint: "Path under uploads/, e.g. uploads/logo.png" }
+              - { label: "Subtitle (location etc.)", name: "subtitle", widget: "string", required: false }
+              - { label: "Date range", name: "dates", widget: "string", hint: "e.g. \"Jun 2025 – Present\"" }
+              - { label: "Blurb", name: "blurb", widget: "text" }
+              - label: "Positions"
+                name: "positions"
+                widget: "list"
+                summary: "{{fields.title}}"
+                fields:
+                  - { label: "Date range", name: "dates", widget: "string" }
+                  - { label: "Title", name: "title", widget: "string" }
+                  - { label: "Primary (highlighted box; leave off for earlier roles at the same place)", name: "primary", widget: "boolean", required: false, default: false }
+                  - { label: "Bullets", name: "bullets", widget: "list" }
+                  - { label: "Tags", name: "tags", widget: "list", required: false }

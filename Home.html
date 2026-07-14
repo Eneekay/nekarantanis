@@ -1,21 +1,6 @@
 ---
-base: ""
+layout: default
 ---
-<!DOCTYPE html>
-<html lang="en">
-<head>
-<meta charset="utf-8">
-<meta name="viewport" content="width=device-width, initial-scale=1">
-<title>N. E. Karantanis</title>
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
-<link href="css/bootstrap.min.css" rel="stylesheet">
-<link href="css/custom.css" rel="stylesheet">
-</head>
-<body>
-
-{% include nav.html %}
-
 <!-- HERO -->
 <header class="section-dark-dotted text-c3 d-flex align-items-center justify-content-center position-relative overflow-hidden min-vh-100">
   <svg viewBox="0 0 200 200" class="home-hero-blob-1">
@@ -28,7 +13,7 @@ base: ""
     <div class="mx-auto text-center d-flex flex-column align-items-center mw-820">
       <span class="eyebrow gold">Senior Education Leader</span>
       <h1 class="fs-hero fw-semibold text-c4 mb-4">Nikolaos Evangelos Karantanis, PhD</h1>
-      <p class="fs-19 text-cream mb-5 mw-620">
+      <p class="fs-19 text-cream mb-5 mw-620 typewriter--on-dark" data-typewriter>
         A results-driven education leader with a track record of running large teams, secure-facility education services, and digitally-led improvement programmes across multiple campuses &mdash; delivering measurable gains in outcomes, attendance, and cost efficiency.
       </p>
       <div class="d-flex flex-wrap gap-3 justify-content-center">
@@ -59,7 +44,7 @@ base: ""
   <div class="container pad-64-12-96">
     <div class="mx-auto text-center mb-5 mw-640">
       <span class="eyebrow">By the Numbers</span>
-      <h2 class="fs-30 fw-semibold text-c0">Impact you can measure</h2>
+      <h2 class="fs-30 fw-semibold text-c0" data-typewriter>Impact you can measure</h2>
     </div>
     <div class="row g-4 text-center">
       <div class="col-6 col-lg-3 td-0" data-reveal>
@@ -107,7 +92,7 @@ base: ""
   <div class="container pad-88-12">
     <div class="mw-640 mb-52">
       <span class="eyebrow">Areas of Focus</span>
-      <h2 class="fs-34 fw-semibold text-c0">Three themes, one professional journey</h2>
+      <h2 class="fs-34 fw-semibold text-c0" data-typewriter>Three themes, one professional journey</h2>
     </div>
     <div class="row g-4">
       <div class="col-md-4 td-0" data-reveal>
@@ -146,11 +131,11 @@ base: ""
   <div class="container pad-88-12">
     <div class="mw-640 mb-52">
       <span class="eyebrow">Recent &amp; Current Roles</span>
-      <h2 class="fs-34 fw-semibold text-c0">Leading education &amp; teams at</h2>
+      <h2 class="fs-34 fw-semibold text-c0" data-typewriter>Leading education &amp; teams at</h2>
     </div>
     <div class="row g-4">
       <div class="col-lg-6 td-0" data-reveal>
-        <div class="role-card hover-card">
+        <a href="About.html#leadership" class="role-card hover-card">
           <div class="logo-slot">
             <img src="uploads/PP-transparent-cropped.png" alt="PeoplePlus logo">
           </div>
@@ -158,11 +143,11 @@ base: ""
           <div class="fs-13 text-faint fw-semibold mb-2">JUN 2025 &mdash; PRESENT</div>
           <h3 class="fs-22 text-c0 mb-2">Education Manager</h3>
           <p class="fs-15 text-muted-warm mb-3 lh-65">Leading strategic and day-to-day management of education in a high-pressure Category B prison, driving quality improvement through the SAR/QIP cycle and embedding a culture of reflective practice.</p>
-          <a href="About.html#leadership" class="fs-14 fw-semibold">Read full role &rarr;</a>
-        </div>
+          <span class="fs-14 fw-semibold text-c2">Read full role &rarr;</span>
+        </a>
       </div>
       <div class="col-lg-6 td-12" data-reveal>
-        <div class="role-card hover-card">
+        <a href="About.html#leadership" class="role-card hover-card">
           <div class="logo-slot">
             <img src="uploads/CMC-transparent-cropped.png" alt="Capel Manor College logo">
           </div>
@@ -170,8 +155,8 @@ base: ""
           <div class="fs-13 text-faint fw-semibold mb-2">APR 2022 &mdash; FEB 2025</div>
           <h3 class="fs-22 text-c0 mb-2">Director of Studies, Land-Based</h3>
           <p class="fs-15 text-muted-warm mb-3 lh-65">Leading a team of 100+ across five campuses, delivering 12% cost savings and improving attendance to exceed the national average by over 5%.</p>
-          <a href="About.html#leadership" class="fs-14 fw-semibold">Read full role &rarr;</a>
-        </div>
+          <span class="fs-14 fw-semibold text-c2">Read full role &rarr;</span>
+        </a>
       </div>
     </div>
   </div>
@@ -182,7 +167,7 @@ base: ""
   <div class="container position-relative pad-80-12 z-1">
     <div class="mw-640 mb-44">
       <span class="eyebrow">Academic Foundation</span>
-      <h2 class="fs-34 fw-semibold text-c0">Credentials</h2>
+      <h2 class="fs-34 fw-semibold text-c0" data-typewriter>Credentials</h2>
     </div>
     <div class="row g-4">
       <div class="col-sm-6 col-lg-3 td-0" data-reveal>
@@ -217,8 +202,8 @@ base: ""
   <div class="container position-relative pad-88-12-72 z-1">
     <div class="row align-items-center g-4">
       <div class="col-lg-8">
-        <h2 class="fs-28 fw-semibold text-c4 mb-2">Open to conversations about senior education leadership roles.</h2>
-        <p class="fs-16 text-cream mb-0">Reach out directly or review the full career history and qualifications.</p>
+        <h2 class="fs-28 fw-semibold text-c4 mb-2 typewriter--on-dark" data-typewriter>Open to conversations about senior education leadership roles.</h2>
+        <p class="fs-16 text-cream mb-0 typewriter--on-dark" data-typewriter>Reach out directly or review the full career history and qualifications.</p>
       </div>
       <div class="col-lg-4 d-flex flex-lg-row flex-column gap-3 justify-content-lg-end">
         <a href="About.html" class="btn-nk btn-nk-outline">Full CV</a>
@@ -230,10 +215,3 @@ base: ""
     <path d="M0,40 C240,90 480,10 720,45 C960,80 1200,15 1440,50 L1440,100 L0,100 Z" class="fill-c4"></path>
   </svg>
 </section>
-
-{% include footer.html %}
-
-<script src="js/bootstrap.bundle.min.js"></script>
-<script src="js/site.js"></script>
-</body>
-</html>

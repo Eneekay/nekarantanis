@@ -1,0 +1,36 @@
+---
+layout: default
+---
+<!-- ARTICLE HEADER -->
+<header class="section-dark-dotted text-c3 position-relative overflow-hidden">
+  <div class="container position-relative post-header-inner">
+    <a href="{{ page.base }}Blog.html" class="fs-14 fw-semibold text-gold">&larr; Back to Blog</a>
+    <div class="d-flex align-items-center gap-3 mt-4 mb-3">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--lg">{% include post-icon.html icon=page.icon %}</svg>
+      <div class="fs-13 fw-semibold text-gold text-uppercase ls-15">{{ page.category }}</div>
+    </div>
+    <h1 class="fs-post-title fw-semibold text-c4 mb-3 typewriter--on-dark" data-typewriter>{{ page.title }}</h1>
+    <div class="fs-14 text-faint-dark">{{ page.date | date: "%d %b %Y" }}</div>
+  </div>
+  <svg class="wave-divider" viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c4"></path>
+  </svg>
+</header>
+
+<!-- ARTICLE BODY -->
+<section class="bg-c4">
+  <div class="container post-body-inner" data-reveal>
+    {{ content }}
+    <div class="d-flex flex-wrap gap-2 mt-4">
+      {% for tag in page.tags %}<span class="tag-pill on-card">{{ tag }}</span>{% endfor %}
+    </div>
+  </div>
+</section>
+
+<!-- CTA -->
+<section class="bg-c3">
+  <div class="container text-center post-cta-inner">
+    <h2 class="fs-24 mb-4">Continue reading</h2>
+    <a href="{{ page.base }}Blog.html" class="btn-nk btn-nk-solid-c2 btn-nk--sm">Back to all posts</a>
+  </div>
+</section>
