@@ -1,18 +1,13 @@
-# Auth setup (one-time, needs a GitHub OAuth App + a free auth proxy):
-#   1. Create/use a Netlify account and make a site there (it only needs to
-#      exist — it does not need to host the actual content).
-#   2. GitHub -> Settings -> Developer settings -> OAuth Apps -> New OAuth App
-#        Homepage URL:            https://<your-netlify-site>.netlify.app
-#        Authorization callback:  https://api.netlify.com/auth/done
-#   3. Netlify -> that site -> Site configuration -> General -> OAuth ->
-#      paste the GitHub Client ID + Client Secret from step 2.
-#   4. Uncomment base_url below, pointing at the Netlify site from step 1.
-#   5. Once this branch is merged and live, change `branch:` to `main`.
+# Auth setup: a Cloudflare Worker (github.com/Eneekay/decap-cms-auth, deployed
+# at decap-cms-auth.nekarantanis14.workers.dev) relays the GitHub OAuth
+# handshake, since GitHub requires a server to hold the OAuth Client Secret.
+# The Worker's GITHUB_CLIENT_ID / GITHUB_CLIENT_SECRET / ALLOWED_DOMAINS are
+# set as runtime environment variables in its Cloudflare dashboard settings.
 backend:
   name: github
   repo: Eneekay/nekarantanis
   branch: main
-  base_url: https://dummt.netlify.app
+  base_url: https://decap-cms-auth.nekarantanis14.workers.dev
 
 # Local testing without GitHub auth, via `npx decap-server`.
 # Port 8082 here because 8081 (decap-server's default) was already taken
