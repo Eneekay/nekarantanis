@@ -70,6 +70,7 @@ title: Blog
           <option value="">All tags</option>
           {% for tag in all_tags %}<option value="{{ tag }}">{{ tag }}</option>{% endfor %}
         </select>
+        <button type="button" id="clearFilters" class="filter-clear-btn d-none">Clear filters</button>
       </div>
     </div>
     <div class="row g-4" id="postGrid">

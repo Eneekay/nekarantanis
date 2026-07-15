@@ -29,6 +29,7 @@ document.addEventListener('DOMContentLoaded', () => {
     const featuredSection = document.getElementById('featuredSection');
     const heading = document.getElementById('postGridHeading');
     const empty = document.getElementById('postGridEmpty');
+    const clearBtn = document.getElementById('clearFilters');
     const cards = Array.from(grid.querySelectorAll(':scope > [data-category]'));
 
     const params = new URLSearchParams(window.location.search);
@@ -57,6 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       empty.classList.toggle('d-none', !filtering || visibleCount > 0);
+      clearBtn.classList.toggle('d-none', !filtering);
 
       if (cat && tag) heading.textContent = `Category: ${cat} · Tag: ${tag}`;
       else if (cat) heading.textContent = `Category: ${cat}`;
@@ -74,6 +76,12 @@ document.addEventListener('DOMContentLoaded', () => {
 
     categoryFilter.addEventListener('change', () => { applyFilters(); syncUrl(); });
     tagFilter.addEventListener('change', () => { applyFilters(); syncUrl(); });
+    clearBtn.addEventListener('click', () => {
+      categoryFilter.value = '';
+      tagFilter.value = '';
+      applyFilters();
+      syncUrl();
+    });
     applyFilters();
   }
 
