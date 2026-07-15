@@ -72,18 +72,18 @@ document.addEventListener('DOMContentLoaded', () => {
   // client-side (no server, so this has to run in the browser rather than
   // Jekyll generating per-tag pages). Plain <select> elements couldn't be
   // made to match the theme once opened - the popup itself is browser
-  // chrome, not stylable - so these are button+list combos instead. The
+  // chrome, not stylable - so these are button+list combos instead. Each
+  // trigger doubles as the active-filter indicator: once a value is picked
+  // it shows a small x-in-a-circle right inside the same pill to clear
+  // just that filter, rather than a separate "clear all" button. The
   // featured post always stays visible regardless of filtering (it's no
-  // longer duplicated into the grid), and each active filter shows as a
-  // pill with its own clear button rather than one blanket "clear all".
+  // longer duplicated into the grid).
   const categoryDropdown = document.querySelector('[data-filter="category"]');
   const tagDropdown = document.querySelector('[data-filter="tag"]');
   if (categoryDropdown && tagDropdown) {
     const grid = document.getElementById('postGrid');
     const heading = document.getElementById('postGridHeading');
     const empty = document.getElementById('postGridEmpty');
-    const categoryPill = document.getElementById('categoryPill');
-    const tagPill = document.getElementById('tagPill');
     const cards = Array.from(grid.querySelectorAll(':scope > [data-category]'));
 
     let categoryValue = '';
@@ -92,24 +92,29 @@ document.addEventListener('DOMContentLoaded', () => {
     const dropdownApis = [];
     const closeAllDropdowns = () => dropdownApis.forEach((d) => d.close());
 
-    const setupDropdown = (root, onSelect) => {
-      const btn = root.querySelector('.filter-select');
+    const setupDropdown = (root, onSelect, onClear) => {
+      const pill = root.querySelector('.filter-select');
+      const btn = root.querySelector('.filter-select-btn');
+      const label = root.querySelector('.filter-select-label');
+      const clearBtn = root.querySelector('.filter-pill-x');
       const menu = root.querySelector('.filter-menu');
       const options = Array.from(menu.querySelectorAll('[role="option"]'));
-      const defaultLabel = options[0].textContent;
+      const defaultLabel = label.textContent;
 
-      const close = () => { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
-      const open = () => { closeAllDropdowns(); menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); };
+      const close = () => { menu.hidden = true; pill.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); };
+      const open = () => { closeAllDropdowns(); menu.hidden = false; pill.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); };
 
       btn.setAttribute('aria-haspopup', 'listbox');
       btn.setAttribute('aria-expanded', 'false');
       btn.addEventListener('click', () => { menu.hidden ? open() : close(); });
+      clearBtn.addEventListener('click', () => { close(); onClear(); });
 
       options.forEach((opt) => {
         opt.addEventListener('click', () => {
           const value = opt.dataset.value;
           options.forEach((o) => o.classList.toggle('is-active', o === opt));
-          btn.textContent = value ? opt.textContent : defaultLabel;
+          label.textContent = value ? opt.textContent : defaultLabel;
+          clearBtn.classList.toggle('d-none', !value);
           close();
           onSelect(value);
         });
@@ -120,7 +125,8 @@ document.addEventListener('DOMContentLoaded', () => {
         setValue(value) {
           const match = options.find((o) => o.dataset.value === value) || options[0];
           options.forEach((o) => o.classList.toggle('is-active', o === match));
-          btn.textContent = value ? match.textContent : defaultLabel;
+          label.textContent = value ? match.textContent : defaultLabel;
+          clearBtn.classList.toggle('d-none', !value);
         },
       };
       dropdownApis.push(api);
@@ -145,12 +151,6 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       empty.classList.toggle('d-none', !filtering || visibleCount > 0);
-
-      categoryPill.classList.toggle('d-none', !cat);
-      if (cat) categoryPill.querySelector('.filter-pill-label').textContent = cat;
-      tagPill.classList.toggle('d-none', !tag);
-      if (tag) tagPill.querySelector('.filter-pill-label').textContent = tag;
-
       heading.textContent = filtering ? 'Posts' : 'All posts';
 
       // The set of visible cards (and so their row/column layout) just
@@ -166,29 +166,16 @@ document.addEventListener('DOMContentLoaded', () => {
       history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
     };
 
-    const categoryApi = setupDropdown(categoryDropdown, (value) => {
-      categoryValue = value;
-      applyFilters();
-      syncUrl();
-    });
-    const tagApi = setupDropdown(tagDropdown, (value) => {
-      tagValue = value;
-      applyFilters();
-      syncUrl();
-    });
-
-    categoryPill.querySelector('.filter-pill-x').addEventListener('click', () => {
-      categoryValue = '';
-      categoryApi.setValue('');
-      applyFilters();
-      syncUrl();
-    });
-    tagPill.querySelector('.filter-pill-x').addEventListener('click', () => {
-      tagValue = '';
-      tagApi.setValue('');
-      applyFilters();
-      syncUrl();
-    });
+    const categoryApi = setupDropdown(
+      categoryDropdown,
+      (value) => { categoryValue = value; applyFilters(); syncUrl(); },
+      () => { categoryValue = ''; categoryApi.setValue(''); applyFilters(); syncUrl(); }
+    );
+    const tagApi = setupDropdown(
+      tagDropdown,
+      (value) => { tagValue = value; applyFilters(); syncUrl(); },
+      () => { tagValue = ''; tagApi.setValue(''); applyFilters(); syncUrl(); }
+    );
 
     document.addEventListener('click', (e) => {
       if (!categoryDropdown.contains(e.target) && !tagDropdown.contains(e.target)) closeAllDropdowns();
