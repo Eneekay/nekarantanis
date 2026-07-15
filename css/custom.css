@@ -414,8 +414,11 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .network-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
 
 /* decorative header blobs */
-.about-header-blob { position: absolute; top: -70px; right: -40px; width: 260px; height: 260px; opacity: 0.12; z-index: 0; }
-.blog-header-blob   { position: absolute; top: -60px; right: -60px; width: 280px; height: 280px; opacity: 0.12; z-index: 0; }
+.about-header-blob   { position: absolute; top: -70px; right: -40px; width: 260px; height: 260px; opacity: 0.12; z-index: 0; }
+.about-header-blob-2 { position: absolute; bottom: -90px; left: -70px; width: 300px; height: 300px; opacity: 0.08; z-index: 0; }
+.blog-header-blob    { position: absolute; top: -60px; right: -60px; width: 280px; height: 280px; opacity: 0.12; z-index: 0; }
+.blog-header-blob-2  { position: absolute; bottom: -90px; left: -70px; width: 300px; height: 300px; opacity: 0.08; z-index: 0; }
+.post-header-blob    { position: absolute; top: -65px; right: -50px; width: 270px; height: 270px; opacity: 0.12; z-index: 0; }
 .home-hero-blob-1   { position: absolute; top: -80px; left: -80px; width: 360px; height: 360px; opacity: 0.1; z-index: 0; }
 .home-hero-blob-2   { position: absolute; bottom: -100px; right: -100px; width: 400px; height: 400px; opacity: 0.08; z-index: 0; }
 .post-cta-blob-1    { position: absolute; top: -60px; left: -60px; width: 220px; height: 220px; opacity: 0.07; z-index: 0; }
@@ -430,18 +433,23 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   88%  { transform: translate(24px, 8px) scale(1.05) rotate(2deg); }
   100% { transform: translate(0, 0) scale(1) rotate(0deg); }
 }
-.about-header-blob, .blog-header-blob, .home-hero-blob-1, .home-hero-blob-2,
+.about-header-blob, .about-header-blob-2, .blog-header-blob, .blog-header-blob-2,
+.post-header-blob, .home-hero-blob-1, .home-hero-blob-2,
 .post-cta-blob-1, .post-cta-blob-2 {
   animation: blob-float 20s ease-in-out infinite;
 }
 .home-hero-blob-1 { animation-duration: 19s; animation-delay: -4s; }
 .home-hero-blob-2 { animation-duration: 23s; animation-delay: -11s; }
 .about-header-blob { animation-duration: 21s; animation-delay: -7s; }
+.about-header-blob-2 { animation-duration: 27s; animation-delay: -3s; }
 .blog-header-blob { animation-duration: 25s; animation-delay: -15s; }
+.blog-header-blob-2 { animation-duration: 28s; animation-delay: -19s; }
+.post-header-blob { animation-duration: 24s; animation-delay: -13s; }
 .post-cta-blob-1 { animation-duration: 22s; animation-delay: -9s; }
 .post-cta-blob-2 { animation-duration: 26s; animation-delay: -17s; }
 @media (prefers-reduced-motion: reduce) {
-  .about-header-blob, .blog-header-blob, .home-hero-blob-1, .home-hero-blob-2,
+  .about-header-blob, .about-header-blob-2, .blog-header-blob, .blog-header-blob-2,
+  .post-header-blob, .home-hero-blob-1, .home-hero-blob-2,
   .post-cta-blob-1, .post-cta-blob-2 { animation: none; }
 }
 
