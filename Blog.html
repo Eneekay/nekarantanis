@@ -27,8 +27,18 @@ title: Blog
 </header>
 
 {% assign featured = site.posts.first %}
+{% assign all_categories = "" | split: "," %}
+{% assign all_tags = "" | split: "," %}
+{% for post in site.posts %}
+  {% assign cat_arr = post.category | split: "," %}
+  {% assign all_categories = all_categories | concat: cat_arr %}
+  {% assign all_tags = all_tags | concat: post.tags %}
+{% endfor %}
+{% assign all_categories = all_categories | uniq | sort %}
+{% assign all_tags = all_tags | uniq | sort %}
+
 <!-- FEATURED POST -->
-<section class="bg-c3">
+<section class="bg-c3" id="featuredSection">
   <div class="container pad-64-12-24">
     <div class="row" data-reveal>
       <div class="col-12">
@@ -49,9 +59,30 @@ title: Blog
 <!-- POST GRID -->
 <section class="bg-c3">
   <div class="container pad-24-12-88">
-    <div class="row g-4">
+    <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between mb-4">
+      <div class="fs-19 fw-semibold text-c0" id="postGridHeading">All posts</div>
+      <div class="d-flex flex-wrap gap-3">
+        <select id="categoryFilter" class="filter-select">
+          <option value="">All categories</option>
+          {% for cat in all_categories %}<option value="{{ cat }}">{{ cat }}</option>{% endfor %}
+        </select>
+        <select id="tagFilter" class="filter-select">
+          <option value="">All tags</option>
+          {% for tag in all_tags %}<option value="{{ tag }}">{{ tag }}</option>{% endfor %}
+        </select>
+      </div>
+    </div>
+    <div class="row g-4" id="postGrid">
+      <div class="col-md-6 col-lg-4 d-none" data-reveal data-category="{{ featured.category }}" data-tags="{{ featured.tags | join: '|' }}" data-featured-dup="1">
+        <a href="{{ featured.url | relative_url }}" class="post-card hover-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=featured.icon %}</svg>
+          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">{{ featured.category }} &middot; {{ featured.date | date: "%d %b %Y" }}</div>
+          <h3 class="fs-19 mb-2">{{ featured.title }}</h3>
+          <p class="fs-14-5 text-muted-warm mb-0">{{ featured.summary }}</p>
+        </a>
+      </div>
       {% for post in site.posts offset: 1 %}
-      <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal>
+      <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal data-category="{{ post.category }}" data-tags="{{ post.tags | join: '|' }}">
         <a href="{{ post.url | relative_url }}" class="post-card hover-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=post.icon %}</svg>
           <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">{{ post.category }} &middot; {{ post.date | date: "%d %b %Y" }}</div>
@@ -61,6 +92,7 @@ title: Blog
       </div>
       {% endfor %}
     </div>
+    <p class="fs-15 text-muted-warm d-none" id="postGridEmpty">No posts match that filter.</p>
   </div>
   <svg class="wave-divider wave-divider--inline wave-divider--48" viewBox="0 0 1440 100" preserveAspectRatio="none">
     <path d="M0,50 C240,0 480,90 720,45 C960,5 1200,85 1440,40 L1440,100 L0,100 Z" class="fill-c0"></path>

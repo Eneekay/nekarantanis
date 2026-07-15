@@ -16,6 +16,67 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Blog category/tag filtering: two dropdowns filter the post grid
+  // client-side (no server, so this has to run in the browser rather than
+  // Jekyll generating per-tag pages). The URL's ?category=/&tag= params
+  // both seed the filter on load and get updated on change, so links from
+  // an article's category/tag straight into a filtered view work, and the
+  // filtered view itself is shareable/bookmarkable.
+  const categoryFilter = document.getElementById('categoryFilter');
+  const tagFilter = document.getElementById('tagFilter');
+  if (categoryFilter && tagFilter) {
+    const grid = document.getElementById('postGrid');
+    const featuredSection = document.getElementById('featuredSection');
+    const heading = document.getElementById('postGridHeading');
+    const empty = document.getElementById('postGridEmpty');
+    const cards = Array.from(grid.querySelectorAll(':scope > [data-category]'));
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('category')) categoryFilter.value = params.get('category');
+    if (params.get('tag')) tagFilter.value = params.get('tag');
+
+    const applyFilters = () => {
+      const cat = categoryFilter.value;
+      const tag = tagFilter.value;
+      const filtering = !!(cat || tag);
+
+      featuredSection.classList.toggle('d-none', filtering);
+
+      let visibleCount = 0;
+      cards.forEach(card => {
+        const isFeaturedDup = card.hasAttribute('data-featured-dup');
+        const matches = filtering
+          && (!cat || card.dataset.category === cat)
+          && (!tag || card.dataset.tags.split('|').includes(tag));
+        const show = filtering ? matches : !isFeaturedDup;
+        card.classList.toggle('d-none', !show);
+        if (show) {
+          visibleCount++;
+          card.classList.add('is-visible');
+        }
+      });
+
+      empty.classList.toggle('d-none', !filtering || visibleCount > 0);
+
+      if (cat && tag) heading.textContent = `Category: ${cat} · Tag: ${tag}`;
+      else if (cat) heading.textContent = `Category: ${cat}`;
+      else if (tag) heading.textContent = `Tag: ${tag}`;
+      else heading.textContent = 'All posts';
+    };
+
+    const syncUrl = () => {
+      const next = new URLSearchParams();
+      if (categoryFilter.value) next.set('category', categoryFilter.value);
+      if (tagFilter.value) next.set('tag', tagFilter.value);
+      const qs = next.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
+    };
+
+    categoryFilter.addEventListener('change', () => { applyFilters(); syncUrl(); });
+    tagFilter.addEventListener('change', () => { applyFilters(); syncUrl(); });
+    applyFilters();
+  }
+
   // Typewriter effect: reveals text one character at a time as each element
   // scrolls into view. The character just typed sits in the accent colour
   // until the next one appears, at which point it settles to the normal
