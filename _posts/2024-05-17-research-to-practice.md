@@ -1,16 +1,16 @@
 ---
-title: "What Ten Years of Academic Research Taught Me About Running a Team"
+title: What Ten Years of Academic Research Taught Me About Running a Team
 date: 2024-05-17
-category: "Research & Practice"
+category: Research & Practice
 icon: book
-summary: "Reflections from a career that moved from primate biomechanics to prison education."
+summary: Reflections from a career that moved from primate biomechanics to
+  prison education.
 tags:
-  - "Research"
-  - "Evidence-Based Practice"
-  - "Leadership"
+  - Research
+  - Evidence-Based Practice
+  - Leadership
 ---
-
-A PhD in primate biomechanics is an unlikely training ground for prison education leadership. It turns out the underlying discipline transfers more directly than I expected.
+A PhD in mammalian evolution is an unlikely training ground for prison education leadership. It turns out the underlying discipline transfers more directly than I expected.
 
 Academic research trains a very specific habit: don’t trust your first explanation for why something happened, and go back to the data before you commit to a conclusion and, much more importantly, an action. That instinct has saved me more than once in leadership, where the easy story (‘attendance dropped because of X’) is rarely the whole picture.
 
