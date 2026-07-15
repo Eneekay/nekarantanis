@@ -26,7 +26,8 @@ title: Blog
   </svg>
 </header>
 
-{% assign featured = site.posts.first %}
+{% assign featured_candidates = site.posts | where: "featured", true %}
+{% assign featured = featured_candidates.first | default: site.posts.first %}
 {% assign all_categories = "" | split: "," %}
 {% assign all_tags = "" | split: "," %}
 {% for post in site.posts %}
@@ -82,7 +83,8 @@ title: Blog
           <p class="fs-14-5 text-muted-warm mb-0">{{ featured.summary }}</p>
         </a>
       </div>
-      {% for post in site.posts offset: 1 %}
+      {% for post in site.posts %}
+      {% unless post.url == featured.url %}
       <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal-grid data-category="{{ post.category }}" data-tags="{{ post.tags | join: '|' }}">
         <a href="{{ post.url | relative_url }}" class="post-card hover-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=post.icon %}</svg>
@@ -91,6 +93,7 @@ title: Blog
           <p class="fs-14-5 text-muted-warm mb-0">{{ post.summary }}</p>
         </a>
       </div>
+      {% endunless %}
       {% endfor %}
     </div>
     <p class="fs-15 text-muted-warm d-none" id="postGridEmpty">No posts match that filter.</p>

@@ -51,6 +51,12 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
+      - label: "Featured"
+        name: "featured"
+        widget: "boolean"
+        required: false
+        default: false
+        hint: "Shows this post at the top of the Blog page instead of the grid. If left off every post, or checked on more than one, the newest post wins."
       - label: "Category"
         name: "category"
         widget: "select"
