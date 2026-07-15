@@ -164,6 +164,7 @@ h1, h2, h3, h4 {
 .fill-c1 { fill: var(--nk-c1); }
 .fill-c3 { fill: var(--nk-c3); }
 .fill-c4 { fill: var(--nk-c4); }
+.fill-stats-grid { fill: url(#statsGridTex); }
 
 /* ---------- spacing / sizing utilities ---------- */
 
@@ -222,8 +223,8 @@ h1, h2, h3, h4 {
 .section-light-grid {
   background-color: var(--nk-c3);
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.045) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.045) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.028) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.028) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 .heading-rule { border-top: 3px solid var(--nk-c2); margin-top: 14px; }
