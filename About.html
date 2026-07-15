@@ -49,7 +49,7 @@ title: About & CV
 
   {% assign leadership_companies = site.data.roles.roles | where: "section", "leadership" %}
   {% for company in leadership_companies %}
-  <div class="container {% if forloop.last %}pb-20{% else %}pb-56{% endif %}" data-reveal>
+  <div class="container {% if forloop.last %}pb-20{% else %}pb-56{% endif %}">
     <div class="row g-4">
       {% include role-company.html company=company %}
     </div>
@@ -59,13 +59,15 @@ title: About & CV
 
 <!-- DIGITAL SECTION -->
 <section id="digital" class="bg-c4">
-  <div class="container pad-76-12"  data-reveal>
-    <div class="fs-13 fw-bold ls-15 text-c2 text-uppercase mb-2">Section B</div>
-    <div class="d-flex align-items-center gap-2 mb-3">
-      <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M8 21h8M12 18v3"></path></svg>
-      <h2 class="fs-30 mb-0" data-typewriter>Digital Design</h2>
+  <div class="container pad-76-12">
+    <div data-reveal>
+      <div class="fs-13 fw-bold ls-15 text-c2 text-uppercase mb-2">Section B</div>
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="4" width="18" height="14" rx="2"></rect><path d="M8 21h8M12 18v3"></path></svg>
+        <h2 class="fs-30 mb-0" data-typewriter>Digital Design</h2>
+      </div>
+      <div class="heading-rule mb-5"></div>
     </div>
-    <div class="heading-rule mb-5"></div>
     <div class="row g-4">
       {% assign digital_companies = site.data.roles.roles | where: "section", "digital" %}
       {% for company in digital_companies %}{% include role-company.html company=company %}{% endfor %}
@@ -75,13 +77,15 @@ title: About & CV
 
 <!-- RESEARCH SECTION -->
 <section id="research" class="section-white-dotted position-relative overflow-hidden">
-  <div class="container pad-76-12"  data-reveal>
-    <div class="fs-13 fw-bold ls-15 text-c2 text-uppercase mb-2">Section C</div>
-    <div class="d-flex align-items-center gap-2 mb-3">
-      <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="8.5" r="2.5"></circle><circle cx="18.5" cy="8.5" r="2.5"></circle><circle cx="12" cy="13" r="7"></circle><path d="M9 12h.01"></path><path d="M15 12h.01"></path><path d="M9 16c1.2 1 3.8 1 5 0"></path></svg>
-      <h2 class="fs-30 mb-0" data-typewriter>Biological Research</h2>
+  <div class="container pad-76-12">
+    <div data-reveal>
+      <div class="fs-13 fw-bold ls-15 text-c2 text-uppercase mb-2">Section C</div>
+      <div class="d-flex align-items-center gap-2 mb-3">
+        <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="5.5" cy="8.5" r="2.5"></circle><circle cx="18.5" cy="8.5" r="2.5"></circle><circle cx="12" cy="13" r="7"></circle><path d="M9 12h.01"></path><path d="M15 12h.01"></path><path d="M9 16c1.2 1 3.8 1 5 0"></path></svg>
+        <h2 class="fs-30 mb-0" data-typewriter>Biological Research</h2>
+      </div>
+      <div class="heading-rule mb-5"></div>
     </div>
-    <div class="heading-rule mb-5"></div>
     <div class="row g-4">
       {% assign research_companies = site.data.roles.roles | where: "section", "research" %}
       {% for company in research_companies %}{% include role-company.html company=company %}{% endfor %}
@@ -94,18 +98,20 @@ title: About & CV
 
 <!-- EDUCATION -->
 <section id="education" class="section-dark-dotted position-relative overflow-hidden">
-  <div class="container position-relative pad-76-12-88 z-1"  data-reveal>
-    <div class="fs-13 fw-bold ls-15 text-gold text-uppercase mb-2">Qualifications</div>
-    <div class="d-flex align-items-center gap-2 mb-5">
-      <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="var(--nk-c1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"></path><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg>
-      <h2 class="fs-30 text-c4 mb-0 typewriter--on-dark" data-typewriter>Education</h2>
+  <div class="container position-relative pad-76-12-88 z-1">
+    <div data-reveal>
+      <div class="fs-13 fw-bold ls-15 text-gold text-uppercase mb-2">Qualifications</div>
+      <div class="d-flex align-items-center gap-2 mb-5">
+        <svg class="heading-icon" viewBox="0 0 24 24" fill="none" stroke="var(--nk-c1)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M22 10L12 5 2 10l10 5 10-5z"></path><path d="M6 12v5c0 1.5 3 3 6 3s6-1.5 6-3v-5"></path></svg>
+        <h2 class="fs-30 text-c4 mb-0 typewriter--on-dark" data-typewriter>Education</h2>
+      </div>
     </div>
 
     <div class="row g-4 mb-4">
-      <div class="col-lg-3">
+      <div class="col-lg-3" data-reveal-split="left">
         <div class="fs-13 text-faint-dark">2021</div>
       </div>
-      <div class="col-lg-9 timeline-accent on-dark">
+      <div class="col-lg-9 timeline-accent on-dark td-1" data-reveal-split="right">
         <h3 class="fs-19 text-c4 mb-2">Senior Education Leadership Programme</h3>
         <div class="fs-14 text-faint-dark mb-3">in&gt;pd &middot; University of East London</div>
         <ul class="fs-14-5 text-cream mb-0 pl-20">
@@ -117,10 +123,10 @@ title: About & CV
     </div>
 
     <div class="row g-4 mb-4">
-      <div class="col-lg-3">
+      <div class="col-lg-3" data-reveal-split="left">
         <div class="fs-13 text-faint-dark">2012 &ndash; 2017</div>
       </div>
-      <div class="col-lg-9 timeline-accent on-dark">
+      <div class="col-lg-9 timeline-accent on-dark td-1" data-reveal-split="right">
         <h3 class="fs-19 text-c4 mb-2">Doctorate of Philosophy in Biology</h3>
         <div class="fs-14 text-faint-dark mb-3">Aristotle University of Thessaloniki</div>
         <ul class="fs-14-5 text-cream mb-0 pl-20">
@@ -132,10 +138,10 @@ title: About & CV
     </div>
 
     <div class="row g-4 mb-4">
-      <div class="col-lg-3">
+      <div class="col-lg-3" data-reveal-split="left">
         <div class="fs-13 text-faint-dark">2009 &ndash; 2010</div>
       </div>
-      <div class="col-lg-9 timeline-accent on-dark">
+      <div class="col-lg-9 timeline-accent on-dark td-1" data-reveal-split="right">
         <h3 class="fs-19 text-c4 mb-2">MSc in Human Evolution and Behaviour</h3>
         <div class="fs-14 text-faint-dark mb-3">University College London</div>
         <ul class="fs-14-5 text-cream mb-0 pl-20">
@@ -146,10 +152,10 @@ title: About & CV
     </div>
 
     <div class="row g-4">
-      <div class="col-lg-3">
+      <div class="col-lg-3" data-reveal-split="left">
         <div class="fs-13 text-faint-dark">2003 &ndash; 2009</div>
       </div>
-      <div class="col-lg-9 timeline-accent on-dark">
+      <div class="col-lg-9 timeline-accent on-dark td-1" data-reveal-split="right">
         <h3 class="fs-19 text-c4 mb-2">BSc in Biology</h3>
         <div class="fs-14 text-faint-dark mb-3">Aristotle University of Thessaloniki</div>
         <ul class="fs-14-5 text-cream mb-0 pl-20">
@@ -161,10 +167,10 @@ title: About & CV
 
     <!-- Training & Certifications -->
     <div class="row g-4 mt-2">
-      <div class="col-lg-3">
+      <div class="col-lg-3" data-reveal-split="left">
         <div class="fs-13 text-faint-dark">Ongoing</div>
       </div>
-      <div class="col-lg-9 timeline-accent on-dark">
+      <div class="col-lg-9 timeline-accent on-dark td-1" data-reveal-split="right">
         <h3 class="fs-19 text-c4 mb-3">Training &amp; Certifications</h3>
         <div class="d-flex flex-wrap gap-2">
           <span class="tag-pill tag-pill--dark">Qualified Teacher Status (QTS)</span>

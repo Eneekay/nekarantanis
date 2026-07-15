@@ -1,5 +1,42 @@
 document.addEventListener('DOMContentLoaded', () => {
-  const revealEls = document.querySelectorAll('[data-reveal]');
+  // Position-aware entrance direction for [data-reveal-grid] cards: whatever
+  // sits at the left/right edge of its rendered row slides in from that
+  // side, anything else (a middle column, or a lone item stacked into a
+  // single column on narrow viewports) slides up - same feel as the hero
+  // button row, but figured out from the live layout instead of assuming a
+  // fixed column count, so it keeps working as the grid reflows or is
+  // filtered down to a different set of visible cards.
+  const gridEls = document.querySelectorAll('[data-reveal-grid]');
+  let assignRevealDirections = () => {};
+  if (gridEls.length) {
+    const gridParents = new Set(Array.from(gridEls).map(el => el.parentElement));
+    assignRevealDirections = () => {
+      gridParents.forEach(parent => {
+        const items = Array.from(parent.children).filter(el => el.hasAttribute('data-reveal-grid') && el.offsetParent !== null);
+        const rows = new Map();
+        items.forEach(el => {
+          const top = el.offsetTop;
+          if (!rows.has(top)) rows.set(top, []);
+          rows.get(top).push(el);
+        });
+        rows.forEach(rowItems => {
+          rowItems.sort((a, b) => a.offsetLeft - b.offsetLeft);
+          rowItems.forEach((el, i) => {
+            const dir = rowItems.length === 1 ? 'up' : i === 0 ? 'left' : i === rowItems.length - 1 ? 'right' : 'up';
+            el.dataset.revealDir = dir;
+          });
+        });
+      });
+    };
+    assignRevealDirections();
+    let resizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(resizeTimer);
+      resizeTimer = setTimeout(assignRevealDirections, 150);
+    });
+  }
+
+  const revealEls = document.querySelectorAll('[data-reveal], [data-reveal-grid], [data-reveal-split]');
   if (revealEls.length) {
     if (!('IntersectionObserver' in window)) {
       revealEls.forEach(el => el.classList.add('is-visible'));
@@ -64,6 +101,10 @@ document.addEventListener('DOMContentLoaded', () => {
       else if (cat) heading.textContent = `Category: ${cat}`;
       else if (tag) heading.textContent = `Tag: ${tag}`;
       else heading.textContent = 'All posts';
+
+      // The set of visible cards (and so their row/column layout) just
+      // changed, so re-figure each one's entrance direction.
+      assignRevealDirections();
     };
 
     const syncUrl = () => {
@@ -225,7 +266,16 @@ document.addEventListener('DOMContentLoaded', () => {
         const progress = Math.min((now - start) / COUNT_DURATION, 1);
         const eased = easeOutCubic(progress);
         counters.forEach((el, i) => renderCount(el, Math.round(targets[i] * eased)));
-        if (progress < 1) requestAnimationFrame(tick);
+        if (progress < 1) {
+          requestAnimationFrame(tick);
+        } else {
+          // Little punctuation mark once every number has landed: a quick
+          // scale bounce so the figures pop rather than just stopping dead.
+          counters.forEach(el => {
+            el.classList.add('count-done');
+            el.addEventListener('animationend', () => el.classList.remove('count-done'), { once: true });
+          });
+        }
       };
       requestAnimationFrame(tick);
     };
