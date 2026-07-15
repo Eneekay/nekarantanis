@@ -14,7 +14,10 @@
       {% if position.primary %}
       <div class="info-card{% if c.positions.size > 1 %} mb-3{% endif %}">
         <div class="fs-13 text-faint fw-semibold mb-1">{{ position.dates }}</div>
-        <h3 class="fs-19 mb-3">{{ position.title }}</h3>
+        <div class="d-flex align-items-center gap-2 mb-3">
+          {% if position.icon %}<svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon">{% include post-icon.html icon=position.icon %}</svg>{% endif %}
+          <h3 class="fs-19 mb-0">{{ position.title }}</h3>
+        </div>
         <ul class="fs-15 text-muted-warm mb-3 pl-20">
           {% for b in position.bullets %}<li>{{ b }}</li>{% endfor %}
         </ul>
@@ -27,7 +30,10 @@
       {% else %}
       <div class="subrole">
         <div class="fs-13 text-faint fw-semibold mb-1">{{ position.dates }}</div>
-        <h4 class="fs-16 mb-2">{{ position.title }}</h4>
+        <div class="d-flex align-items-center gap-2 mb-2">
+          {% if position.icon %}<svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon">{% include post-icon.html icon=position.icon %}</svg>{% endif %}
+          <h4 class="fs-16 mb-0">{{ position.title }}</h4>
+        </div>
         <ul class="fs-14-5 text-muted-warm mb-0 pl-20">
           {% for b in position.bullets %}<li>{{ b }}</li>{% endfor %}
         </ul>

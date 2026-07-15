@@ -11,6 +11,7 @@ roles:
   positions:
   - dates: JUL 2025 — PRESENT
     title: Education Manager
+    icon: shield
     primary: true
     bullets:
     - Leading the strategic and day-to-day management of education in HMP Pentonville, a high-pressure
@@ -44,6 +45,7 @@ roles:
   positions:
   - dates: APR 2022 — MAR 2025
     title: Director of Studies, Land-Based (Animal Management and Saddlery)
+    icon: briefcase
     primary: true
     bullets:
     - Leading a team of 100+ across five campuses, implementing a cloud-based governance system adopted
@@ -67,6 +69,7 @@ roles:
     - Sponsorship & Partnerships
   - dates: APR 2020 — MAY 2022
     title: Curriculum Leader, then Head of Animal Management and Saddlery
+    icon: book
     bullets:
     - Spearheaded a culture of self-assessment leading to an 88% achievement rate, above the national
       benchmark.
@@ -75,11 +78,13 @@ roles:
       lecturers.
   - dates: SEP 2019 — MAR 2020
     title: Team Leader
+    icon: team
     bullets:
     - Led a team of lecturers delivering a wide portfolio of animal-focused courses.
     - Collaborated with three major national awarding bodies to ascertain fulfilment of educational standards.
   - dates: SEP 2017 — AUG 2019
     title: Higher and Further Education Course Manager
+    icon: cap
     bullets:
     - Accomplished over 95% achievement rates across all courses of responsibility.
     - Reached 100% satisfaction rates in HE courses as measured in the NSS.
@@ -93,6 +98,7 @@ roles:
   positions:
   - dates: SEP 2015 – AUG 2017
     title: Digital Project Manager / Owner
+    icon: monitor
     primary: true
     bullets:
     - Founded own business, building the online presence of multiple small businesses.
@@ -115,6 +121,7 @@ roles:
   positions:
   - dates: JAN 2020 – DEC 2021
     title: Postdoctoral Researcher
+    icon: search
     primary: true
     bullets:
     - Co-designed a project evaluating wildcat (<em>Felis silvestris silvestris</em>) spatial behaviour
@@ -126,6 +133,7 @@ roles:
     - Findings published in peer-reviewed conferences and journals.
   - dates: JUL 2012 – MAR 2017
     title: Postgraduate Researcher
+    icon: compass
     bullets:
     - Designed and executed a long-term project on ecological implications of biomechanics in the evolution
       of eutherian mammals, with a focus on primates.

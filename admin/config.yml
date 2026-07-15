@@ -104,6 +104,11 @@ collections:
                 fields:
                   - { label: "Date range", name: "dates", widget: "string" }
                   - { label: "Title", name: "title", widget: "string" }
+                  - label: "Icon"
+                    name: "icon"
+                    widget: "icon-picker"
+                    required: false
+                    hint: "Click an icon to select it."
                   - { label: "Primary (highlighted box; leave off for earlier roles at the same place)", name: "primary", widget: "boolean", required: false, default: false }
                   - { label: "Bullets", name: "bullets", widget: "list" }
                   - { label: "Tags", name: "tags", widget: "list", required: false }
