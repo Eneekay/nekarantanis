@@ -59,7 +59,27 @@ collections:
       - label: "Icon"
         name: "icon"
         widget: "select"
-        options: ["heart", "check", "book", "pin", "cap", "cloud", "person", "compass", "team"]
+        options:
+          - { label: "🏅 Award", value: "award" }
+          - { label: "📖 Book", value: "book" }
+          - { label: "💼 Briefcase", value: "briefcase" }
+          - { label: "📅 Calendar", value: "calendar" }
+          - { label: "🎓 Cap", value: "cap" }
+          - { label: "✅ Check", value: "check" }
+          - { label: "💬 Chat", value: "chat" }
+          - { label: "☁️ Cloud", value: "cloud" }
+          - { label: "🧭 Compass", value: "compass" }
+          - { label: "🚩 Flag", value: "flag" }
+          - { label: "🌐 Globe", value: "globe" }
+          - { label: "❤️ Heart", value: "heart" }
+          - { label: "🖥️ Monitor", value: "monitor" }
+          - { label: "🧑 Person", value: "person" }
+          - { label: "📍 Pin", value: "pin" }
+          - { label: "🛡️ Shield", value: "shield" }
+          - { label: "⭐ Star", value: "star" }
+          - { label: "🎯 Target", value: "target" }
+          - { label: "👥 Team", value: "team" }
+          - { label: "📈 Trending", value: "trending" }
       - { label: "Card summary", name: "summary", widget: "text", hint: "Short blurb shown on the Blog listing card (not shown on the post itself)." }
       - { label: "Tags", name: "tags", widget: "list" }
       - { label: "Body", name: "body", widget: "markdown", hint: "The first paragraph is shown larger as the lede. Use a Markdown blockquote (> ...) for the pull-quote." }
