@@ -19,6 +19,12 @@ local_backend:
 media_folder: "uploads"
 public_folder: "/uploads"
 
+# publish_mode: editorial_workflow moves entries through Draft -> In Review
+# -> Ready before they publish, instead of every save committing straight
+# to `main` (which redeploys the live site immediately). Decap does this
+# via GitHub PRs, using whatever repo permissions your own GitHub login has.
+publish_mode: editorial_workflow
+
 collections:
   - name: "posts"
     label: "Blog Posts"
@@ -28,6 +34,9 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     identifier_field: title
     summary: "{{title}} — {{date}}"
+    preview_path: "blog/{{slug}}.html"
+    media_folder: "/uploads/posts"
+    public_folder: "/uploads/posts"
     sortable_fields: ["date", "title", "category"]
     view_groups:
       - label: "Category"
@@ -42,7 +51,11 @@ collections:
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }
-      - { label: "Category", name: "category", widget: "string", hint: "Shown as the small label above the title, e.g. \"Quality & Compliance\"" }
+      - label: "Category"
+        name: "category"
+        widget: "select"
+        hint: "Shown as the small label above the title. Pick an existing one where it fits, to keep grouping/filtering useful."
+        options: ["Leadership", "Team Leadership", "Team Management", "Change Management", "Digital & Data", "Quality & Compliance", "Research & Practice", "Mentoring", "Leadership & Personal"]
       - label: "Icon"
         name: "icon"
         widget: "select"
@@ -57,6 +70,7 @@ collections:
       - name: "roles"
         label: "Career Roles"
         file: "_data/roles.yml"
+        preview_path: "About.html"
         fields:
           - label: "Roles"
             name: "roles"
@@ -68,7 +82,12 @@ collections:
                 widget: "select"
                 options: ["leadership", "digital", "research"]
               - { label: "Company / Institution", name: "company", widget: "string" }
-              - { label: "Logo path", name: "logo", widget: "string", hint: "Path under uploads/, e.g. uploads/logo.png" }
+              - label: "Logo"
+                name: "logo"
+                widget: "image"
+                media_folder: "/uploads/logos"
+                public_folder: "/uploads/logos"
+                hint: "Existing logos live directly under uploads/ (not uploads/logos/) - that's fine, this only changes where new uploads land."
               - { label: "Subtitle (location etc.)", name: "subtitle", widget: "string", required: false }
               - { label: "Date range", name: "dates", widget: "string", hint: "e.g. \"Jun 2025 – Present\"" }
               - { label: "Blurb", name: "blurb", widget: "text" }
