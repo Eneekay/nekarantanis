@@ -13,6 +13,9 @@
   CMS.registerPreviewStyle('../css/bootstrap.min.css');
   CMS.registerPreviewStyle('../css/custom.css');
 
+  // Reuses the site's real classnames (not guessed-at inline styles) so the
+  // already-registered custom.css renders this exactly like the live post
+  // page: a dark header block for the title, then the light article body.
   var PostPreview = createClass({
     render: function () {
       var entry = this.props.entry;
@@ -22,35 +25,23 @@
 
       return h(
         'div',
-        { style: { fontFamily: "'Inter', sans-serif", background: '#EAEBEC', minHeight: '100vh', padding: '56px 20px' } },
+        {},
         h(
-          'div',
-          { style: { maxWidth: '760px', margin: '0 auto' } },
-          category
-            ? h(
-                'div',
-                {
-                  style: {
-                    fontSize: '13px',
-                    fontWeight: 600,
-                    letterSpacing: '1px',
-                    textTransform: 'uppercase',
-                    color: '#45A29E',
-                    marginBottom: '12px',
-                  },
-                },
-                category
-              )
-            : null,
+          'header',
+          { className: 'section-dark-dotted text-c3 position-relative overflow-hidden' },
           h(
-            'h1',
-            {
-              className: 'fs-post-title fw-semibold',
-              style: { fontFamily: "'Space Grotesk', sans-serif", marginBottom: '28px', color: '#0B0C10' },
-            },
-            title
-          ),
-          h('div', { className: 'post-body-inner' }, body)
+            'div',
+            { className: 'container position-relative post-header-inner' },
+            category
+              ? h('div', { className: 'fs-13 fw-semibold text-gold text-uppercase ls-15 mb-3' }, category)
+              : null,
+            h('h1', { className: 'fs-post-title fw-semibold text-c4 mb-3' }, title)
+          )
+        ),
+        h(
+          'section',
+          { className: 'bg-c4' },
+          h('div', { className: 'container post-body-inner' }, body)
         )
       );
     },
