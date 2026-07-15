@@ -264,11 +264,12 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   font-weight: 600;
   padding: 8px 16px;
   border-radius: 20px;
-  border: 1px solid transparent;
+  border: 1px solid var(--nk-c2);
   background: transparent;
   color: var(--nk-c2);
 }
-.filter-clear-btn:hover { border-color: var(--nk-c2); }
+.filter-clear-btn:hover { border-color: var(--nk-gold); }
+.filter-clear-btn--hidden { visibility: hidden; }
 .tag-pill--dark {
   font-size: 13px;
   padding: 7px 14px;

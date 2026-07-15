@@ -58,7 +58,7 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       empty.classList.toggle('d-none', !filtering || visibleCount > 0);
-      clearBtn.classList.toggle('d-none', !filtering);
+      clearBtn.classList.toggle('filter-clear-btn--hidden', !filtering);
 
       if (cat && tag) heading.textContent = `Category: ${cat} · Tag: ${tag}`;
       else if (cat) heading.textContent = `Category: ${cat}`;
