@@ -164,7 +164,6 @@ h1, h2, h3, h4 {
 .fill-c1 { fill: var(--nk-c1); }
 .fill-c3 { fill: var(--nk-c3); }
 .fill-c4 { fill: var(--nk-c4); }
-.fill-stats-wave { fill: url(#statsWaveTex); }
 
 /* ---------- spacing / sizing utilities ---------- */
 
@@ -220,11 +219,14 @@ h1, h2, h3, h4 {
   background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px);
   background-size: 24px 24px;
 }
-.heading-rule { border-top: 3px solid var(--nk-c2); margin-top: 14px; }
-.section-hatched {
-  background-color: color-mix(in srgb, var(--nk-c3) 55%, white 45%);
-  background-image: repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.02) 0, rgba(0, 0, 0, 0.02) 1px, transparent 1px, transparent 20px);
+.section-light-grid {
+  background-color: var(--nk-c3);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.045) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.045) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
+.heading-rule { border-top: 3px solid var(--nk-c2); margin-top: 14px; }
 
 /* ---------- eyebrow label ---------- */
 
