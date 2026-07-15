@@ -28,6 +28,17 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     identifier_field: title
     summary: "{{title}} — {{date}}"
+    sortable_fields: ["date", "title", "category"]
+    view_groups:
+      - label: "Category"
+        field: category
+    view_filters:
+      - label: "Tag: Leadership"
+        field: tags
+        pattern: "Leadership"
+      - label: "Tag: Change Management"
+        field: tags
+        pattern: "Change Management"
     fields:
       - { label: "Title", name: "title", widget: "string" }
       - { label: "Date", name: "date", widget: "datetime", format: "YYYY-MM-DD", date_format: "YYYY-MM-DD", time_format: false }

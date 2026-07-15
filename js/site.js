@@ -30,32 +30,60 @@ document.addEventListener('DOMContentLoaded', () => {
     const runTypewriter = (el) => {
       const text = el.textContent.trim();
       if (!text) return;
-      // Reserve the element's fully-typed height up front, so the section
-      // doesn't grow taller line by line as the text wraps while typing.
-      el.style.minHeight = el.getBoundingClientRect().height + 'px';
       el.textContent = '';
-
-      const cursor = document.createElement('span');
-      cursor.className = 'tw-cursor';
-      cursor.textContent = '_';
-      el.appendChild(cursor);
+      // The CSS hides [data-typewriter] text by default (via .js-tw) to
+      // avoid a flash of the full static text before this runs; restore
+      // visibility now that the content has been cleared synchronously,
+      // so the browser never gets a chance to paint that in-between state.
+      el.style.opacity = '1';
 
       if (reduceMotion) {
-        cursor.remove();
         el.textContent = text;
         return;
       }
 
-      const chars = Array.from(text);
+      // Lay out every character up front (invisible but taking up its normal
+      // space) so the element is already its final width/height from frame
+      // one - this keeps centred text anchored in its final position instead
+      // of the line widening outward as characters are revealed.
+      const chars = Array.from(text).map(ch => {
+        const span = document.createElement('span');
+        span.className = 'tw-char tw-char--pending';
+        span.textContent = ch;
+        el.appendChild(span);
+        return span;
+      });
+
+      // The cursor is positioned absolutely and tracks each character's
+      // location rather than being inserted into the text flow - an inline
+      // cursor glyph would occasionally push a line just over its wrap
+      // width, causing a visible stutter as a word jumped to the next line
+      // and back while the cursor passed through it.
+      if (getComputedStyle(el).position === 'static') el.style.position = 'relative';
+      const cursor = document.createElement('span');
+      cursor.className = 'tw-cursor';
+      cursor.textContent = '_';
+      cursor.style.position = 'absolute';
+      el.appendChild(cursor);
+
+      const placeCursor = (afterSpan) => {
+        const elRect = el.getBoundingClientRect();
+        const spanRect = afterSpan.getBoundingClientRect();
+        cursor.style.left = (spanRect.right - elRect.left) + 'px';
+        cursor.style.top = (spanRect.top - elRect.top) + 'px';
+      };
+      placeCursor(chars[0]);
+      cursor.style.left = (chars[0].getBoundingClientRect().left - el.getBoundingClientRect().left) + 'px';
+
       let i = 0;
       let prevSpan = null;
 
       const tick = () => {
         if (i < chars.length) {
-          const span = document.createElement('span');
-          span.className = 'tw-char tw-char--accent';
-          span.textContent = chars[i];
-          el.insertBefore(span, cursor);
+          const span = chars[i];
+          span.classList.remove('tw-char--pending');
+          span.classList.add('tw-char--accent');
+          placeCursor(span);
           if (prevSpan) prevSpan.classList.remove('tw-char--accent');
           prevSpan = span;
           i++;
