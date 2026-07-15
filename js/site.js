@@ -167,18 +167,28 @@ document.addEventListener('DOMContentLoaded', () => {
       tick();
     };
 
+    // data-tw-delay lets a specific element (the homepage hero paragraph)
+    // join the typewriter late, so it can be timed to start once the hero
+    // intro's heading animation has landed rather than the instant the
+    // element is visible.
+    const startTypewriter = (el) => {
+      const delay = reduceMotion ? 0 : (parseInt(el.dataset.twDelay, 10) || 0);
+      if (delay) setTimeout(() => runTypewriter(el), delay);
+      else runTypewriter(el);
+    };
+
     if ('IntersectionObserver' in window) {
       const twIo = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
           if (entry.isIntersecting) {
-            runTypewriter(entry.target);
+            startTypewriter(entry.target);
             twIo.unobserve(entry.target);
           }
         });
       }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
       twEls.forEach(el => twIo.observe(el));
     } else {
-      twEls.forEach(runTypewriter);
+      twEls.forEach(startTypewriter);
     }
   }
 

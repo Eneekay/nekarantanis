@@ -499,3 +499,29 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 @media (prefers-reduced-motion: reduce) {
   .tw-cursor--blink { animation: none; opacity: 1; }
 }
+
+/* ---------- homepage hero intro sequence ----------
+   Background fades in first, then the nav, then the heading, then the
+   button row and scroll hint cascade in while the typewriter (delayed via
+   data-tw-delay, see site.js) is mid-type. Scoped to body.home-hero-intro
+   (set only on index.html) so it never touches other pages' shared nav. */
+
+@keyframes heroFadeIn      { from { opacity: 0; } to { opacity: 1; } }
+@keyframes heroNavDrop     { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
+@keyframes heroHeadingDrop { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: translateY(0); } }
+@keyframes heroSlideLeft   { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes heroSlideRight  { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
+@keyframes heroSlideUp     { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
+
+@media (prefers-reduced-motion: no-preference) {
+  body.home-hero-intro .home-hero-header { opacity: 0; animation: heroFadeIn .55s ease-out forwards; }
+  body.home-hero-intro .site-nav         { animation: heroNavDrop .45s cubic-bezier(.22, 1, .36, 1) .2s both; }
+  body.home-hero-intro .hero-heading     { animation: heroHeadingDrop .5s ease-out .45s both; }
+  body.home-hero-intro .hero-btn-left    { animation: heroSlideLeft .42s ease-out .95s both; }
+  body.home-hero-intro .hero-btn-blog    { animation: heroSlideUp .42s ease-out 1.15s both; }
+  body.home-hero-intro .hero-btn-right   { animation: heroSlideRight .42s ease-out 1.35s both; }
+  body.home-hero-intro .scroll-hint {
+    animation: heroSlideUp .42s ease-out 1.55s both,
+               scrollBounce 1.8s ease-in-out 1.97s infinite;
+  }
+}
