@@ -161,6 +161,7 @@ h1, h2, h3, h4 {
 .text-gold        { color: var(--nk-gold); }
 
 .fill-c0 { fill: var(--nk-c0); }
+.fill-c1 { fill: var(--nk-c1); }
 .fill-c3 { fill: var(--nk-c3); }
 .fill-c4 { fill: var(--nk-c4); }
 .fill-stats-wave { fill: url(#statsWaveTex); }
@@ -513,6 +514,12 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   margin-bottom: 12px;
 }
 .logo-slot img { display: block; width: 100%; height: 100%; object-fit: contain; object-position: left center; }
+
+/* ---------- footer ---------- */
+
+.footer-bright { color: var(--nk-c0); }
+.footer-bright a { color: var(--nk-c0); opacity: .72; transition: opacity .2s ease; }
+.footer-bright a:hover { color: var(--nk-c0); opacity: 1; }
 
 /* ---------- misc ---------- */
 
