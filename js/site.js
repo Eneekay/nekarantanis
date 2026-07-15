@@ -68,40 +68,75 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Blog category/tag filtering: two dropdowns filter the post grid
+  // Blog category/tag filtering: two custom dropdowns filter the post grid
   // client-side (no server, so this has to run in the browser rather than
-  // Jekyll generating per-tag pages). The URL's ?category=/&tag= params
-  // both seed the filter on load and get updated on change, so links from
-  // an article's category/tag straight into a filtered view work, and the
-  // filtered view itself is shareable/bookmarkable.
-  const categoryFilter = document.getElementById('categoryFilter');
-  const tagFilter = document.getElementById('tagFilter');
-  if (categoryFilter && tagFilter) {
+  // Jekyll generating per-tag pages). Plain <select> elements couldn't be
+  // made to match the theme once opened - the popup itself is browser
+  // chrome, not stylable - so these are button+list combos instead. The
+  // featured post always stays visible regardless of filtering (it's no
+  // longer duplicated into the grid), and each active filter shows as a
+  // pill with its own clear button rather than one blanket "clear all".
+  const categoryDropdown = document.querySelector('[data-filter="category"]');
+  const tagDropdown = document.querySelector('[data-filter="tag"]');
+  if (categoryDropdown && tagDropdown) {
     const grid = document.getElementById('postGrid');
-    const featuredSection = document.getElementById('featuredSection');
     const heading = document.getElementById('postGridHeading');
     const empty = document.getElementById('postGridEmpty');
-    const clearBtn = document.getElementById('clearFilters');
+    const categoryPill = document.getElementById('categoryPill');
+    const tagPill = document.getElementById('tagPill');
     const cards = Array.from(grid.querySelectorAll(':scope > [data-category]'));
 
-    const params = new URLSearchParams(window.location.search);
-    if (params.get('category')) categoryFilter.value = params.get('category');
-    if (params.get('tag')) tagFilter.value = params.get('tag');
+    let categoryValue = '';
+    let tagValue = '';
+
+    const dropdownApis = [];
+    const closeAllDropdowns = () => dropdownApis.forEach((d) => d.close());
+
+    const setupDropdown = (root, onSelect) => {
+      const btn = root.querySelector('.filter-select');
+      const menu = root.querySelector('.filter-menu');
+      const options = Array.from(menu.querySelectorAll('[role="option"]'));
+      const defaultLabel = options[0].textContent;
+
+      const close = () => { menu.hidden = true; btn.setAttribute('aria-expanded', 'false'); };
+      const open = () => { closeAllDropdowns(); menu.hidden = false; btn.setAttribute('aria-expanded', 'true'); };
+
+      btn.setAttribute('aria-haspopup', 'listbox');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', () => { menu.hidden ? open() : close(); });
+
+      options.forEach((opt) => {
+        opt.addEventListener('click', () => {
+          const value = opt.dataset.value;
+          options.forEach((o) => o.classList.toggle('is-active', o === opt));
+          btn.textContent = value ? opt.textContent : defaultLabel;
+          close();
+          onSelect(value);
+        });
+      });
+
+      const api = {
+        close,
+        setValue(value) {
+          const match = options.find((o) => o.dataset.value === value) || options[0];
+          options.forEach((o) => o.classList.toggle('is-active', o === match));
+          btn.textContent = value ? match.textContent : defaultLabel;
+        },
+      };
+      dropdownApis.push(api);
+      return api;
+    };
 
     const applyFilters = () => {
-      const cat = categoryFilter.value;
-      const tag = tagFilter.value;
+      const cat = categoryValue;
+      const tag = tagValue;
       const filtering = !!(cat || tag);
 
-      featuredSection.classList.toggle('d-none', filtering);
-
       let visibleCount = 0;
-      cards.forEach(card => {
-        const isFeaturedDup = card.hasAttribute('data-featured-dup');
-        const matches = filtering
-          && (!cat || card.dataset.category === cat)
-          && (!tag || card.dataset.tags.split('|').includes(tag));
-        const show = filtering ? matches : !isFeaturedDup;
+      cards.forEach((card) => {
+        const matches = !cat || card.dataset.category === cat;
+        const matchesTag = !tag || card.dataset.tags.split('|').includes(tag);
+        const show = matches && matchesTag;
         card.classList.toggle('d-none', !show);
         if (show) {
           visibleCount++;
@@ -110,12 +145,13 @@ document.addEventListener('DOMContentLoaded', () => {
       });
 
       empty.classList.toggle('d-none', !filtering || visibleCount > 0);
-      clearBtn.classList.toggle('filter-clear-btn--hidden', !filtering);
 
-      if (cat && tag) heading.textContent = `Category: ${cat} · Tag: ${tag}`;
-      else if (cat) heading.textContent = `Category: ${cat}`;
-      else if (tag) heading.textContent = `Tag: ${tag}`;
-      else heading.textContent = 'All posts';
+      categoryPill.classList.toggle('d-none', !cat);
+      if (cat) categoryPill.querySelector('.filter-pill-label').textContent = cat;
+      tagPill.classList.toggle('d-none', !tag);
+      if (tag) tagPill.querySelector('.filter-pill-label').textContent = tag;
+
+      heading.textContent = filtering ? 'Posts' : 'All posts';
 
       // The set of visible cards (and so their row/column layout) just
       // changed, so re-figure each one's entrance direction.
@@ -124,20 +160,52 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const syncUrl = () => {
       const next = new URLSearchParams();
-      if (categoryFilter.value) next.set('category', categoryFilter.value);
-      if (tagFilter.value) next.set('tag', tagFilter.value);
+      if (categoryValue) next.set('category', categoryValue);
+      if (tagValue) next.set('tag', tagValue);
       const qs = next.toString();
       history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
     };
 
-    categoryFilter.addEventListener('change', () => { applyFilters(); syncUrl(); });
-    tagFilter.addEventListener('change', () => { applyFilters(); syncUrl(); });
-    clearBtn.addEventListener('click', () => {
-      categoryFilter.value = '';
-      tagFilter.value = '';
+    const categoryApi = setupDropdown(categoryDropdown, (value) => {
+      categoryValue = value;
       applyFilters();
       syncUrl();
     });
+    const tagApi = setupDropdown(tagDropdown, (value) => {
+      tagValue = value;
+      applyFilters();
+      syncUrl();
+    });
+
+    categoryPill.querySelector('.filter-pill-x').addEventListener('click', () => {
+      categoryValue = '';
+      categoryApi.setValue('');
+      applyFilters();
+      syncUrl();
+    });
+    tagPill.querySelector('.filter-pill-x').addEventListener('click', () => {
+      tagValue = '';
+      tagApi.setValue('');
+      applyFilters();
+      syncUrl();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!categoryDropdown.contains(e.target) && !tagDropdown.contains(e.target)) closeAllDropdowns();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAllDropdowns();
+    });
+
+    const params = new URLSearchParams(window.location.search);
+    if (params.get('category')) {
+      categoryValue = params.get('category');
+      categoryApi.setValue(categoryValue);
+    }
+    if (params.get('tag')) {
+      tagValue = params.get('tag');
+      tagApi.setValue(tagValue);
+    }
     applyFilters();
   }
 
