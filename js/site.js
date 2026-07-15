@@ -421,6 +421,30 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .filter(w => w.path);
 
+    // The stats section's wave is a clipPath (objectBoundingBox, 0-1 space)
+    // driving a real CSS-background div rather than an SVG fill, so its
+    // grid renders at true pixels instead of being squeezed through the
+    // divider's non-uniform viewBox scale (see .stats-wave-fill). It still
+    // rides the same drift system as the rest, just normalized to 0-1.
+    const statsClipPath = document.querySelector('#statsWaveClip path');
+    const statsWaveFill = document.querySelector('.stats-wave-fill');
+    if (statsClipPath && statsWaveFill) {
+      waves.push({
+        svg: statsWaveFill,
+        path: statsClipPath,
+        visible: true,
+        normalized: true,
+        phase1: 1.2,
+        phase2: 2.4,
+        speed1: 0.35,
+        speed2: 0.5,
+        freqRatio: 1.6,
+        ampMain: 25,
+        ampRatio: 0.35,
+        cyclesMult: 1.1,
+      });
+    }
+
     if ('IntersectionObserver' in window) {
       const waveIo = new IntersectionObserver((entries) => {
         entries.forEach(entry => {
@@ -461,8 +485,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // curve through all of them, instead of the faceted look of straight
     // segments — this is what gives it the same curvy feel as the original
     // hand-drawn dividers.
-    const smoothPath = (pts) => {
-      let d = 'M' + pts[0][0].toFixed(1) + ',' + pts[0][1].toFixed(1);
+    const smoothPath = (pts, precision) => {
+      let d = 'M' + pts[0][0].toFixed(precision) + ',' + pts[0][1].toFixed(precision);
       const n = pts.length;
       for (let i = 0; i < n - 1; i++) {
         const p0 = pts[i === 0 ? 0 : i - 1];
@@ -473,13 +497,20 @@ document.addEventListener('DOMContentLoaded', () => {
         const c1y = p1[1] + (p2[1] - p0[1]) / 6;
         const c2x = p2[0] - (p3[0] - p1[0]) / 6;
         const c2y = p2[1] - (p3[1] - p1[1]) / 6;
-        d += 'C' + c1x.toFixed(1) + ',' + c1y.toFixed(1) + ' ' + c2x.toFixed(1) + ',' + c2y.toFixed(1) + ' ' + p2[0].toFixed(1) + ',' + p2[1].toFixed(1);
+        d += 'C' + c1x.toFixed(precision) + ',' + c1y.toFixed(precision) + ' ' + c2x.toFixed(precision) + ',' + c2y.toFixed(precision) + ' ' + p2[0].toFixed(precision) + ',' + p2[1].toFixed(precision);
       }
       return d;
     };
 
     const buildWavePath = (w) => {
+      // Normalized waves (the stats clipPath) are built in the same 1440x100
+      // space as everyone else, then scaled to 0-1 at the end - keeps the
+      // amplitude/frequency tuning above meaningful in both coordinate
+      // spaces instead of needing a second set of tiny numbers.
       const W = 1440, MID = 45, N = 72;
+      const sx = w.normalized ? 1 / W : 1;
+      const sy = w.normalized ? 1 / 100 : 1;
+      const precision = w.normalized ? 4 : 1;
       const ampSecondary = w.ampMain * w.ampRatio;
       const pts = [];
       for (let i = 0; i <= N; i++) {
@@ -490,9 +521,10 @@ document.addEventListener('DOMContentLoaded', () => {
         const y = MID
           + w.ampMain * Math.sin(t * Math.PI * 2 * w.cyclesMult + w.phase1)
           + ampSecondary * Math.sin(t * Math.PI * 2 * w.cyclesMult * w.freqRatio + w.phase2);
-        pts.push([x, y]);
+        pts.push([x * sx, y * sy]);
       }
-      return smoothPath(pts) + 'L' + W + ',100L0,100Z';
+      const endX = (W * sx).toFixed(precision), endY = (100 * sy).toFixed(precision), startY = (0).toFixed(precision);
+      return smoothPath(pts, precision) + 'L' + endX + ',' + endY + 'L' + startY + ',' + endY + 'Z';
     };
 
     let prevFrame = performance.now();
