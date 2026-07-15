@@ -452,7 +452,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // half-connected graph reads as broken rather than intentional.
   const networkSections = Array.from(document.querySelectorAll('.section-dark-dotted'));
   if (networkSections.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const CONNECT_DIST = 150;
+    const CONNECT_DIST = 175;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
 
     const networks = networkSections.map((section) => {
@@ -465,13 +465,29 @@ document.addEventListener('DOMContentLoaded', () => {
 
     const seedNodes = (net) => {
       const area = net.width * net.height;
-      const count = Math.max(12, Math.min(55, Math.round(area / 16000)));
-      net.nodes = Array.from({ length: count }, () => ({
-        x: Math.random() * net.width,
-        y: Math.random() * net.height,
-        vx: (Math.random() - 0.5) * 10,
-        vy: (Math.random() - 0.5) * 10,
-      }));
+      const count = Math.max(24, Math.min(110, Math.round(area / 8500)));
+      // Jittered grid rather than pure random placement: a handful of random
+      // draws can clump by chance and leave a whole edge (often the right
+      // side, on a wide section) looking empty. Spreading one node per cell
+      // - with randomness only inside the cell - guarantees even coverage
+      // edge to edge while still looking organic rather than gridded.
+      const cols = Math.max(1, Math.round(Math.sqrt((count * net.width) / net.height)));
+      const rows = Math.max(1, Math.ceil(count / cols));
+      const cellW = net.width / cols;
+      const cellH = net.height / rows;
+      const nodes = [];
+      for (let r = 0; r < rows; r++) {
+        for (let c = 0; c < cols; c++) {
+          if (nodes.length >= count) break;
+          nodes.push({
+            x: c * cellW + Math.random() * cellW,
+            y: r * cellH + Math.random() * cellH,
+            vx: (Math.random() - 0.5) * 10,
+            vy: (Math.random() - 0.5) * 10,
+          });
+        }
+      }
+      net.nodes = nodes;
     };
 
     const resize = (net) => {
