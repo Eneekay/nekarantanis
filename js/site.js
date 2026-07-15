@@ -444,4 +444,112 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     requestAnimationFrame(tick);
   }
+
+  // Network canvas: a faint, slow-drifting node graph layered over each dark
+  // dotted section, behind the real content - same discreet, minimal feel as
+  // the static dot texture already there, just gently alive. Skipped
+  // entirely under reduced motion rather than shown static, since a frozen
+  // half-connected graph reads as broken rather than intentional.
+  const networkSections = Array.from(document.querySelectorAll('.section-dark-dotted'));
+  if (networkSections.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const CONNECT_DIST = 150;
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+
+    const networks = networkSections.map((section) => {
+      const canvas = document.createElement('canvas');
+      canvas.className = 'network-canvas';
+      canvas.setAttribute('aria-hidden', 'true');
+      section.insertBefore(canvas, section.firstChild);
+      return { section, canvas, ctx: canvas.getContext('2d'), nodes: [], visible: true, width: 0, height: 0 };
+    });
+
+    const seedNodes = (net) => {
+      const area = net.width * net.height;
+      const count = Math.max(12, Math.min(55, Math.round(area / 16000)));
+      net.nodes = Array.from({ length: count }, () => ({
+        x: Math.random() * net.width,
+        y: Math.random() * net.height,
+        vx: (Math.random() - 0.5) * 10,
+        vy: (Math.random() - 0.5) * 10,
+      }));
+    };
+
+    const resize = (net) => {
+      const rect = net.section.getBoundingClientRect();
+      if (rect.width < 1 || rect.height < 1) return;
+      net.width = rect.width;
+      net.height = rect.height;
+      net.canvas.width = rect.width * dpr;
+      net.canvas.height = rect.height * dpr;
+      net.ctx.setTransform(dpr, 0, 0, dpr, 0, 0);
+      seedNodes(net);
+    };
+
+    networks.forEach(resize);
+    // Web fonts loading can reflow section heights after the initial layout
+    // pass; re-measure once they've settled so canvases aren't stuck at a
+    // stale size.
+    if (document.fonts && document.fonts.ready) {
+      document.fonts.ready.then(() => networks.forEach(resize));
+    }
+
+    let netResizeTimer;
+    window.addEventListener('resize', () => {
+      clearTimeout(netResizeTimer);
+      netResizeTimer = setTimeout(() => networks.forEach(resize), 200);
+    });
+
+    if ('IntersectionObserver' in window) {
+      const netIo = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const net = networks.find((n) => n.canvas === entry.target);
+          if (net) net.visible = entry.isIntersecting;
+        });
+      });
+      networks.forEach((net) => netIo.observe(net.canvas));
+    }
+
+    let netPrevT = performance.now();
+    const netTick = (now) => {
+      const dt = Math.min((now - netPrevT) / 1000, 0.1);
+      netPrevT = now;
+      networks.forEach((net) => {
+        if (!net.visible || !net.nodes.length) return;
+        const { ctx, width, height, nodes } = net;
+        nodes.forEach((n) => {
+          n.x += n.vx * dt;
+          n.y += n.vy * dt;
+          if (n.x < 0) { n.x = 0; n.vx *= -1; }
+          if (n.x > width) { n.x = width; n.vx *= -1; }
+          if (n.y < 0) { n.y = 0; n.vy *= -1; }
+          if (n.y > height) { n.y = height; n.vy *= -1; }
+        });
+
+        ctx.clearRect(0, 0, width, height);
+        for (let i = 0; i < nodes.length; i++) {
+          for (let j = i + 1; j < nodes.length; j++) {
+            const dx = nodes[i].x - nodes[j].x;
+            const dy = nodes[i].y - nodes[j].y;
+            const dist = Math.sqrt(dx * dx + dy * dy);
+            if (dist < CONNECT_DIST) {
+              ctx.strokeStyle = 'rgba(234, 235, 236,' + (0.16 * (1 - dist / CONNECT_DIST)) + ')';
+              ctx.lineWidth = 1;
+              ctx.beginPath();
+              ctx.moveTo(nodes[i].x, nodes[i].y);
+              ctx.lineTo(nodes[j].x, nodes[j].y);
+              ctx.stroke();
+            }
+          }
+        }
+        ctx.fillStyle = 'rgba(234, 235, 236, 0.4)';
+        nodes.forEach((n) => {
+          ctx.beginPath();
+          ctx.arc(n.x, n.y, 1.6, 0, Math.PI * 2);
+          ctx.fill();
+        });
+      });
+      requestAnimationFrame(netTick);
+    };
+    requestAnimationFrame(netTick);
+  }
 });
