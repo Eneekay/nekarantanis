@@ -192,6 +192,59 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Stat counters: every [data-count-to] inside a [data-count-group] counts
+  // up from 0 together, sharing one start time and duration so - regardless
+  // of how large each individual number is - they all land on their final
+  // value at the same moment.
+  const countGroups = document.querySelectorAll('[data-count-group]');
+  if (countGroups.length) {
+    const countReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    const COUNT_DURATION = 1400;
+    const easeOutCubic = t => 1 - Math.pow(1 - t, 3);
+
+    const renderCount = (el, value) => {
+      const prefix = el.dataset.countPrefix || '';
+      const suffix = el.dataset.countSuffix || '';
+      const formatted = value >= 1000 ? value.toLocaleString('en-GB') : String(value);
+      el.textContent = prefix + formatted + suffix;
+    };
+
+    const animateGroup = (group) => {
+      const counters = Array.from(group.querySelectorAll('[data-count-to]'));
+      if (!counters.length) return;
+      const targets = counters.map(el => parseFloat(el.dataset.countTo));
+
+      if (countReduceMotion) {
+        counters.forEach((el, i) => renderCount(el, targets[i]));
+        return;
+      }
+
+      counters.forEach(el => { el.style.opacity = '1'; });
+      const start = performance.now();
+      const tick = (now) => {
+        const progress = Math.min((now - start) / COUNT_DURATION, 1);
+        const eased = easeOutCubic(progress);
+        counters.forEach((el, i) => renderCount(el, Math.round(targets[i] * eased)));
+        if (progress < 1) requestAnimationFrame(tick);
+      };
+      requestAnimationFrame(tick);
+    };
+
+    if ('IntersectionObserver' in window) {
+      const countIo = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            animateGroup(entry.target);
+            countIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.3 });
+      countGroups.forEach(g => countIo.observe(g));
+    } else {
+      countGroups.forEach(animateGroup);
+    }
+  }
+
   const nav = document.getElementById('siteNav');
   if (nav) {
     const syncNavHeight = () => document.documentElement.style.setProperty('--nav-h', nav.getBoundingClientRect().height + 'px');

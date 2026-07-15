@@ -484,6 +484,7 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
    JS is confirmed running (via the early .js-tw class), so a no-JS visitor
    still gets the plain text with no dependency on the animation at all. */
 .js-tw [data-typewriter] { opacity: 0; }
+.js-tw [data-count-to] { opacity: 0; }
 
 .tw-char { color: inherit; }
 .tw-char--pending { opacity: 0; }
