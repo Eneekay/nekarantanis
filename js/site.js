@@ -1,4 +1,19 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // The hero intro's one-shot entrance animations use fill-mode `both` so
+  // the button holds its final position during the delay and doesn't snap
+  // back afterwards - but that same fill-mode keeps the animation "in
+  // effect" on `transform` forever, which silently blocks the ordinary
+  // hover-lift transition every other button on the site has. Release it
+  // once the entrance animation actually finishes.
+  document.querySelectorAll('.hero-btn-left, .hero-btn-blog, .hero-btn-right, .scroll-hint').forEach((el) => {
+    el.addEventListener('animationend', (e) => {
+      if (e.animationName === 'scrollBounce') return; // still running - leave it alone
+      el.style.animation = el.classList.contains('scroll-hint')
+        ? 'scrollBounce 1.8s ease-in-out infinite'
+        : 'none';
+    });
+  });
+
   // Position-aware entrance direction for [data-reveal-grid] cards: whatever
   // sits at the left/right edge of its rendered row slides in from that
   // side, anything else (a middle column, or a lone item stacked into a
