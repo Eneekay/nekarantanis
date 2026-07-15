@@ -222,8 +222,8 @@ h1, h2, h3, h4 {
 .section-light-grid {
   background-color: var(--nk-c3);
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.028) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.028) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
   background-size: 24px 24px;
 }
 /* Sits where the header's wave-divider used to, clipped to the same wave
@@ -240,10 +240,10 @@ h1, h2, h3, h4 {
   height: 64px;
   z-index: 1;
   clip-path: url(#statsWaveClip);
-  background-color: color-mix(in srgb, var(--nk-c3) 91%, black 9%);
+  background-color: var(--nk-c3);
   background-image:
-    linear-gradient(rgba(0, 0, 0, 0.02) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.02) 1px, transparent 1px);
+    linear-gradient(rgba(0, 0, 0, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
   background-size: 24px 24px;
   background-position: 0 -8px;
 }
