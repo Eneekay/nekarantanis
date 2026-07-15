@@ -416,8 +416,13 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .post-cta-blob-2    { position: absolute; bottom: -70px; right: -50px; width: 240px; height: 240px; opacity: 0.06; z-index: 0; }
 
 @keyframes blob-float {
-  0%, 100% { transform: translate(0, 0) scale(1); }
-  50% { transform: translate(14px, -12px) scale(1.045); }
+  0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
+  18%  { transform: translate(26px, -22px) scale(1.08) rotate(4deg); }
+  34%  { transform: translate(-18px, -34px) scale(0.94) rotate(-3deg); }
+  52%  { transform: translate(-32px, 14px) scale(1.1) rotate(6deg); }
+  71%  { transform: translate(14px, 30px) scale(0.92) rotate(-5deg); }
+  88%  { transform: translate(24px, 8px) scale(1.05) rotate(2deg); }
+  100% { transform: translate(0, 0) scale(1) rotate(0deg); }
 }
 .about-header-blob, .blog-header-blob, .home-hero-blob-1, .home-hero-blob-2,
 .post-cta-blob-1, .post-cta-blob-2 {
