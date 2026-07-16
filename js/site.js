@@ -308,6 +308,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // of how large each individual number is - they all land on their final
   // value at the same moment.
   const countGroups = document.querySelectorAll('[data-count-group]');
+  // Read by the network canvas below: counting writes 8 elements' textContent
+  // every frame for its whole 1.4s run, and on the home page that window
+  // often lands while the hero (behind the sliding stats cover) hasn't
+  // scrolled fully out of view yet, so its node-network canvas is still
+  // redrawing too - two independent per-frame animators competing for the
+  // same main thread right as the numbers land is a plausible source of a
+  // dropped frame on slower hardware. Pausing the canvas for that one short
+  // window costs nothing visible (it just holds its last frame briefly).
+  let statsCounting = false;
   if (countGroups.length) {
     const countReduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     const COUNT_DURATION = 1400;
@@ -331,6 +340,7 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       counters.forEach(el => { el.style.opacity = '1'; });
+      statsCounting = true;
       const start = performance.now();
       const tick = (now) => {
         const progress = Math.min((now - start) / COUNT_DURATION, 1);
@@ -339,6 +349,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (progress < 1) {
           requestAnimationFrame(tick);
         } else {
+          statsCounting = false;
           // Little punctuation mark once every number has landed: a quick
           // scale bounce so the figures pop rather than just stopping dead.
           counters.forEach(el => {
@@ -605,8 +616,12 @@ document.addEventListener('DOMContentLoaded', () => {
     // enough to completely hide it - so without this, its network canvas
     // would keep computing every node pair and redrawing every frame the
     // entire time, for a section that's 100% invisible behind an opaque
-    // overlay. That's wasted main-thread work stacking up right as the
-    // stat counters (their own per-frame DOM writes) are also running,
+    // overlay. Also paused for as long as `statsCounting` is true: the
+    // counters can land while the hero is only partly covered (the user
+    // stopped scrolling before the cover fully slid over it), so the
+    // canvas's O(n^2) distance/line-draw pass would otherwise keep running
+    // at full cost on the same frame as 8 counters' textContent writes -
+    // two independent per-frame animators competing for one main thread,
     // worth skipping outright rather than paying for on a slower device.
     const heroNet = networks.find((n) => n.section.classList.contains('hero-sticky'));
     let heroCoverThreshold = Infinity;
@@ -687,7 +702,7 @@ document.addEventListener('DOMContentLoaded', () => {
       netPrevT = now;
       networks.forEach((net) => {
         if (!net.visible || !net.nodes.length) return;
-        if (net === heroNet && window.scrollY >= heroCoverThreshold) return;
+        if (net === heroNet && (window.scrollY >= heroCoverThreshold || statsCounting)) return;
         const { ctx, width, height, nodes } = net;
         nodes.forEach((n) => {
           n.x += n.vx * dt;
