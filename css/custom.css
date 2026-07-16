@@ -261,6 +261,30 @@ h1, h2, h3, h4 {
   flex-direction: column;
   justify-content: center;
 }
+/* Sits behind .pin-cover-wave-fill, matching the pinned header's own
+   background (every header on the site is .section-dark-dotted, so one
+   colour covers all of them) - not just a nicety, this is load-bearing:
+   the wave's "notches" are only actually revealing the real pinned
+   header once you've scrolled far enough for its sticky pin to be
+   engaged. On a header shorter than the viewport (About, Blog, every
+   post - only Home's fills the screen via min-vh-100), the wave zone is
+   visible immediately at scroll position 0, before any scrolling - and
+   at that moment the real header's own box has already ended, so
+   without this the notches exposed the page's plain body background
+   instead (reported as a grey gap where the wave should read as "the
+   header showing through"). This sits at the same z-index tier as
+   .pin-cover-body-fill, behind the wave-fill, so it's invisible wherever
+   the wave is filled and only shows in the notches, exactly like the
+   pinned header would once scrolling actually starts. */
+.pin-cover-notch-fill {
+  position: absolute;
+  top: -1px;
+  left: 0;
+  width: 100%;
+  height: 65px;
+  z-index: -1;
+  background: var(--nk-c0);
+}
 /* Sits at the top of a .pin-cover-section, clipped to a wave silhouette
    via the page's own #pinCoverWaveClip - a real background rather than
    an SVG pattern squeezed through a divider's non-uniform viewBox scale,
