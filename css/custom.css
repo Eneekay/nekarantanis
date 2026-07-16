@@ -263,7 +263,7 @@ h1, h2, h3, h4 {
 }
 /* Sits behind .pin-cover-wave-fill, matching the pinned header's own
    background (every header on the site is .section-dark-dotted, so one
-   colour covers all of them) - not just a nicety, this is load-bearing:
+   texture covers all of them) - not just a nicety, this is load-bearing:
    the wave's "notches" are only actually revealing the real pinned
    header once you've scrolled far enough for its sticky pin to be
    engaged. On a header shorter than the viewport (About, Blog, every
@@ -275,7 +275,15 @@ h1, h2, h3, h4 {
    header showing through"). This sits at the same z-index tier as
    .pin-cover-body-fill, behind the wave-fill, so it's invisible wherever
    the wave is filled and only shows in the notches, exactly like the
-   pinned header would once scrolling actually starts. */
+   pinned header would once scrolling actually starts.
+   The dotted texture is copied from .section-dark-dotted rather than
+   sharing that class directly, since site.js inserts an animated network
+   canvas into every element with that class - this is a thin decorative
+   sliver, not a real content section, and doesn't want its own canvas.
+   It can't replicate the network canvas's animated lines, only the
+   static dots, but a notch is only ever a sliver of the 65px wave zone,
+   so the plain dots alone are enough to stop the flat-colour seam this
+   was reported over. */
 .pin-cover-notch-fill {
   position: absolute;
   top: -1px;
@@ -283,7 +291,9 @@ h1, h2, h3, h4 {
   width: 100%;
   height: 65px;
   z-index: -1;
-  background: var(--nk-c0);
+  background-color: var(--nk-c0);
+  background-image: radial-gradient(rgba(255, 255, 255, 0.05) 1px, transparent 1px);
+  background-size: 24px 24px;
 }
 /* Sits at the top of a .pin-cover-section, clipped to a wave silhouette
    via the page's own #pinCoverWaveClip - a real background rather than
