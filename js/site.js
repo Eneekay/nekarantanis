@@ -458,14 +458,8 @@ document.addEventListener('DOMContentLoaded', () => {
     // grid renders at true pixels instead of being squeezed through the
     // divider's non-uniform viewBox scale (see .stats-wave-fill). It still
     // rides the same drift system as the rest, just normalized to 0-1.
-    // Its shadow (see .stats-wave-shadow in custom.css) is a second,
-    // separate path tracing the same curve in the un-normalized 1440x100
-    // space, but its 'd' is intentionally left static (set once in the
-    // HTML) rather than kept in sync with this animated one every frame -
-    // recomputing a drop-shadow filter against a constantly-changing path
-    // is expensive, and cheap to avoid here since the shadow is a soft,
-    // secondary effect that doesn't need to track the live wave exactly
-    // to still read correctly.
+    // Its shadow onto the hero is a plain static CSS gradient (see
+    // .stats-cover-shadow in custom.css), not something driven from here.
     const statsClipPath = document.querySelector('#statsWaveClip path');
     const statsWaveFill = document.querySelector('.stats-wave-fill');
     if (statsClipPath && statsWaveFill) {

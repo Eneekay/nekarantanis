@@ -251,37 +251,26 @@ h1, h2, h3, h4 {
   background-size: 24px 24px;
   background-position: 0 -8px;
 }
-/* Casts the shadow that .stats-wave-fill's own wave edge falls onto the
-   hero. This has to be a SEPARATE element with a native SVG fill, not a
-   second filter on .stats-wave-fill itself: `clip-path` and
-   `filter: drop-shadow` on the same element suppress the shadow entirely
-   in testing (drop-shadow alone works, clip-path alone works, together
-   the shadow silently vanishes). Sitting one z-index behind the visible
-   grid fill, its own solid body is completely hidden underneath it - only
-   the shadow, which drop-shadow renders outside the shape's own bounds,
-   ever becomes visible, bleeding up onto the pinned hero behind it.
-
-   A wrapping overflow:hidden clip (tried first) doesn't work here: once
-   it hides the part of the shape the shadow is anchored to (which lives
-   on the stats side, below the clip boundary), the browser seems to
-   drop the filter's output along with it rather than still projecting
-   the shadow into the visible region above. So instead the offset/blur
-   themselves are tuned so the shadow simply doesn't reach past the wave
-   edge downward in the first place: a big negative y-offset (-14px)
-   with a small blur radius (6px) keeps its whole spread on the upward
-   side, rather than relying on -8px/26px's much wider, symmetric blur. */
-.stats-wave-shadow {
+/* A soft, static darkening the wave's edge casts onto the pinned hero -
+   plain CSS, no JS, no per-frame cost. Earlier attempts drove an actual
+   SVG drop-shadow filter from the same animated curve as the visible
+   wave, but that needs the shadow shape to stay pixel-matched to
+   whatever the live wave currently looks like: recomputing the filter
+   against a constantly-changing path every frame was expensive enough
+   to jank on Firefox mobile, and freezing it to save that cost instead
+   exposed its own solid (now-mismatched) body as a static grey wave
+   under the real one. A flat gradient sidesteps both problems entirely
+   - it never needs to match the curve's exact shape to read as "a
+   shadow near this boundary", so there's nothing to keep in sync. */
+.stats-cover-shadow {
   position: absolute;
   left: 0;
-  top: -1px;
+  top: -46px;
+  height: 46px;
   width: 100%;
-  height: 65px;
   z-index: 0;
-  overflow: visible;
   pointer-events: none;
-}
-.stats-wave-shadow path {
-  filter: drop-shadow(0 -14px 6px rgba(0, 0, 0, 0.85));
+  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.32));
 }
 
 /* ---------- hero pin + cover reveal ----------
