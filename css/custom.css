@@ -251,26 +251,41 @@ h1, h2, h3, h4 {
   background-size: 24px 24px;
   background-position: 0 -8px;
 }
-/* A soft, static darkening the wave's edge casts onto the pinned hero -
-   plain CSS, no JS, no per-frame cost. Earlier attempts drove an actual
-   SVG drop-shadow filter from the same animated curve as the visible
-   wave, but that needs the shadow shape to stay pixel-matched to
-   whatever the live wave currently looks like: recomputing the filter
-   against a constantly-changing path every frame was expensive enough
-   to jank on Firefox mobile, and freezing it to save that cost instead
-   exposed its own solid (now-mismatched) body as a static grey wave
-   under the real one. A flat gradient sidesteps both problems entirely
-   - it never needs to match the curve's exact shape to read as "a
-   shadow near this boundary", so there's nothing to keep in sync. */
+/* The wave's shadow onto the pinned hero, built from the same shared
+   #statsWaveClip the visible wave itself uses (see .stats-wave-fill above)
+   rather than an independent shape: a flat gradient here mismatches the
+   real curve badly, since the wave dips and crests significantly rather
+   than sitting at one height - a rectangle darkening a fixed band above
+   the section's top edge only lines up with the wave's highest points,
+   leaving a visible gap everywhere it dips lower. An SVG drop-shadow
+   filter tracing the live path was tried too, but filter and clip-path
+   suppress each other on the same element, and a second filtered element
+   either needed the same expensive per-frame path recompute the visible
+   wave already pays for (jank on Firefox mobile) or, frozen, drifted out
+   of sync with the live wave and showed its own solid body as a
+   mismatched second wave. Reusing the *same* <clipPath> element sidesteps
+   all of it: every element clipped by url(#statsWaveClip) re-clips itself
+   whenever that shared path's 'd' changes, for free, with no extra JS.
+   Two copies of the same shape - offset upward by different amounts, at
+   z-index 0 below the real wave-fill (z-index 1) so only the parts that
+   peek out above it ever show - fade out the further they sit, reading as
+   a soft shadow that always traces the actual current curve. */
 .stats-cover-shadow {
   position: absolute;
   left: 0;
-  top: -46px;
-  height: 46px;
   width: 100%;
+  height: 65px;
   z-index: 0;
   pointer-events: none;
-  background: linear-gradient(to bottom, transparent, rgba(0, 0, 0, 0.32));
+  clip-path: url(#statsWaveClip);
+  background: rgba(0, 0, 0, 0.32);
+}
+.stats-cover-shadow--far {
+  top: -23px;
+  opacity: 0.45;
+}
+.stats-cover-shadow--near {
+  top: -11px;
 }
 
 /* ---------- hero pin + cover reveal ----------
