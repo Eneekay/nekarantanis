@@ -403,11 +403,25 @@ document.addEventListener('DOMContentLoaded', () => {
   // hero's real content taller than that.
   const heroSticky = document.querySelector('.hero-sticky');
   if (heroSticky) {
+    let heroSyncWidth = window.innerWidth;
     const syncHeroHeight = () => {
       document.documentElement.style.setProperty('--hero-h', heroSticky.getBoundingClientRect().height + 'px');
     };
     syncHeroHeight();
-    window.addEventListener('resize', syncHeroHeight);
+    // Mobile browsers fire resize repeatedly as their address bar hides
+    // and shows *during* scroll, changing the reported viewport height
+    // (and so the hero's own min-vh-100 height) without the page
+    // actually being resized. Reacting to that would yank --hero-h -
+    // and with it the wrap's height and the stats section's negative
+    // margin/min-height - around mid-scroll, which reads as the whole
+    // section repeatedly jerking. A genuine resize or orientation change
+    // always changes the width too, so only that is trusted here.
+    window.addEventListener('resize', () => {
+      if (window.innerWidth !== heroSyncWidth) {
+        heroSyncWidth = window.innerWidth;
+        syncHeroHeight();
+      }
+    });
     if (document.fonts && document.fonts.ready) {
       document.fonts.ready.then(syncHeroHeight);
     }
