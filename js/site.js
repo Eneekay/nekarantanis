@@ -459,18 +459,19 @@ document.addEventListener('DOMContentLoaded', () => {
     // divider's non-uniform viewBox scale (see .stats-wave-fill). It still
     // rides the same drift system as the rest, just normalized to 0-1.
     // Its shadow (see .stats-wave-shadow in custom.css) is a second,
-    // separate path tracing the exact same curve in the un-normalized
-    // 1440x100 space - driven from this same wave entry each frame so the
-    // two never drift out of sync, even though they're rendered two
-    // completely different ways (a CSS clip-path vs a native SVG fill).
+    // separate path tracing the same curve in the un-normalized 1440x100
+    // space, but its 'd' is intentionally left static (set once in the
+    // HTML) rather than kept in sync with this animated one every frame -
+    // recomputing a drop-shadow filter against a constantly-changing path
+    // is expensive, and cheap to avoid here since the shadow is a soft,
+    // secondary effect that doesn't need to track the live wave exactly
+    // to still read correctly.
     const statsClipPath = document.querySelector('#statsWaveClip path');
     const statsWaveFill = document.querySelector('.stats-wave-fill');
-    const statsShadowPath = document.querySelector('.stats-wave-shadow path');
     if (statsClipPath && statsWaveFill) {
       waves.push({
         svg: statsWaveFill,
         path: statsClipPath,
-        shadowPath: statsShadowPath,
         visible: true,
         normalized: true,
         phase1: 1.2,
@@ -541,18 +542,15 @@ document.addEventListener('DOMContentLoaded', () => {
       return d;
     };
 
-    const buildWavePath = (w, normalizedOverride) => {
+    const buildWavePath = (w) => {
       // Normalized waves (the stats clipPath) are built in the same 1440x100
       // space as everyone else, then scaled to 0-1 at the end - keeps the
       // amplitude/frequency tuning above meaningful in both coordinate
-      // spaces instead of needing a second set of tiny numbers. The
-      // override lets one wave entry drive a second, un-normalized path
-      // (the stats shadow) from the same phase state.
-      const normalized = normalizedOverride === undefined ? w.normalized : normalizedOverride;
+      // spaces instead of needing a second set of tiny numbers.
       const W = 1440, MID = 45, N = 72;
-      const sx = normalized ? 1 / W : 1;
-      const sy = normalized ? 1 / 100 : 1;
-      const precision = normalized ? 4 : 1;
+      const sx = w.normalized ? 1 / W : 1;
+      const sy = w.normalized ? 1 / 100 : 1;
+      const precision = w.normalized ? 4 : 1;
       const ampSecondary = w.ampMain * w.ampRatio;
       const pts = [];
       for (let i = 0; i <= N; i++) {
@@ -582,10 +580,7 @@ document.addEventListener('DOMContentLoaded', () => {
       waves.forEach(w => {
         w.phase1 += w.speed1 * rate * dt;
         w.phase2 += w.speed2 * rate * dt;
-        if (w.visible) {
-          w.path.setAttribute('d', buildWavePath(w));
-          if (w.shadowPath) w.shadowPath.setAttribute('d', buildWavePath(w, false));
-        }
+        if (w.visible) w.path.setAttribute('d', buildWavePath(w));
       });
       requestAnimationFrame(tick);
     };
