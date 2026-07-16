@@ -228,10 +228,13 @@ h1, h2, h3, h4 {
   background-size: 24px 24px;
 }
 /* ---------- pin + cover header reveal ----------
-   Used by every page header (Home, About, Blog, and post pages): the
-   header stays pinned at the top of the viewport while the section
-   immediately following it slides up and covers it as you scroll,
-   releasing the pin the instant that section finishes covering it.
+   Used by the home hero: the header stays pinned at the top of the
+   viewport while the section immediately following it slides up and
+   covers it as you scroll, releasing the pin the instant that section
+   finishes covering it. Named generically (not .hero-*) because this
+   was rolled out to every page header at one point and pulled back to
+   just the home hero - the class names were left as-is rather than
+   reverted, since there's no reason a future header couldn't reuse them.
    --pin-cover-h is measured in JS (site.js) from the header's real
    rendered height rather than assumed to be a fixed 100vh, since very
    short or zoomed viewports can make its actual content taller than
@@ -262,28 +265,25 @@ h1, h2, h3, h4 {
   justify-content: center;
 }
 /* Sits behind .pin-cover-wave-fill, matching the pinned header's own
-   background (every header on the site is .section-dark-dotted, so one
-   texture covers all of them) - not just a nicety, this is load-bearing:
-   the wave's "notches" are only actually revealing the real pinned
-   header once you've scrolled far enough for its sticky pin to be
-   engaged. On a header shorter than the viewport (About, Blog, every
-   post - only Home's fills the screen via min-vh-100), the wave zone is
-   visible immediately at scroll position 0, before any scrolling - and
-   at that moment the real header's own box has already ended, so
-   without this the notches exposed the page's plain body background
-   instead (reported as a grey gap where the wave should read as "the
-   header showing through"). This sits at the same z-index tier as
+   .section-dark-dotted background - not just a nicety, this is
+   load-bearing: the wave's "notches" are only actually revealing the
+   real pinned header once you've scrolled far enough for its sticky pin
+   to be engaged. On a header shorter than the viewport, the wave zone
+   would be visible immediately at scroll position 0, before any
+   scrolling - and at that moment the real header's own box has already
+   ended, so without this the notches would expose the page's plain body
+   background instead (surfaced as a grey gap, back when this same
+   mechanism briefly ran on About/Blog/post headers too, which are that
+   shorter, content-height case; the home hero's own min-vh-100 height
+   means this exact gap never actually shows here, but the fill still
+   costs nothing and keeps the notches correct if the hero's height
+   assumptions ever change). Sits at the same z-index tier as
    .pin-cover-body-fill, behind the wave-fill, so it's invisible wherever
-   the wave is filled and only shows in the notches, exactly like the
-   pinned header would once scrolling actually starts.
+   the wave is filled and only shows in the notches.
    The dotted texture is copied from .section-dark-dotted rather than
    sharing that class directly, since site.js inserts an animated network
    canvas into every element with that class - this is a thin decorative
-   sliver, not a real content section, and doesn't want its own canvas.
-   It can't replicate the network canvas's animated lines, only the
-   static dots, but a notch is only ever a sliver of the 65px wave zone,
-   so the plain dots alone are enough to stop the flat-colour seam this
-   was reported over. */
+   sliver, not a real content section, and doesn't want its own canvas. */
 .pin-cover-notch-fill {
   position: absolute;
   top: -1px;
@@ -360,21 +360,6 @@ h1, h2, h3, h4 {
   right: 0;
   bottom: 0;
   z-index: -1;
-}
-/* .pin-cover-section centres its content vertically by default (Home's
-   stats, Blog's featured post: short blocks that should sit centred in
-   whatever space the pin/cover geometry gives them). Content that reads
-   top-down instead - About's subnav+leadership, a post's full article
-   body - wants to start right after the wave instead, however tall the
-   box ends up being, so this cancels the centering for those. */
-.pin-cover-section--flow {
-  display: block;
-}
-/* Pushes the sub-nav below the wave zone before the first sticky-nav
-   pixel starts, without adding that space permanently to the bar's own
-   height once it's later stuck under the main nav mid-scroll. */
-.pin-cover-subnav-pad {
-  padding-top: 64px;
 }
 /* Home's Impact Stats section pairs the generic .pin-cover-wave-fill
    with its own grid texture (matching .section-light-grid below it). The

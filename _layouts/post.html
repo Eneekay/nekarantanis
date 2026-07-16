@@ -2,8 +2,7 @@
 layout: default
 ---
 <!-- ARTICLE HEADER -->
-<div class="pin-cover-wrap">
-<header class="section-dark-dotted text-c3 position-relative overflow-hidden pin-cover-header">
+<header class="section-dark-dotted text-c3 position-relative overflow-hidden">
   <svg viewBox="0 0 200 200" class="post-header-blob">
     <circle cx="100" cy="100" r="100" fill="var(--nk-c1)"></circle>
   </svg>
@@ -16,20 +15,13 @@ layout: default
     <h1 class="fs-post-title fw-semibold text-c4 mb-3 typewriter--on-dark" data-typewriter>{{ page.title }}</h1>
     <div class="fs-14 text-faint-dark">{{ page.date | date: "%d %b %Y" }}</div>
   </div>
+  <svg class="wave-divider" viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c4"></path>
+  </svg>
 </header>
-</div>
 
 <!-- ARTICLE BODY -->
-<section class="position-relative overflow-hidden pin-cover-section pin-cover-section--flow">
-  <svg width="0" height="0" style="position: absolute">
-    <clipPath id="pinCoverWaveClip" clipPathUnits="objectBoundingBox">
-      <path d="M0,0.4 C0.1667,0.9 0.3333,0 0.5,0.4 C0.6667,0.8 0.8333,0.1 1,0.5 L1,1 L0,1 Z"></path>
-    </clipPath>
-  </svg>
-  <div class="pin-cover-notch-fill"></div>
-  <div class="pin-cover-shadow-blur"><div class="pin-cover-shadow"></div></div>
-  <div class="pin-cover-wave-fill bg-c4"></div>
-  <div class="bg-c4 pin-cover-body-fill"></div>
+<section class="bg-c4 position-relative overflow-hidden">
   <div class="container post-body-inner" data-reveal>
     {{ content }}
     <div class="d-flex flex-wrap gap-2 mt-4">
