@@ -610,6 +610,26 @@ document.addEventListener('DOMContentLoaded', () => {
       return { section, canvas, ctx: canvas.getContext('2d'), nodes: [], visible: true, width: 0, height: 0 };
     });
 
+    // The pinned hero stays "intersecting" the viewport (still occupying
+    // screen 0-height, per IntersectionObserver) for its whole pin
+    // duration, even once the Impact Stats section has scrolled up far
+    // enough to completely hide it - so without this, its network canvas
+    // would keep computing every node pair and redrawing every frame the
+    // entire time, for a section that's 100% invisible behind an opaque
+    // overlay. That's wasted main-thread work stacking up right as the
+    // stat counters (their own per-frame DOM writes) are also running,
+    // worth skipping outright rather than paying for on a slower device.
+    const heroNet = networks.find((n) => n.section.classList.contains('hero-sticky'));
+    let heroCoverThreshold = Infinity;
+    if (heroNet) {
+      const refreshHeroCoverThreshold = () => {
+        const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hero-h'));
+        heroCoverThreshold = isNaN(v) ? Infinity : v;
+      };
+      refreshHeroCoverThreshold();
+      window.addEventListener('resize', refreshHeroCoverThreshold);
+    }
+
     const seedNodes = (net) => {
       const area = net.width * net.height;
       const count = Math.max(24, Math.min(110, Math.round(area / 8500)));
@@ -678,6 +698,7 @@ document.addEventListener('DOMContentLoaded', () => {
       netPrevT = now;
       networks.forEach((net) => {
         if (!net.visible || !net.nodes.length) return;
+        if (net === heroNet && window.scrollY >= heroCoverThreshold) return;
         const { ctx, width, height, nodes } = net;
         nodes.forEach((n) => {
           n.x += n.vx * dt;
