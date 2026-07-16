@@ -363,8 +363,14 @@ h1, h2, h3, h4 {
 }
 /* Home's Impact Stats section pairs the generic .pin-cover-wave-fill
    with its own grid texture (matching .section-light-grid below it). The
-   -8px offset keeps its grid lines in phase with .section-light-grid's,
-   since this fill's 65px height isn't itself a multiple of 24px. */
+   -7px offset keeps its grid lines in phase with .section-light-grid's:
+   this fill sits 1px higher than the body-fill below it (top:-1px vs
+   top:64px, a 65px gap) and 65px isn't itself a multiple of 24px, so the
+   offset has to absorb that 1px too, not just round 65 down to the
+   nearest 24px step - off by exactly that 1px (as -8px was) put this
+   fill's last line and the body-fill's first line 1px apart instead of
+   coinciding, which rendered as a visibly thicker seam line rather than
+   the two lines merging into one. */
 .stats-wave-fill {
   background-color: #E5E5E6; /* fallback for browsers without color-mix() support */
   background-color: color-mix(in srgb, var(--nk-c3) 45%, white 55%);
@@ -372,7 +378,7 @@ h1, h2, h3, h4 {
     linear-gradient(rgba(0, 0, 0, 0.018) 1px, transparent 1px),
     linear-gradient(90deg, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
   background-size: 24px 24px;
-  background-position: 0 -8px;
+  background-position: 0 -7px;
 }
 .heading-rule { border-top: 3px solid var(--nk-c2); margin-top: 14px; }
 
