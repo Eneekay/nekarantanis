@@ -410,7 +410,7 @@ document.addEventListener('DOMContentLoaded', () => {
   const scrollHint = document.getElementById('scrollHint');
   if (scrollHint) {
     scrollHint.addEventListener('click', () => {
-      const hero = document.querySelector('.hero-sticky-wrap') || document.querySelector('header');
+      const hero = document.querySelector('.pin-cover-wrap') || document.querySelector('header');
       const next = hero ? hero.nextElementSibling : null;
       if (next) {
         const top = next.getBoundingClientRect().top + window.pageYOffset;
@@ -419,35 +419,36 @@ document.addEventListener('DOMContentLoaded', () => {
     });
   }
 
-  // Hero pin + cover: --hero-h drives .hero-sticky-wrap's height and
-  // .stats-cover's negative margin (see custom.css) so the hero stays
-  // pinned for exactly as long as it takes the Impact Stats section to
-  // slide up and fully cover it. Measured rather than assumed to be a
-  // fixed 100vh, since very short or zoomed viewports can make the
-  // hero's real content taller than that.
-  const heroSticky = document.querySelector('.hero-sticky');
-  if (heroSticky) {
-    let heroSyncWidth = window.innerWidth;
-    const syncHeroHeight = () => {
-      document.documentElement.style.setProperty('--hero-h', heroSticky.getBoundingClientRect().height + 'px');
+  // Pin + cover header: --pin-cover-h drives .pin-cover-wrap's height and
+  // .pin-cover-section's negative margin (see custom.css) so any page's
+  // header stays pinned for exactly as long as it takes the section
+  // immediately after it to slide up and fully cover it. Measured rather
+  // than assumed to be a fixed 100vh, since very short or zoomed
+  // viewports can make the header's real content taller than that. Only
+  // ever one such header per page, so a single shared variable is enough.
+  const pinCoverHeader = document.querySelector('.pin-cover-header');
+  if (pinCoverHeader) {
+    let pinCoverSyncWidth = window.innerWidth;
+    const syncPinCoverHeight = () => {
+      document.documentElement.style.setProperty('--pin-cover-h', pinCoverHeader.getBoundingClientRect().height + 'px');
     };
-    syncHeroHeight();
+    syncPinCoverHeight();
     // Mobile browsers fire resize repeatedly as their address bar hides
     // and shows *during* scroll, changing the reported viewport height
-    // (and so the hero's own min-vh-100 height) without the page
-    // actually being resized. Reacting to that would yank --hero-h -
-    // and with it the wrap's height and the stats section's negative
+    // (and so the header's own min-vh-100 height) without the page
+    // actually being resized. Reacting to that would yank --pin-cover-h -
+    // and with it the wrap's height and the cover section's negative
     // margin/min-height - around mid-scroll, which reads as the whole
     // section repeatedly jerking. A genuine resize or orientation change
     // always changes the width too, so only that is trusted here.
     window.addEventListener('resize', () => {
-      if (window.innerWidth !== heroSyncWidth) {
-        heroSyncWidth = window.innerWidth;
-        syncHeroHeight();
+      if (window.innerWidth !== pinCoverSyncWidth) {
+        pinCoverSyncWidth = window.innerWidth;
+        syncPinCoverHeight();
       }
     });
     if (document.fonts && document.fonts.ready) {
-      document.fonts.ready.then(syncHeroHeight);
+      document.fonts.ready.then(syncPinCoverHeight);
     }
   }
 
@@ -477,19 +478,18 @@ document.addEventListener('DOMContentLoaded', () => {
       })
       .filter(w => w.path);
 
-    // The stats section's wave is a clipPath (objectBoundingBox, 0-1 space)
-    // driving a real CSS-background div rather than an SVG fill, so its
-    // grid renders at true pixels instead of being squeezed through the
-    // divider's non-uniform viewBox scale (see .stats-wave-fill). It still
-    // rides the same drift system as the rest, just normalized to 0-1.
-    // Its shadow onto the hero is a plain static CSS gradient (see
-    // .stats-cover-shadow in custom.css), not something driven from here.
-    const statsClipPath = document.querySelector('#statsWaveClip path');
-    const statsWaveFill = document.querySelector('.stats-wave-fill');
-    if (statsClipPath && statsWaveFill) {
+    // A page's pin-cover header (see .pin-cover-section in custom.css) has
+    // its wave built as a clipPath (objectBoundingBox, 0-1 space) driving a
+    // real CSS-background div rather than an SVG fill, so its grid/dot
+    // texture renders at true pixels instead of being squeezed through a
+    // divider's non-uniform viewBox scale. It still rides the same drift
+    // system as the rest, just normalized to 0-1. Only ever one per page.
+    const pinCoverClipPath = document.querySelector('#pinCoverWaveClip path');
+    const pinCoverWaveFill = document.querySelector('.pin-cover-wave-fill');
+    if (pinCoverClipPath && pinCoverWaveFill) {
       waves.push({
-        svg: statsWaveFill,
-        path: statsClipPath,
+        svg: pinCoverWaveFill,
+        path: pinCoverClipPath,
         visible: true,
         normalized: true,
         phase1: 1.2,
@@ -623,24 +623,25 @@ document.addEventListener('DOMContentLoaded', () => {
       return { section, canvas, ctx: canvas.getContext('2d'), nodes: [], visible: true, width: 0, height: 0 };
     });
 
-    // The pinned hero stays "intersecting" the viewport (still occupying
-    // screen 0-height, per IntersectionObserver) for its whole pin
-    // duration, even once the Impact Stats section has scrolled up far
+    // A pinned pin-cover header stays "intersecting" the viewport (still
+    // occupying screen 0-height, per IntersectionObserver) for its whole
+    // pin duration, even once the section after it has scrolled up far
     // enough to completely hide it - so without this, its network canvas
     // would keep computing every node pair and redrawing every frame the
     // entire time, for a section that's 100% invisible behind an opaque
-    // overlay. Also paused for as long as `statsCounting` is true: the
-    // counters can land while the hero is only partly covered (the user
-    // stopped scrolling before the cover fully slid over it), so the
-    // canvas's O(n^2) distance/line-draw pass would otherwise keep running
-    // at full cost on the same frame as 8 counters' textContent writes -
-    // two independent per-frame animators competing for one main thread,
-    // worth skipping outright rather than paying for on a slower device.
-    const heroNet = networks.find((n) => n.section.classList.contains('hero-sticky'));
+    // overlay. Also paused for as long as `statsCounting` is true (Home
+    // only): its counters can land while the header is only partly
+    // covered (the user stopped scrolling before the cover fully slid
+    // over it), so the canvas's O(n^2) distance/line-draw pass would
+    // otherwise keep running at full cost on the same frame as 8
+    // counters' textContent writes - two independent per-frame animators
+    // competing for one main thread, worth skipping outright rather than
+    // paying for on a slower device.
+    const heroNet = networks.find((n) => n.section.classList.contains('pin-cover-header'));
     let heroCoverThreshold = Infinity;
     if (heroNet) {
       const refreshHeroCoverThreshold = () => {
-        const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--hero-h'));
+        const v = parseFloat(getComputedStyle(document.documentElement).getPropertyValue('--pin-cover-h'));
         heroCoverThreshold = isNaN(v) ? Infinity : v;
       };
       refreshHeroCoverThreshold();

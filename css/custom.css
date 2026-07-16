@@ -227,50 +227,76 @@ h1, h2, h3, h4 {
     linear-gradient(90deg, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
   background-size: 24px 24px;
 }
-/* Sits at the top of the Impact Stats section (the leading edge of the
-   sheet that slides up and covers the pinned hero - see .hero-sticky-wrap
-   below), clipped to a wave silhouette - but as a real background (not an
-   SVG pattern squeezed through a divider's non-uniform viewBox scale), so
-   its grid renders at true, undistorted pixels instead of aliasing into
-   uneven lines. The -8px offset keeps its grid lines in phase with
-   .section-light-grid's, since this fill's 64px height isn't itself a
-   multiple of 24px. */
-.stats-wave-fill {
+/* ---------- pin + cover header reveal ----------
+   Used by every page header (Home, About, Blog, and post pages): the
+   header stays pinned at the top of the viewport while the section
+   immediately following it slides up and covers it as you scroll,
+   releasing the pin the instant that section finishes covering it.
+   --pin-cover-h is measured in JS (site.js) from the header's real
+   rendered height rather than assumed to be a fixed 100vh, since very
+   short or zoomed viewports can make its actual content taller than
+   that; the 100vh fallback only covers the instant before JS has run. */
+.pin-cover-wrap {
+  position: relative;
+  height: calc(var(--pin-cover-h, 100vh) * 2);
+}
+.pin-cover-header {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+/* min-height matching the header, plus centering its actual content, is
+   what closes the gap: once the pin releases, the header and this
+   section scroll away together at the same rate (their relative offset
+   is fixed from that point on), so this section has to be at least as
+   tall as the header for the whole time - otherwise the header's own
+   lower portion keeps peeking through below wherever this section's
+   shorter natural content height ends. */
+.pin-cover-section {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(var(--pin-cover-h, 100vh) * -1);
+  min-height: var(--pin-cover-h, 100vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* Sits at the top of a .pin-cover-section, clipped to a wave silhouette
+   via the page's own #pinCoverWaveClip - a real background rather than
+   an SVG pattern squeezed through a divider's non-uniform viewBox scale,
+   so any grid/dot texture renders at true, undistorted pixels instead of
+   aliasing into uneven lines. Each page pairs this with its own
+   background utility/class (e.g. .stats-wave-fill's grid, or a plain
+   .bg-c3/.bg-c4) to match whatever texture its own cover section uses. */
+.pin-cover-wave-fill {
   position: absolute;
   left: 0;
   top: -1px;
   width: 100%;
   height: 65px;
   z-index: 1;
-  clip-path: url(#statsWaveClip);
-  background-color: #E5E5E6; /* fallback for browsers without color-mix() support */
-  background-color: color-mix(in srgb, var(--nk-c3) 45%, white 55%);
-  background-image:
-    linear-gradient(rgba(0, 0, 0, 0.018) 1px, transparent 1px),
-    linear-gradient(90deg, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
-  background-size: 24px 24px;
-  background-position: 0 -8px;
+  clip-path: url(#pinCoverWaveClip);
 }
-/* The wave's shadow onto the pinned hero, built from the same shared
-   #statsWaveClip the visible wave itself uses (see .stats-wave-fill above)
-   rather than an independent shape: a flat gradient here mismatches the
-   real curve badly, since the wave dips and crests significantly rather
-   than sitting at one height - a rectangle darkening a fixed band above
-   the section's top edge only lines up with the wave's highest points,
+/* The wave's shadow onto the pinned header, built from the same shared
+   #pinCoverWaveClip the visible wave itself uses rather than an
+   independent shape: a flat gradient here mismatches the real curve
+   badly, since the wave dips and crests significantly rather than
+   sitting at one height - a rectangle darkening a fixed band above the
+   section's top edge only lines up with the wave's highest points,
    leaving a visible gap everywhere it dips lower. Reusing the *same*
    <clipPath> element sidesteps that: every element clipped by
-   url(#statsWaveClip) re-clips itself whenever that shared path's 'd'
+   url(#pinCoverWaveClip) re-clips itself whenever that shared path's 'd'
    changes, for free, with no extra JS, so it always traces the current
    curve exactly.
    A clip-path is a hard cutout though, not a soft gradient - on a short
-   viewport where the hero's CTA buttons sit close to the wave (little
-   room above it before the stats section's own text starts), that hard
-   edge cut visibly across a button as the wave passed over it, reading
-   as a glitchy sharp-edged patch rather than a shadow. `filter: blur()`
-   would soften that, but filter and clip-path suppress each other when
-   they're on the same element (confirmed separately) - so the blur lives
-   on a wrapper instead, with the clip-path on the plain div inside it. */
-.stats-cover-shadow-blur {
+   viewport where a header's CTA buttons or text sit close to the wave,
+   that hard edge would cut visibly across them as the wave passed over,
+   reading as a glitchy sharp-edged patch rather than a shadow. `filter:
+   blur()` would soften that, but filter and clip-path suppress each
+   other when they're on the same element (confirmed separately) - so the
+   blur lives on a wrapper instead, with the clip-path on the plain div
+   inside it. */
+.pin-cover-shadow-blur {
   position: absolute;
   left: 0;
   top: -20px;
@@ -280,60 +306,54 @@ h1, h2, h3, h4 {
   pointer-events: none;
   filter: blur(9px);
 }
-.stats-cover-shadow {
+.pin-cover-shadow {
   width: 100%;
   height: 100%;
-  clip-path: url(#statsWaveClip);
+  clip-path: url(#pinCoverWaveClip);
   background: rgba(0, 0, 0, 0.4);
 }
-
-/* ---------- hero pin + cover reveal ----------
-   The hero stays pinned at the top of the viewport while the Impact
-   Stats section, immediately following, slides up over it as you scroll
-   - releasing the pin the instant the stats section finishes covering
-   it. --hero-h is measured in JS (site.js) from the hero's real rendered
-   height rather than assumed to be a fixed 100vh, since very short or
-   zoomed viewports can make its actual content taller than that; the
-   100vh fallback only covers the instant before JS has run. */
-.hero-sticky-wrap {
-  position: relative;
-  height: calc(var(--hero-h, 100vh) * 2);
-}
-.hero-sticky {
-  position: sticky;
-  top: 0;
-  z-index: 1;
-}
-/* min-height matching the hero, plus centering its actual content, is
-   what closes the gap: once the pin releases, the hero and this section
-   scroll away together at the same rate (their relative offset is fixed
-   from that point on), so this section has to be at least as tall as the
-   hero for the whole time - otherwise the hero's own lower portion keeps
-   peeking through below wherever this section's shorter natural content
-   height ends. */
-.stats-cover {
-  position: relative;
-  z-index: 2;
-  margin-top: calc(var(--hero-h, 100vh) * -1);
-  min-height: var(--hero-h, 100vh);
-  display: flex;
-  flex-direction: column;
-  justify-content: center;
-}
-/* The stats section itself is left transparent above this point (no
-   background of its own) so the pinned hero shows through wherever
-   .stats-wave-fill's clip-path cuts it away - if the section painted its
-   own flat background underneath, the "notches" cut into the wave would
-   just reveal that same grey instead of the hero, making the wave and its
+/* The cover section itself is left transparent above this point (no
+   background of its own) so the pinned header shows through wherever
+   .pin-cover-wave-fill's clip-path cuts it away - if the section painted
+   its own flat background underneath, the "notches" cut into the wave
+   would just reveal that instead of the header, making the wave and its
    shadow invisible even though the clip-path itself is correct. Negative
    z-index keeps it behind the section's own (non-positioned) content. */
-.stats-body-fill {
+.pin-cover-body-fill {
   position: absolute;
   top: 64px;
   left: 0;
   right: 0;
   bottom: 0;
   z-index: -1;
+}
+/* .pin-cover-section centres its content vertically by default (Home's
+   stats, Blog's featured post: short blocks that should sit centred in
+   whatever space the pin/cover geometry gives them). Content that reads
+   top-down instead - About's subnav+leadership, a post's full article
+   body - wants to start right after the wave instead, however tall the
+   box ends up being, so this cancels the centering for those. */
+.pin-cover-section--flow {
+  display: block;
+}
+/* Pushes the sub-nav below the wave zone before the first sticky-nav
+   pixel starts, without adding that space permanently to the bar's own
+   height once it's later stuck under the main nav mid-scroll. */
+.pin-cover-subnav-pad {
+  padding-top: 64px;
+}
+/* Home's Impact Stats section pairs the generic .pin-cover-wave-fill
+   with its own grid texture (matching .section-light-grid below it). The
+   -8px offset keeps its grid lines in phase with .section-light-grid's,
+   since this fill's 65px height isn't itself a multiple of 24px. */
+.stats-wave-fill {
+  background-color: #E5E5E6; /* fallback for browsers without color-mix() support */
+  background-color: color-mix(in srgb, var(--nk-c3) 45%, white 55%);
+  background-image:
+    linear-gradient(rgba(0, 0, 0, 0.018) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
+  background-size: 24px 24px;
+  background-position: 0 -8px;
 }
 .heading-rule { border-top: 3px solid var(--nk-c2); margin-top: 14px; }
 
