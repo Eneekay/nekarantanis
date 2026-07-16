@@ -257,7 +257,17 @@ h1, h2, h3, h4 {
    the shadow silently vanishes). Sitting one z-index behind the visible
    grid fill, its own solid body is completely hidden underneath it - only
    the shadow, which drop-shadow renders outside the shape's own bounds,
-   ever becomes visible, bleeding up onto the pinned hero behind it. */
+   ever becomes visible, bleeding up onto the pinned hero behind it.
+
+   A wrapping overflow:hidden clip (tried first) doesn't work here: once
+   it hides the part of the shape the shadow is anchored to (which lives
+   on the stats side, below the clip boundary), the browser seems to
+   drop the filter's output along with it rather than still projecting
+   the shadow into the visible region above. So instead the offset/blur
+   themselves are tuned so the shadow simply doesn't reach past the wave
+   edge downward in the first place: a big negative y-offset (-14px)
+   with a small blur radius (6px) keeps its whole spread on the upward
+   side, rather than relying on -8px/26px's much wider, symmetric blur. */
 .stats-wave-shadow {
   position: absolute;
   left: 0;
@@ -269,7 +279,7 @@ h1, h2, h3, h4 {
   pointer-events: none;
 }
 .stats-wave-shadow path {
-  filter: drop-shadow(0 -8px 18px rgba(0, 0, 0, 0.85));
+  filter: drop-shadow(0 -14px 6px rgba(0, 0, 0, 0.85));
 }
 
 /* ---------- hero pin + cover reveal ----------
