@@ -340,6 +340,19 @@ document.addEventListener('DOMContentLoaded', () => {
       }
 
       counters.forEach(el => { el.style.opacity = '1'; });
+      // Reserve each counter's final rendered width up front. Even with
+      // tabular figures, specific digit combinations (adjacent same-digit
+      // runs, digits either side of the thousands comma) still shape a
+      // px or two narrower/wider than their neighbours in this font - a
+      // per-frame width flicker that visibly re-centres the icon+number
+      // pair on every change, since they sit inline in a centred row.
+      // Measuring the end state and locking it in as min-width removes
+      // the box-size change at the source instead of chasing font shaping.
+      counters.forEach((el, i) => {
+        renderCount(el, targets[i]);
+        el.style.minWidth = el.getBoundingClientRect().width + 'px';
+        renderCount(el, 0);
+      });
       statsCounting = true;
       const start = performance.now();
       const tick = (now) => {
