@@ -330,15 +330,26 @@ h1, h2, h3, h4 {
    other when they're on the same element (confirmed separately) - so the
    blur lives on a wrapper instead, with the clip-path on the plain div
    inside it. */
+/* top/height/blur together set how far this reaches above the wave's own
+   edge - kept fairly tight (rather than the -20px/9px blur tried first)
+   specifically so it can't visibly darken hero content (the intro
+   paragraph, a CTA button) that happens to sit close to the wave on a
+   given viewport as the cover scrolls up past it: reported as those
+   elements getting a visible dark smear/gradient before the wave itself
+   reached them, once the opacity below was raised enough to make the
+   shadow visible at all (see .pin-cover-shadow) - the smear was always
+   there, just imperceptible before that. Tightening the reach keeps the
+   darkening confined to a narrow band right at the wave's edge, so
+   content further up stays clean until the wave itself reaches it. */
 .pin-cover-shadow-blur {
   position: absolute;
   left: 0;
-  top: -20px;
+  top: -8px;
   width: 100%;
   height: 65px;
   z-index: 0;
   pointer-events: none;
-  filter: blur(9px);
+  filter: blur(4px);
 }
 .pin-cover-shadow {
   width: 100%;
@@ -349,10 +360,10 @@ h1, h2, h3, h4 {
      opacity (0.4 here originally) blends into a background that barely
      has room to get darker - measured as a ~5-unit dip out of 255,
      completely imperceptible at normal brightness and reported as "no
-     shadow, just a black bar." Raised well past a typical shadow's
-     opacity specifically to compensate for that - confirmed visible at
-     normal brightness afterwards, not just under an artificial boost. */
-  background: rgba(0, 0, 0, 0.85);
+     shadow, just a black bar." Settled on well above that original
+     value, but short of fully opaque - visible at normal brightness
+     without reading as a harsh black bar itself. */
+  background: rgba(0, 0, 0, 0.7);
 }
 /* The cover section itself is left transparent above this point (no
    background of its own) so the pinned header shows through wherever
