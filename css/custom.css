@@ -257,35 +257,34 @@ h1, h2, h3, h4 {
    real curve badly, since the wave dips and crests significantly rather
    than sitting at one height - a rectangle darkening a fixed band above
    the section's top edge only lines up with the wave's highest points,
-   leaving a visible gap everywhere it dips lower. An SVG drop-shadow
-   filter tracing the live path was tried too, but filter and clip-path
-   suppress each other on the same element, and a second filtered element
-   either needed the same expensive per-frame path recompute the visible
-   wave already pays for (jank on Firefox mobile) or, frozen, drifted out
-   of sync with the live wave and showed its own solid body as a
-   mismatched second wave. Reusing the *same* <clipPath> element sidesteps
-   all of it: every element clipped by url(#statsWaveClip) re-clips itself
-   whenever that shared path's 'd' changes, for free, with no extra JS.
-   Two copies of the same shape - offset upward by different amounts, at
-   z-index 0 below the real wave-fill (z-index 1) so only the parts that
-   peek out above it ever show - fade out the further they sit, reading as
-   a soft shadow that always traces the actual current curve. */
-.stats-cover-shadow {
+   leaving a visible gap everywhere it dips lower. Reusing the *same*
+   <clipPath> element sidesteps that: every element clipped by
+   url(#statsWaveClip) re-clips itself whenever that shared path's 'd'
+   changes, for free, with no extra JS, so it always traces the current
+   curve exactly.
+   A clip-path is a hard cutout though, not a soft gradient - on a short
+   viewport where the hero's CTA buttons sit close to the wave (little
+   room above it before the stats section's own text starts), that hard
+   edge cut visibly across a button as the wave passed over it, reading
+   as a glitchy sharp-edged patch rather than a shadow. `filter: blur()`
+   would soften that, but filter and clip-path suppress each other when
+   they're on the same element (confirmed separately) - so the blur lives
+   on a wrapper instead, with the clip-path on the plain div inside it. */
+.stats-cover-shadow-blur {
   position: absolute;
   left: 0;
+  top: -20px;
   width: 100%;
   height: 65px;
   z-index: 0;
   pointer-events: none;
+  filter: blur(9px);
+}
+.stats-cover-shadow {
+  width: 100%;
+  height: 100%;
   clip-path: url(#statsWaveClip);
-  background: rgba(0, 0, 0, 0.32);
-}
-.stats-cover-shadow--far {
-  top: -23px;
-  opacity: 0.45;
-}
-.stats-cover-shadow--near {
-  top: -11px;
+  background: rgba(0, 0, 0, 0.4);
 }
 
 /* ---------- hero pin + cover reveal ----------
