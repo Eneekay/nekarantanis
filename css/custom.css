@@ -226,18 +226,20 @@ h1, h2, h3, h4 {
     linear-gradient(90deg, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
   background-size: 24px 24px;
 }
-/* Sits where the header's wave-divider used to, clipped to the same wave
-   silhouette - but as a real background (not an SVG pattern squeezed
-   through the divider's non-uniform viewBox scale), so its grid renders
-   at true, undistorted pixels instead of aliasing into uneven lines. The
-   -8px offset keeps its grid lines in phase with .section-light-grid's,
-   since this fill's 64px height isn't itself a multiple of 24px. */
+/* Sits at the top of the Impact Stats section (the leading edge of the
+   sheet that slides up and covers the pinned hero - see .hero-sticky-wrap
+   below), clipped to a wave silhouette - but as a real background (not an
+   SVG pattern squeezed through a divider's non-uniform viewBox scale), so
+   its grid renders at true, undistorted pixels instead of aliasing into
+   uneven lines. The -8px offset keeps its grid lines in phase with
+   .section-light-grid's, since this fill's 64px height isn't itself a
+   multiple of 24px. */
 .stats-wave-fill {
   position: absolute;
   left: 0;
-  bottom: -1px;
+  top: -1px;
   width: 100%;
-  height: 64px;
+  height: 65px;
   z-index: 1;
   clip-path: url(#statsWaveClip);
   background-color: color-mix(in srgb, var(--nk-c3) 45%, white 55%);
@@ -246,6 +248,77 @@ h1, h2, h3, h4 {
     linear-gradient(90deg, rgba(0, 0, 0, 0.018) 1px, transparent 1px);
   background-size: 24px 24px;
   background-position: 0 -8px;
+}
+/* Casts the shadow that .stats-wave-fill's own wave edge falls onto the
+   hero. This has to be a SEPARATE element with a native SVG fill, not a
+   second filter on .stats-wave-fill itself: `clip-path` and
+   `filter: drop-shadow` on the same element suppress the shadow entirely
+   in testing (drop-shadow alone works, clip-path alone works, together
+   the shadow silently vanishes). Sitting one z-index behind the visible
+   grid fill, its own solid body is completely hidden underneath it - only
+   the shadow, which drop-shadow renders outside the shape's own bounds,
+   ever becomes visible, bleeding up onto the pinned hero behind it. */
+.stats-wave-shadow {
+  position: absolute;
+  left: 0;
+  top: -1px;
+  width: 100%;
+  height: 65px;
+  z-index: 0;
+  overflow: visible;
+  pointer-events: none;
+}
+.stats-wave-shadow path {
+  filter: drop-shadow(0 -8px 18px rgba(0, 0, 0, 0.85));
+}
+
+/* ---------- hero pin + cover reveal ----------
+   The hero stays pinned at the top of the viewport while the Impact
+   Stats section, immediately following, slides up over it as you scroll
+   - releasing the pin the instant the stats section finishes covering
+   it. --hero-h is measured in JS (site.js) from the hero's real rendered
+   height rather than assumed to be a fixed 100vh, since very short or
+   zoomed viewports can make its actual content taller than that; the
+   100vh fallback only covers the instant before JS has run. */
+.hero-sticky-wrap {
+  position: relative;
+  height: calc(var(--hero-h, 100vh) * 2);
+}
+.hero-sticky {
+  position: sticky;
+  top: 0;
+  z-index: 1;
+}
+/* min-height matching the hero, plus centering its actual content, is
+   what closes the gap: once the pin releases, the hero and this section
+   scroll away together at the same rate (their relative offset is fixed
+   from that point on), so this section has to be at least as tall as the
+   hero for the whole time - otherwise the hero's own lower portion keeps
+   peeking through below wherever this section's shorter natural content
+   height ends. */
+.stats-cover {
+  position: relative;
+  z-index: 2;
+  margin-top: calc(var(--hero-h, 100vh) * -1);
+  min-height: var(--hero-h, 100vh);
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+}
+/* The stats section itself is left transparent above this point (no
+   background of its own) so the pinned hero shows through wherever
+   .stats-wave-fill's clip-path cuts it away - if the section painted its
+   own flat background underneath, the "notches" cut into the wave would
+   just reveal that same grey instead of the hero, making the wave and its
+   shadow invisible even though the clip-path itself is correct. Negative
+   z-index keeps it behind the section's own (non-positioned) content. */
+.stats-body-fill {
+  position: absolute;
+  top: 64px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: -1;
 }
 .heading-rule { border-top: 3px solid var(--nk-c2); margin-top: 14px; }
 
