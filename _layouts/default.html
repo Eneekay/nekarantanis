@@ -13,7 +13,7 @@
 <link rel="preconnect" href="https://fonts.googleapis.com">
 <link href="https://fonts.googleapis.com/css2?family=Space+Grotesk:wght@500;600;700&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
 <link href="{{ page.base }}css/bootstrap.min.css" rel="stylesheet">
-<link href="{{ page.base }}css/custom.css" rel="stylesheet">
+<link href="{{ page.base }}css/custom.css?v={{ site.time | date: '%s' }}" rel="stylesheet">
 </head>
 <body{% if page.hero_intro %} class="home-hero-intro"{% endif %}>
 
@@ -24,6 +24,6 @@
 {% include footer.html %}
 
 <script src="{{ page.base }}js/bootstrap.bundle.min.js"></script>
-<script src="{{ page.base }}js/site.js"></script>
+<script src="{{ page.base }}js/site.js?v={{ site.time | date: '%s' }}"></script>
 </body>
 </html>
