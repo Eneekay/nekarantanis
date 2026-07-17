@@ -31,12 +31,21 @@ roles:
             practice, behaviour management, and adaptive teaching.
           - Ensuring robust contract delivery and responsible management of the
             site’s education budget.
+          - Designed and rolled out a bespoke learner data dashboard, since
+            adopted as best practice across the national PeoplePlus prison
+            education contract.
+          - Launched three new programme strands — Art, Music Production, and
+            Peer Mentoring — from initial concept through to live delivery.
+          - Leading delivery of Open University and University of Westminster
+            Higher Education programmes in Criminology alongside vocational
+            provision.
         tags:
           - Secure Facility Leadership
           - Budget Management
           - Justice System
           - Strategic Direction
           - Reduction of Reoffending
+          - Learner Analytics
   - section: leadership
     company: Capel Manor College
     logo: uploads/CMC-transparent-cropped.png
@@ -70,12 +79,24 @@ roles:
             shoemaking, and leathercraft training, with a £150k growth in
             budget.
           - Saw 20+ new teachers through CET and DET programmes.
+          - Grew directorate income from £7.5M to over £9M and enrolment from
+            around 900 to 1,100+ learners over three years.
+          - Oversaw two science teaching laboratories and led the design and
+            commissioning of a new lab at the incoming Mottingham campus.
+          - Ran science outreach programmes — school visits, laboratory open
+            days, and career fairs — introducing biochemistry and genetics to
+            primary and secondary learners.
+          - Validated new Access to Higher Education qualifications in
+            Veterinary Science, Animal Science, and Shoemaking, and served as
+            commissioning contact for a Royal Agricultural University degree
+            franchise.
         tags:
           - Large Team Leadership
           - Microsoft SharePoint & Teams
           - Zoo & Farm Management
           - Business Development
           - Sponsorship & Partnerships
+          - Science Outreach
       - dates: APR 2020 — MAY 2022
         title: Curriculum Leader, then Head of Animal Management and Saddlery
         icon: book
@@ -86,6 +107,9 @@ roles:
             workflows via Microsoft 365, college-wide.
           - Mentored and trained four new Team Leaders across the School’s
             largest team of Higher and Further lecturers.
+          - Managed two zoos and a public-facing farm, including a zookeeper
+            team restructure and full oversight of the Enfield science
+            laboratory.
       - dates: SEP 2019 — MAR 2020
         title: Team Leader
         icon: team
@@ -101,6 +125,9 @@ roles:
           - Accomplished over 95% achievement rates across all courses of
             responsibility.
           - Reached 100% satisfaction rates in HE courses as measured in the NSS.
+          - Taught Animal Nutrition and Animal Metabolism, including hands-on
+            biochemistry laboratory work, at Further and Higher Education
+            level.
   - section: digital
     company: Mesh Web Development
     logo: uploads/mesh-transparent-cropped.png
@@ -121,11 +148,14 @@ roles:
             effective digital products.
           - Designed and developed visual materials using HTML, CSS, JavaScript,
             SQL, Adobe Illustrator and Photoshop.
+          - Managed CRM systems, including HubSpot onboarding, configuring
+            workflows and reporting to support small business growth.
         tags:
           - WordPress
           - UX/UI Design
           - HTML/CSS/JS/PHP/SQL
           - Digital Marketing
+          - CRM & HubSpot
   - section: research
     company: Aristotle University of Thessaloniki
     logo: uploads/banner-horizontal-default-en.png
