@@ -645,10 +645,15 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
    doubled) - translating by exactly -50% moves it by one whole period,
    so the loop point is invisible. preserveAspectRatio="none" lets the
    same 0-100-unit viewBox stretch to whatever height the section
-   actually renders at, same as every other wave-divider on the site. */
+   actually renders at, same as every other wave-divider on the site -
+   but that non-uniform stretch would also scale the stroke itself,
+   rendering thicker in a tall hero than in a short CTA purely because
+   of the section's own height. vector-effect keeps the pen width
+   literal (in real screen pixels) regardless of that stretch, so every
+   section's lines read at the same thickness. */
 .contour-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
 .contour-bg svg { position: absolute; top: 0; left: 0; width: 200%; height: 100%; display: block; }
-.contour-line { fill: none; stroke-width: 1.5; stroke: rgba(var(--nk-c4-rgb), 0.14); animation: contourDriftLeft 62s linear infinite; }
+.contour-line { fill: none; stroke-width: 1.5px; vector-effect: non-scaling-stroke; stroke: rgba(var(--nk-c4-rgb), 0.22); animation: contourDriftLeft 62s linear infinite; }
 .contour-line--b { stroke-opacity: 0.7; animation-name: contourDriftRight; animation-duration: 78s; }
 .contour-line--c { animation-duration: 54s; }
 .contour-line--d { stroke-opacity: 0.5; animation-duration: 95s; }
@@ -813,9 +818,9 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 
 /* ---------- footer ---------- */
 
-.footer-text { color: var(--nk-c4); }
-.footer-text a { color: var(--nk-c4); opacity: .72; transition: opacity .2s ease; }
-.footer-text a:hover { color: var(--nk-c4); opacity: 1; }
+.footer-text { color: var(--nk-c0); }
+.footer-text a { color: var(--nk-c0); opacity: .72; transition: opacity .2s ease; }
+.footer-text a:hover { color: var(--nk-c0); opacity: 1; }
 
 /* ---------- misc ---------- */
 

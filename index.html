@@ -122,6 +122,12 @@ hero_intro: true
     </div>
   </div>
   <svg class="wave-divider wave-divider--56" viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <defs>
+      <filter id="statsWaveShadow" x="-20%" y="-200%" width="140%" height="500%">
+        <feGaussianBlur stdDeviation="6"></feGaussianBlur>
+      </filter>
+    </defs>
+    <path d="M0,50 C240,10 480,90 720,45 C960,5 1200,85 1440,40 L1440,100 L0,100 Z" fill="var(--nk-c0)" opacity="0.22" filter="url(#statsWaveShadow)"></path>
     <path d="M0,50 C240,10 480,90 720,45 C960,5 1200,85 1440,40 L1440,100 L0,100 Z" class="fill-c4"></path>
   </svg>
 </section>
