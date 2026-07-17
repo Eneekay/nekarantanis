@@ -9,23 +9,23 @@ Everything visual on the site traces back to `css/custom.css` — one hand-writt
 
 ## Color palette
 
-Every color on the site is a CSS custom property defined once on `:root`, named `--nk-c0` through `--nk-c4` (dark to light) plus a gold accent. Nothing else hardcodes a hex value — components reference these variables so a palette change only ever happens in one place. `--nk-c1` (field green) has strong contrast on dark sections but fails AA on light ones, so it's only ever used on dark backgrounds or as a solid button's own fill; `--nk-c2` (deep green) is the accent used against paper/stone.
+Every color on the site is a CSS custom property defined once on `:root`, named `--nk-c0` through `--nk-c4` (dark to light) plus a gold accent. Nothing else hardcodes a hex value — components reference these variables so a palette change only ever happens in one place. `--nk-c1` (sky) has strong contrast on dark sections but fails AA on light ones, so it's only ever used on dark backgrounds or as a solid button's own fill; `--nk-c2` (cobalt) is the accent used against paper/stone.
 
 <div class="docs-swatch-row">
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#14181A;"></div>
+    <div class="docs-swatch-color" style="background:#10141F;"></div>
     <div class="docs-swatch-name">--nk-c0</div>
-    <div class="docs-swatch-hex">#14181A · ink / body text</div>
+    <div class="docs-swatch-hex">#10141F · ink / body text</div>
   </div>
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#8FD694;"></div>
+    <div class="docs-swatch-color" style="background:#6FC2FF;"></div>
     <div class="docs-swatch-name">--nk-c1</div>
-    <div class="docs-swatch-hex">#8FD694 · field green accent, dark sections only</div>
+    <div class="docs-swatch-hex">#6FC2FF · sky accent, dark sections only</div>
   </div>
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#2E6B3F;"></div>
+    <div class="docs-swatch-color" style="background:#2653D9;"></div>
     <div class="docs-swatch-name">--nk-c2</div>
-    <div class="docs-swatch-hex">#2E6B3F · deep green accent</div>
+    <div class="docs-swatch-hex">#2653D9 · cobalt accent</div>
   </div>
   <div class="docs-swatch">
     <div class="docs-swatch-color" style="background:#E4DFD3;"></div>
@@ -33,14 +33,14 @@ Every color on the site is a CSS custom property defined once on `:root`, named 
     <div class="docs-swatch-hex">#E4DFD3 · stone surface</div>
   </div>
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#F5F3EA;border:1px solid #d8d8d8;"></div>
+    <div class="docs-swatch-color" style="background:#F7F6F1;border:1px solid #d8d8d8;"></div>
     <div class="docs-swatch-name">--nk-c4</div>
-    <div class="docs-swatch-hex">#F5F3EA · paper surface</div>
+    <div class="docs-swatch-hex">#F7F6F1 · paper surface</div>
   </div>
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#E2673F;"></div>
+    <div class="docs-swatch-color" style="background:#FF7A33;"></div>
     <div class="docs-swatch-name">--nk-gold</div>
-    <div class="docs-swatch-hex">#E2673F · coral, eyebrow/accent on dark</div>
+    <div class="docs-swatch-hex">#FF7A33 · tangerine, eyebrow/accent on dark</div>
   </div>
 </div>
 
