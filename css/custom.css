@@ -231,6 +231,20 @@ h1, h2, h3, h4 {
   background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+/* A flat (non-wave) seam that still reads as a real boundary: the
+   negative vertical offset projects the shadow upward, onto whatever
+   the previous section is, rather than inset into this one's own top.
+   Needs to out-rank .pin-cover-section's z-index: 2 (Home's Impact
+   Stats, the one section this currently sits after) or that section's
+   own opaque background would paint over the shadow instead of the
+   other way around - position: relative alone wouldn't be enough since
+   two z-index: auto elements would still resolve by DOM order, but
+   .pin-cover-section's z-index is explicit, not auto. */
+.section-top-shadow {
+  position: relative;
+  z-index: 3;
+  box-shadow: 0 -14px 22px -10px rgba(var(--nk-c0-rgb), 0.35);
+}
 .section-light-grid {
   background-color: #E5E5E6; /* fallback for browsers without color-mix() support */
   background-color: color-mix(in srgb, var(--nk-c3) 45%, white 55%);
