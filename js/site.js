@@ -722,7 +722,7 @@ document.addEventListener('DOMContentLoaded', () => {
         if (!net.visible || !net.nodes.length) return;
         if (net === heroNet && (window.scrollY >= heroCoverThreshold || statsCounting)) return;
         const { ctx, width, height, nodes, dark } = net;
-        const ink = dark ? '234, 235, 236' : '11, 12, 16';
+        const ink = dark ? '245, 242, 234' : '18, 24, 29';
         const lineAlpha = dark ? 0.16 : 0.1;
         const dotAlpha = dark ? 0.4 : 0.28;
         nodes.forEach((n) => {

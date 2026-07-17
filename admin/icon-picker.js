@@ -7,7 +7,7 @@
 ;(function () {
   var h = window.h;
   var createClass = window.createClass;
-  var STROKE = '#45A29E';
+  var STROKE = '#1E6E66';
   var svg = function (inner) {
     return '<svg viewBox="0 0 24 24" fill="none" stroke="' + STROKE + '" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">' + inner + '</svg>';
   };
@@ -103,8 +103,8 @@
                 padding: '10px 4px',
                 borderRadius: '6px',
                 cursor: 'pointer',
-                border: selected ? '2px solid #45A29E' : '1px solid #dcdee0',
-                background: selected ? 'rgba(69, 162, 158, 0.1)' : '#fff',
+                border: selected ? '2px solid #1E6E66' : '1px solid #dcdee0',
+                background: selected ? 'rgba(30, 110, 102, 0.1)' : '#fff',
                 fontSize: '12px',
                 color: '#333',
               },

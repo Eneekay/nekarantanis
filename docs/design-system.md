@@ -9,38 +9,38 @@ Everything visual on the site traces back to `css/custom.css` — one hand-writt
 
 ## Color palette
 
-Every color on the site is a CSS custom property defined once on `:root`, named `--nk-c0` through `--nk-c4` (dark to light) plus a gold accent. Nothing else hardcodes a hex value — components reference these variables so a palette change only ever happens in one place.
+Every color on the site is a CSS custom property defined once on `:root`, named `--nk-c0` through `--nk-c4` (dark to light) plus a gold accent. Nothing else hardcodes a hex value — components reference these variables so a palette change only ever happens in one place. `--nk-c1` (kingfisher) has strong contrast on dark sections but fails AA on light ones, so it's only ever used on dark backgrounds or as a solid button's own fill; `--nk-c2` (deep teal) is the accent used against paper/stone.
 
 <div class="docs-swatch-row">
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#0B0C10;"></div>
+    <div class="docs-swatch-color" style="background:#12181D;"></div>
     <div class="docs-swatch-name">--nk-c0</div>
-    <div class="docs-swatch-hex">#0B0C10 · ink / body text</div>
+    <div class="docs-swatch-hex">#12181D · ink / body text</div>
   </div>
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#66FCF1;"></div>
+    <div class="docs-swatch-color" style="background:#3FD0C4;"></div>
     <div class="docs-swatch-name">--nk-c1</div>
-    <div class="docs-swatch-hex">#66FCF1 · bright cyan accent</div>
+    <div class="docs-swatch-hex">#3FD0C4 · kingfisher accent, dark sections only</div>
   </div>
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#45A29E;"></div>
+    <div class="docs-swatch-color" style="background:#1E6E66;"></div>
     <div class="docs-swatch-name">--nk-c2</div>
-    <div class="docs-swatch-hex">#45A29E · primary teal accent</div>
+    <div class="docs-swatch-hex">#1E6E66 · deep teal accent</div>
   </div>
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#C5C6C7;"></div>
+    <div class="docs-swatch-color" style="background:#E4DFD3;"></div>
     <div class="docs-swatch-name">--nk-c3</div>
-    <div class="docs-swatch-hex">#C5C6C7 · mid grey surface</div>
+    <div class="docs-swatch-hex">#E4DFD3 · stone surface</div>
   </div>
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#EAEBEC;border:1px solid #d8d8d8;"></div>
+    <div class="docs-swatch-color" style="background:#F5F2EA;border:1px solid #d8d8d8;"></div>
     <div class="docs-swatch-name">--nk-c4</div>
-    <div class="docs-swatch-hex">#EAEBEC · near-white surface</div>
+    <div class="docs-swatch-hex">#F5F2EA · paper surface</div>
   </div>
   <div class="docs-swatch">
-    <div class="docs-swatch-color" style="background:#c9a24a;"></div>
+    <div class="docs-swatch-color" style="background:#E8A13D;"></div>
     <div class="docs-swatch-name">--nk-gold</div>
-    <div class="docs-swatch-hex">#c9a24a · eyebrow/accent on dark</div>
+    <div class="docs-swatch-hex">#E8A13D · marigold, eyebrow/accent on dark</div>
   </div>
 </div>
 
