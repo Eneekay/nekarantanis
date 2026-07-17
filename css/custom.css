@@ -299,26 +299,30 @@ h1, h2, h3, h4 {
    other when they're on the same element (confirmed separately) - so the
    blur lives on a wrapper instead, with the clip-path on the plain div
    inside it. */
-/* .pin-cover-shadow's box height matters beyond just "how far up this
-   reaches": clip-path's objectBoundingBox units re-scale the *same* 0-1
-   wave curve to whatever box they're given, so at the full 65px (matching
-   .pin-cover-wave-fill, tried first) the curve's own crests and troughs
-   span most of that box - meaning most of the shape is "filled" rather
-   than a thin line near the boundary, which reads as a solid dark slab
-   the height of the wave itself rather than a hint of shadow, however
-   much the opacity or blur is tuned. Squeezing the *same* curve into a
-   much shorter box keeps its silhouette but compresses it into a thin
-   accent - the goal here was never to precisely re-trace the visible
-   wave's exact amplitude, just to suggest a shadow near its edge. */
+/* .pin-cover-shadow's box HEIGHT has to match .pin-cover-wave-fill's
+   (65px) exactly, not just be "roughly similar" - clip-path's
+   objectBoundingBox units re-scale the *same* 0-1 wave curve to whatever
+   box they're given, so a curve value like 0.4 lands at 0.4 * height
+   pixels down from the box's own top. Shrink the box (a shorter height
+   was tried, to make the shape read as a thinner accent) and that
+   landing point moves too - the curve no longer traces the same pixels
+   as the real wave, so the shadow drifts out of registration with it,
+   visibly floating above/detached from the actual wave edge as it
+   scrolls rather than hugging it. With height held equal, only `top`
+   differs (shifted up a little from the wave-fill's own -1px), which
+   moves the *entire* traced curve up by a constant amount without
+   distorting its shape - so the shadow stays a fixed, correctly-aligned
+   distance above the real wave edge at every point along it, not just
+   near the top of the box. */
 .pin-cover-shadow-blur {
   position: absolute;
   left: 0;
-  top: -4px;
+  top: -14px;
   width: 100%;
-  height: 30px;
+  height: 65px;
   z-index: 0;
   pointer-events: none;
-  filter: blur(4px);
+  filter: blur(6px);
 }
 .pin-cover-shadow {
   width: 100%;
@@ -329,10 +333,9 @@ h1, h2, h3, h4 {
      opacity (0.4 here originally) blends into a background that barely
      has room to get darker - measured as a ~5-unit dip out of 255,
      completely imperceptible at normal brightness and reported as "no
-     shadow, just a black bar." Higher than that original value, but
-     the shape above is now what keeps this reading as a soft accent
-     rather than a solid bar - opacity alone couldn't fix that. */
-  background: rgba(0, 0, 0, 0.85);
+     shadow, just a black bar." Higher than that original value reads as
+     a visible but soft accent against the real animated header texture. */
+  background: rgba(0, 0, 0, 0.75);
 }
 /* The cover section itself is left transparent above this point (no
    background of its own) so the pinned header shows through wherever
