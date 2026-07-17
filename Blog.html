@@ -4,13 +4,14 @@ title: Blog
 ---
 <!-- PAGE HEADER -->
 <header class="section-dark-dotted text-c3 position-relative overflow-hidden">
+  {% include contour-lines.html variant="hero" %}
   <svg viewBox="0 0 200 200" class="blog-header-blob">
     <circle cx="100" cy="100" r="100" fill="var(--nk-c1)"></circle>
   </svg>
   <svg viewBox="0 0 200 200" class="blog-header-blob-2">
     <circle cx="100" cy="100" r="100" fill="var(--nk-c2)"></circle>
   </svg>
-  <div class="container position-relative page-header-inner">
+  <div class="container position-relative page-header-inner z-1">
     <div class="d-flex align-items-center gap-3 mb-3">
       <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--xl">
         <path d="M4 19.5V5a2 2 0 0 1 2-2h13v18H6a2 2 0 0 1-2-1.5z"></path>
@@ -121,6 +122,7 @@ title: Blog
 
 <!-- CTA -->
 <section class="section-dark-dotted position-relative overflow-hidden">
+  {% include contour-lines.html %}
   <div class="container position-relative pad-88-12-72 z-1">
     <div class="row align-items-center g-4">
       <div class="col-lg-8">

@@ -25,9 +25,9 @@ This is the short version — each has its own full page in the sidebar.
 
 **1. A small set of CSS custom properties** (`--nk-c0` through `--nk-c4`, plus gold) drive every color on the site. Everything else — buttons, cards, section backgrounds, text colors — is a utility class built on top of those variables. See **[Design System](/docs/design-system.html)**.
 
-**2. A handful of reusable section-level components** — dotted/grid textured backgrounds, decorative floating "blobs," animated wave dividers, and a canvas-drawn node network — that combine to give each page header and section its own quiet motion without any of it being page-specific code. See **[Sections & Components](/docs/sections-components.html)**.
+**2. A handful of reusable section-level components** — dotted/grid textured backgrounds, decorative floating "blobs," animated wave dividers, and drifting SVG contour lines — that combine to give each page header and section its own quiet motion without any of it being page-specific code. See **[Sections & Components](/docs/sections-components.html)**.
 
-**3. One JavaScript file, `js/site.js`**, that layers in every animated behavior — scroll reveals, the homepage's staged intro, the typewriter effect, counting-up stats, the wave drift, the network canvas, and the blog's filter dropdowns — all gated behind `prefers-reduced-motion` and `IntersectionObserver` so nothing animates when it doesn't need to. See **[JavaScript](/docs/javascript.html)**.
+**3. One JavaScript file, `js/site.js`**, that layers in every animated behavior — scroll reveals, the homepage's staged intro, the typewriter effect, counting-up stats, the wave drift, and the blog's filter dropdowns — all gated behind `prefers-reduced-motion` and `IntersectionObserver` so nothing animates when it doesn't need to. The contour-line backgrounds are pure CSS, not JS — see **[JavaScript](/docs/javascript.html)**.
 
 ## Editing content
 

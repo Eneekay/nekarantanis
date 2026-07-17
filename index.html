@@ -5,6 +5,7 @@ hero_intro: true
 <!-- HERO -->
 <div class="pin-cover-wrap">
 <header class="section-dark-dotted text-c3 d-flex align-items-center justify-content-center overflow-hidden min-vh-100 home-hero-header pin-cover-header">
+  {% include contour-lines.html variant="hero" %}
   <svg viewBox="0 0 200 200" class="home-hero-blob-1">
     <circle cx="100" cy="100" r="100" fill="var(--nk-c1)"></circle>
   </svg>
@@ -166,7 +167,8 @@ hero_intro: true
 
 <!-- FEATURED ROLES -->
 <section class="section-light-dotted position-relative overflow-hidden">
-  <div class="container position-relative pad-88-12">
+  {% include contour-lines.html tone="light" %}
+  <div class="container position-relative pad-88-12 z-1">
     <div class="mw-640 mb-52">
       <span class="eyebrow">Recent &amp; Current Roles</span>
       <h2 class="fs-34 fw-semibold text-c0" data-typewriter>Leading education &amp; teams at</h2>
@@ -237,6 +239,7 @@ hero_intro: true
 
 <!-- CTA -->
 <section class="section-dark-dotted position-relative overflow-hidden">
+  {% include contour-lines.html %}
   <div class="container position-relative pad-88-12-72 z-1">
     <div class="row align-items-center g-4">
       <div class="col-lg-8">

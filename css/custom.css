@@ -636,11 +636,34 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .post-body-inner    { padding: 72px 12px 72px; max-width: 760px; }
 .post-cta-inner     { padding: 56px 12px 88px; max-width: 760px; }
 
-/* Faint node-and-line network layered over the dark dotted background -
-   inserted as each section's first child (see site.js) so it stacks below
-   the real content without needing an explicit z-index, same as the
-   decorative blobs below. */
-.network-canvas { position: absolute; inset: 0; width: 100%; height: 100%; display: block; pointer-events: none; }
+/* Drifting contour lines layered behind section content - the same
+   curve family as .wave-divider, kept moving instead of static. Markup
+   is the first child of the section (see _includes/contour-lines.html)
+   so it stacks below the real content without needing an explicit
+   z-index, same as the decorative blobs below.
+   The SVG is drawn at 200% of the section's width with each path's
+   curve repeated twice across a 2880-wide viewBox (a 1440-wide period,
+   doubled) - translating by exactly -50% moves it by one whole period,
+   so the loop point is invisible. preserveAspectRatio="none" lets the
+   same 0-100-unit viewBox stretch to whatever height the section
+   actually renders at, same as every other wave-divider on the site. */
+.contour-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+.contour-bg svg { position: absolute; top: 0; left: 0; width: 200%; height: 100%; display: block; }
+.contour-line { fill: none; stroke-width: 1.5; stroke: rgba(var(--nk-c4-rgb), 0.14); animation: contourDriftLeft 62s linear infinite; }
+.contour-line--b { stroke-opacity: 0.7; animation-name: contourDriftRight; animation-duration: 78s; }
+.contour-line--c { animation-duration: 54s; }
+.contour-line--d { stroke-opacity: 0.5; animation-duration: 95s; }
+/* Ink lines at a lighter touch, for the one section with a light
+   (grey/dotted) rather than dark background - the light ink used
+   elsewhere would all but vanish against it. */
+.contour-bg--light .contour-line { stroke: rgba(var(--nk-c0-rgb), 0.06); }
+.contour-bg--light .contour-line--b { stroke-opacity: 0.7; }
+.contour-bg--light .contour-line--d { stroke-opacity: 0.5; }
+@keyframes contourDriftLeft  { from { transform: translateX(0); }     to { transform: translateX(-50%); } }
+@keyframes contourDriftRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
+@media (prefers-reduced-motion: reduce) {
+  .contour-line { animation: none; }
+}
 
 /* decorative header blobs */
 .about-header-blob   { position: absolute; top: -70px; right: -40px; width: 260px; height: 260px; opacity: 0.12; z-index: 0; }

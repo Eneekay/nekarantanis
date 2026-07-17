@@ -1,0 +1,26 @@
+{%- comment -%}
+  Animated background contour lines - a slow-drifting extension of the
+  site's own wave-divider curve, layered behind section content. Replaces
+  the old node-network canvas: pure CSS transform animation (GPU-composited,
+  no per-frame JS) and pure CSS reduced-motion handling, instead of a
+  requestAnimationFrame loop recomputing an O(n^2) node graph every frame.
+
+  Each line is the same 1440-wide periodic curve repeated twice across a
+  2880-wide viewBox, so translating it by exactly one period (-50% of the
+  SVG's own width) loops seamlessly. Params:
+    include.variant - "hero" (4 lines, tall sections) or "compact" (3 lines,
+                       CTA-sized sections). Default "compact".
+    include.tone     - "light" for ink-colored lines on a light-dotted
+                       section; anything else (default) draws light ink
+                       for a dark section.
+{%- endcomment -%}
+<div class="contour-bg{% if include.tone == 'light' %} contour-bg--light{% endif %}" aria-hidden="true">
+  <svg viewBox="0 0 2880 100" preserveAspectRatio="none">
+    <path class="contour-line contour-line--a" d="M0,20 C240,32 480,8 720,20 C960,32 1200,8 1440,20 C1680,32 1920,8 2160,20 C2400,32 2640,8 2880,20"></path>
+    <path class="contour-line contour-line--b" d="M0,42 C240,32 480,52 720,42 C960,32 1200,52 1440,42 C1680,32 1920,52 2160,42 C2400,32 2640,52 2880,42"></path>
+    <path class="contour-line contour-line--c" d="M0,66 C240,79 480,53 720,66 C960,79 1200,53 1440,66 C1680,79 1920,53 2160,66 C2400,79 2640,53 2880,66"></path>
+    {%- if include.variant == 'hero' %}
+    <path class="contour-line contour-line--d" d="M0,88 C240,80 480,96 720,88 C960,80 1200,96 1440,88 C1680,80 1920,96 2160,88 C2400,80 2640,96 2880,88"></path>
+    {%- endif %}
+  </svg>
+</div>

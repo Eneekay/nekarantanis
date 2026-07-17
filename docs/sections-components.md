@@ -23,7 +23,7 @@ Four background classes give a section its base texture, all built the same way 
   <figcaption>`.section-light-grid` — the one place on the site that uses a grid instead of dots, to visually set the stats apart as "data."</figcaption>
 </figure>
 
-`.section-dark-dotted` is also the trigger for the animated node-network canvas (see [JavaScript](/docs/javascript.html#network-canvas)) — any element with that class automatically gets a canvas layer inserted behind its content, no extra markup needed.
+Every dark (and the one light) dotted header/section also includes `{% raw %}{% include contour-lines.html %}{% endraw %}` as its first child — drifting SVG contour lines behind the content (see [JavaScript](/docs/javascript.html#contour-line-backgrounds)).
 
 ## Decorative blobs
 
@@ -93,7 +93,7 @@ Every page header on the site follows the same recipe, which is why they all fee
 </header>
 ```
 
-1. `.section-dark-dotted` for the base texture (and the network canvas gets attached automatically)
+1. `.section-dark-dotted` for the base texture, plus `{% raw %}{% include contour-lines.html %}{% endraw %}` as the first child for the drifting contour lines
 2. Two blobs, largest/most-visible one first
 3. Content wrapped in `.container.position-relative` so it stacks above the blobs (which are `z-index: 0`) without needing an explicit `z-index` itself
 4. A wave divider closing out the bottom edge, filled with whatever color comes next
@@ -101,8 +101,8 @@ Every page header on the site follows the same recipe, which is why they all fee
 The home hero, About header, Blog header, and every post header are all this same structure with different content and blob/wave color choices. When adding a new page header, start from an existing one and swap the content rather than building the pattern from scratch.
 
 <figure>
-  <img src="/docs/assets/screenshots/home-hero.png" alt="Home page hero header showing the dark-dotted background, network canvas, two blobs, and wave divider">
-  <figcaption>The home hero: `.section-dark-dotted` + network canvas + two blobs + wave divider — the full pattern in one place.</figcaption>
+  <img src="/docs/assets/screenshots/home-hero.png" alt="Home page hero header showing the dark-dotted background, contour lines, two blobs, and wave divider">
+  <figcaption>The home hero: `.section-dark-dotted` + contour lines + two blobs + wave divider — the full pattern in one place.</figcaption>
 </figure>
 
 Content sections between headers alternate `.bg-c4` (plain) and `.section-white-dotted` / `.section-light-dotted` to keep a long page from feeling flat, as seen across the About page's four jump-linked sections (Leadership, Digital, Research, Education).
