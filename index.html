@@ -229,6 +229,47 @@ hero_intro: true
       </div>
     </div>
   </div>
+</section>
+
+<!-- LATEST FROM THE BLOG -->
+{% assign home_latest = site.posts.first %}
+{% assign home_featured_candidates = site.posts | where: "featured", true %}
+{% if home_featured_candidates.size > 0 and home_featured_candidates.first.url != home_latest.url %}
+  {% assign home_featured = home_featured_candidates.first %}
+{% else %}
+  {% assign home_featured = site.posts[1] | default: home_latest %}
+{% endif %}
+<section class="section-light-dotted position-relative overflow-hidden">
+  {% include contour-lines.html tone="light" %}
+  <div class="container position-relative pad-88-12-72 z-1">
+    <div class="mw-640 mb-52">
+      <span class="eyebrow">From the Blog</span>
+      <h2 class="fs-34 fw-semibold text-c0" data-typewriter>Recent thinking on leadership &amp; education</h2>
+    </div>
+    <div class="row g-4">
+      <div class="col-lg-6 td-0" data-reveal-grid>
+        <a href="{{ home_latest.url | relative_url }}" class="role-card hover-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--xxl mb-3">{% include post-icon.html icon=home_latest.icon %}</svg>
+          <div class="fs-13 text-faint fw-semibold ls-1 text-uppercase mb-2">Latest Post &middot; {{ home_latest.category }}</div>
+          <h3 class="fs-22 text-c0 mb-2">{{ home_latest.title }}</h3>
+          <p class="fs-15 text-muted-warm mb-3 lh-65">{{ home_latest.summary }}</p>
+          <span class="fs-14 fw-semibold text-c2">Read the post &rarr;</span>
+        </a>
+      </div>
+      <div class="col-lg-6 td-12" data-reveal-grid>
+        <a href="{{ home_featured.url | relative_url }}" class="role-card hover-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--xxl mb-3">{% include post-icon.html icon=home_featured.icon %}</svg>
+          <div class="fs-13 text-faint fw-semibold ls-1 text-uppercase mb-2">Featured Post &middot; {{ home_featured.category }}</div>
+          <h3 class="fs-22 text-c0 mb-2">{{ home_featured.title }}</h3>
+          <p class="fs-15 text-muted-warm mb-3 lh-65">{{ home_featured.summary }}</p>
+          <span class="fs-14 fw-semibold text-c2">Read the post &rarr;</span>
+        </a>
+      </div>
+    </div>
+    <div class="text-center mt-5" data-reveal>
+      <a href="Blog.html" class="pill-link">Read all posts &rarr;</a>
+    </div>
+  </div>
   <svg class="wave-divider wave-divider--56" viewBox="0 0 1440 100" preserveAspectRatio="none">
     <path d="M0,50 C240,0 480,90 720,45 C960,5 1200,85 1440,40 L1440,100 L0,100 Z" class="fill-c0"></path>
   </svg>
