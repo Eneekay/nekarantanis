@@ -275,6 +275,7 @@ h1, h2, h3, h4 {
   position: absolute;
   left: 0;
   top: -1px;
+  width: 100%;
   /* 2px taller than the 65px this needs to be for the curve itself
      (an amount too small to visibly change the curve's proportions),
      so its bottom edge overlaps .pin-cover-body-fill's top by 2px
