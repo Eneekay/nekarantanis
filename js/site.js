@@ -606,11 +606,12 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Network canvas: a faint, slow-drifting node graph layered over each dark
-  // dotted section, behind the real content - same discreet, minimal feel as
-  // the static dot texture already there, just gently alive. Skipped
-  // entirely under reduced motion rather than shown static, since a frozen
-  // half-connected graph reads as broken rather than intentional.
-  const networkSections = Array.from(document.querySelectorAll('.section-dark-dotted'));
+  // or light dotted section, behind the real content - same discreet,
+  // minimal feel as the static dot texture already there, just gently
+  // alive. Skipped entirely under reduced motion rather than shown static,
+  // since a frozen half-connected graph reads as broken rather than
+  // intentional.
+  const networkSections = Array.from(document.querySelectorAll('.section-dark-dotted, .section-light-dotted'));
   if (networkSections.length && !window.matchMedia('(prefers-reduced-motion: reduce)').matches) {
     const CONNECT_DIST = 175;
     const dpr = Math.min(window.devicePixelRatio || 1, 2);
@@ -620,7 +621,10 @@ document.addEventListener('DOMContentLoaded', () => {
       canvas.className = 'network-canvas';
       canvas.setAttribute('aria-hidden', 'true');
       section.insertBefore(canvas, section.firstChild);
-      return { section, canvas, ctx: canvas.getContext('2d'), nodes: [], visible: true, width: 0, height: 0 };
+      // Light sections need dark ink instead of the dark sections' light
+      // ink, or the graph would all but vanish against the grey background.
+      const dark = section.classList.contains('section-dark-dotted');
+      return { section, canvas, ctx: canvas.getContext('2d'), nodes: [], visible: true, width: 0, height: 0, dark };
     });
 
     // A pinned pin-cover header stays "intersecting" the viewport (still
@@ -717,7 +721,10 @@ document.addEventListener('DOMContentLoaded', () => {
       networks.forEach((net) => {
         if (!net.visible || !net.nodes.length) return;
         if (net === heroNet && (window.scrollY >= heroCoverThreshold || statsCounting)) return;
-        const { ctx, width, height, nodes } = net;
+        const { ctx, width, height, nodes, dark } = net;
+        const ink = dark ? '234, 235, 236' : '11, 12, 16';
+        const lineAlpha = dark ? 0.16 : 0.1;
+        const dotAlpha = dark ? 0.4 : 0.28;
         nodes.forEach((n) => {
           n.x += n.vx * dt;
           n.y += n.vy * dt;
@@ -734,7 +741,7 @@ document.addEventListener('DOMContentLoaded', () => {
             const dy = nodes[i].y - nodes[j].y;
             const dist = Math.sqrt(dx * dx + dy * dy);
             if (dist < CONNECT_DIST) {
-              ctx.strokeStyle = 'rgba(234, 235, 236,' + (0.16 * (1 - dist / CONNECT_DIST)) + ')';
+              ctx.strokeStyle = 'rgba(' + ink + ',' + (lineAlpha * (1 - dist / CONNECT_DIST)) + ')';
               ctx.lineWidth = 1;
               ctx.beginPath();
               ctx.moveTo(nodes[i].x, nodes[i].y);
@@ -743,7 +750,7 @@ document.addEventListener('DOMContentLoaded', () => {
             }
           }
         }
-        ctx.fillStyle = 'rgba(234, 235, 236, 0.4)';
+        ctx.fillStyle = 'rgba(' + ink + ',' + dotAlpha + ')';
         nodes.forEach((n) => {
           ctx.beginPath();
           ctx.arc(n.x, n.y, 1.6, 0, Math.PI * 2);
