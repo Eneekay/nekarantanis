@@ -682,6 +682,11 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .hover-card { transition: transform .25s ease, box-shadow .25s ease; }
 .hover-card:hover { transform: translateY(-4px); box-shadow: var(--nk-shadow-card); }
 
+/* Overrides .hover-card's shared hover shadow with a deeper one of its
+   own (same rest-to-hover idea, just a bigger jump) - sitting on the
+   grey dotted section rather than that class's usual white/cream
+   background, a shadow only appearing on hover read as the card
+   snapping into existence rather than lifting off the page. */
 .role-card {
   display: block;
   background: var(--nk-c4);
@@ -690,6 +695,10 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   padding: 36px;
   height: 100%;
   color: var(--nk-c0);
+  box-shadow: 0 6px 16px rgba(var(--nk-c0-rgb), 0.08);
+}
+.role-card:hover {
+  box-shadow: 0 20px 40px rgba(var(--nk-c0-rgb), 0.16);
 }
 
 .post-card {
