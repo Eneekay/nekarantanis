@@ -881,7 +881,6 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 @keyframes heroNavDrop     { from { opacity: 0; transform: translateY(-100%); } to { opacity: 1; transform: translateY(0); } }
 @keyframes heroHeadingDrop { from { opacity: 0; transform: translateY(-24px); } to { opacity: 1; transform: translateY(0); } }
 @keyframes heroSlideLeft   { from { opacity: 0; transform: translateX(-40px); } to { opacity: 1; transform: translateX(0); } }
-@keyframes heroSlideRight  { from { opacity: 0; transform: translateX(40px); } to { opacity: 1; transform: translateX(0); } }
 @keyframes heroSlideUp     { from { opacity: 0; transform: translateY(40px); } to { opacity: 1; transform: translateY(0); } }
 
 @media (prefers-reduced-motion: no-preference) {
@@ -890,7 +889,6 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   body.home-hero-intro .hero-heading     { animation: heroHeadingDrop .5s ease-out .45s both; }
   body.home-hero-intro .hero-btn-left    { animation: heroSlideLeft .42s ease-out .95s both; }
   body.home-hero-intro .hero-btn-blog    { animation: heroSlideUp .42s ease-out 1.15s both; }
-  body.home-hero-intro .hero-btn-right   { animation: heroSlideRight .42s ease-out 1.35s both; }
   body.home-hero-intro .scroll-hint {
     animation: heroSlideUp .42s ease-out 1.55s both,
                scrollBounce 1.8s ease-in-out 1.97s infinite;

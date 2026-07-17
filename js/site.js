@@ -5,7 +5,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // effect" on `transform` forever, which silently blocks the ordinary
   // hover-lift transition every other button on the site has. Release it
   // once the entrance animation actually finishes.
-  document.querySelectorAll('.hero-btn-left, .hero-btn-blog, .hero-btn-right, .scroll-hint').forEach((el) => {
+  document.querySelectorAll('.hero-btn-left, .hero-btn-blog, .scroll-hint').forEach((el) => {
     el.addEventListener('animationend', (e) => {
       if (e.animationName === 'scrollBounce') return; // still running - leave it alone
       el.style.animation = el.classList.contains('scroll-hint')
