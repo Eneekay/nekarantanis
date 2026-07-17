@@ -1,26 +1,25 @@
 /* N. E. Karantanis — site styles
    Palette, typography and component classes shared by every page.
-   Warm palette (ink / kingfisher / deep teal / stone / paper / marigold),
-   chosen so the existing warm-brown text tones below sit on backgrounds
-   of the same temperature instead of the cooler grey the site launched
-   with. --nk-c1 (kingfisher) keeps strong contrast on dark sections but
-   fails AA on light ones - --nk-c2 (deep teal) is the one used for
+   "Field green and coral": warm ink/paper/stone neutrals (unchanged from
+   the previous palette) paired with a field-green/coral accent set.
+   --nk-c1 (field green) keeps strong contrast on dark sections but fails
+   AA on light ones - --nk-c2 (deep green) is the one used for
    links/accents against paper/stone, and every current use of c1 is
    already confined to dark backgrounds or its own solid button fill. */
 
 :root {
-  --nk-c0: #12181D;
-  --nk-c1: #3FD0C4;
-  --nk-c1h: #33A79E;
-  --nk-c2: #1E6E66;
-  --nk-c2h: #185852;
+  --nk-c0: #14181A;
+  --nk-c1: #8FD694;
+  --nk-c1h: #72AB76;
+  --nk-c2: #2E6B3F;
+  --nk-c2h: #255632;
   --nk-c3: #E4DFD3;
-  --nk-c4: #F5F2EA;
-  --nk-gold: #E8A13D;
-  --nk-c0-rgb: 18, 24, 29;
-  --nk-c1-rgb: 63, 208, 196;
-  --nk-c4-rgb: 245, 242, 234;
-  --nk-sel: rgba(30, 110, 102, 0.2);
+  --nk-c4: #F5F3EA;
+  --nk-gold: #E2673F;
+  --nk-c0-rgb: 20, 24, 26;
+  --nk-c1-rgb: 143, 214, 148;
+  --nk-c4-rgb: 245, 243, 234;
+  --nk-sel: rgba(46, 107, 63, 0.2);
 
   --nk-text-muted: #5b5348;
   --nk-text-faint: #8a8175;
@@ -774,7 +773,7 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   font-weight: 700;
   font-size: clamp(36px, 8vw, 50px);
   color: var(--nk-c2);
-  text-shadow: 0 0 28px rgba(30, 110, 102, 0.4);
+  text-shadow: 0 0 28px rgba(46, 107, 63, 0.4);
   /* Sits inline next to .stat-icon in a centered row, so any per-frame
      width change while counting up re-centers the whole icon+number pair
      - tabular figures keep every digit the same advance width, removing
