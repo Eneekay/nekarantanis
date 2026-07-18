@@ -23,7 +23,7 @@ hero_intro: true
       </p>
       <div class="d-flex flex-wrap gap-3 justify-content-center">
         <a href="About.html" class="btn-nk btn-nk--lg btn-nk-solid-c1 hero-btn-left">View Full Credentials</a>
-        <a href="Blog.html" class="btn-nk btn-nk--lg btn-nk-outline hero-btn-blog">Read the Blog</a>
+        <a href="Blog.html" class="btn-nk btn-nk--lg btn-nk-outline hero-btn-right">Read the Blog</a>
       </div>
       <div class="scroll-hint mt-5" id="scrollHint" role="button" aria-label="Scroll to next section">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c4)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">
@@ -239,8 +239,7 @@ hero_intro: true
   {% assign home_featured = site.posts[1] | default: home_latest %}
 {% endif %}
 <section class="section-light-dotted position-relative overflow-hidden">
-  {% include contour-lines.html tone="light" %}
-  <div class="container position-relative pad-88-12-72 z-1">
+  <div class="container pad-88-12-72">
     <div class="mw-640 mb-52">
       <span class="eyebrow">From the Blog</span>
       <h2 class="fs-34 fw-semibold text-c0" data-typewriter>Recent thinking on leadership &amp; education</h2>
