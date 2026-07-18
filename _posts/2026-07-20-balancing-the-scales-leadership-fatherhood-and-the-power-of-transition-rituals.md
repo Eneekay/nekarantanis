@@ -1,7 +1,7 @@
 ---
 title: "Balancing the Scales: Leadership, Fatherhood, and the Power of
   Transition Rituals"
-date: 2026-07-19
+date: 2026-07-18
 featured: false
 category: Leadership & Personal
 icon: team
