@@ -94,7 +94,7 @@ Every button on the site is `.btn-nk` plus a color modifier and an optional size
 <a href="#" class="btn-nk btn-nk-outline btn-nk--lg">Read the Blog</a>
 ```
 
-- **Color:** `.btn-nk-solid-c1` (cyan fill), `.btn-nk-solid-c2` (teal fill), `.btn-nk-outline` (transparent, for dark backgrounds)
+- **Color:** `.btn-nk-solid-c1` (sky fill), `.btn-nk-solid-c2` (cobalt fill), `.btn-nk-outline` (transparent, for dark backgrounds)
 - **Size:** `.btn-nk--nav` (compact, for the nav bar), `.btn-nk--sm`, `.btn-nk--lg` (default padding needs no modifier)
 
 Every button lifts 3px and gains a drop shadow on `:hover` via a shared `transform`/`box-shadow` transition on the base `.btn-nk` class — colors only change the fill/border, never the hover *motion*, so the lift feels consistent everywhere. (This is also the interaction that the hero's entrance animation once silently broke — see [the animation-fill-mode note](/docs/javascript.html#hero-intro-sequence) on the JavaScript page.)

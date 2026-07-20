@@ -9,7 +9,7 @@ All animated behavior lives in one file, `js/site.js`, wrapped in a single `DOMC
 
 ## Hero intro sequence
 
-The home page (`hero_intro: true` in its front matter, which adds `class="home-hero-intro"` to `<body>`) plays a staged entrance: background fades in, then the nav drops down, then the heading, then the three hero buttons and scroll hint cascade in one after another while the intro paragraph is mid-typewriter. This part is pure CSS (`@keyframes heroFadeIn`, `heroNavDrop`, etc., each with its own `animation-delay`), scoped entirely to `body.home-hero-intro` so it never touches any other page's shared nav.
+The home page (`hero_intro: true` in its front matter, which adds `class="home-hero-intro"` to `<body>`) plays a staged entrance: background fades in, then the nav drops down, then the heading, then the two hero buttons and scroll hint cascade in one after another while the intro paragraph is mid-typewriter. The buttons slide in from opposite sides (`.hero-btn-left` from the left, `.hero-btn-right` from the right) so the pair reads as a symmetric duo rather than a single-file list. This part is pure CSS (`@keyframes heroFadeIn`, `heroNavDrop`, etc., each with its own `animation-delay`), scoped entirely to `body.home-hero-intro` so it never touches any other page's shared nav.
 
 <div class="docs-note" id="hero-intro-sequence">
 <strong>The bug this uncovered:</strong> those one-shot entrance animations use <code>animation-fill-mode: both</code> so a button holds its final position during its delay instead of flashing into view unstyled. But <code>fill-mode: both</code> keeps the animation "in effect" on the <code>transform</code> property forever — which silently blocked the ordinary hover-lift transition every button on the site has, since two rules were fighting over the same CSS property. The fix, in <code>site.js</code>, listens for <code>animationend</code> on each hero button and sets <code>el.style.animation = 'none'</code> once the entrance animation genuinely finishes, releasing the property back to the normal <code>:hover</code> transition. It carefully skips this for <code>.scroll-hint</code> while its <em>infinite</em> bounce animation is still the one running, checking <code>e.animationName === 'scrollBounce'</code>.
@@ -55,13 +55,22 @@ Because the only animated property is `transform`, the browser composites this o
 
 One easy-to-miss requirement: the section's actual content wrapper needs its own stacking context above `.contour-bg` (`position: relative` **and** an explicit `z-index`, e.g. the `z-1` utility) — `position: relative` alone leaves `z-index: auto`, and a non-positioned descendant of that wrapper can still end up painted *behind* a later `position: absolute` sibling like `.contour-bg`, regardless of DOM order. Every section using this include already has `z-1` on its content container for exactly this reason.
 
-## Blog filter dropdowns
+## Blog category/tag filtering and live search
 
-The category and tag dropdowns on the Blog page are custom button+list widgets, not `<select>` elements — a native select's open popup is browser chrome that can't be restyled to match the theme. `setupDropdown(root, onSelect, onClear)` wires up one dropdown: a trigger button, a `role="listbox"` menu, and a small × button that only appears once a value is picked (living *inside* the same pill as the trigger, not a separate "clear all" button). Filtering itself just toggles `.d-none` on each post card client-side and re-runs `assignRevealDirections()` since the visible set (and so each card's row) just changed. The current category/tag selection is mirrored into the URL query string (`syncUrl`, via `history.replaceState`) so a filtered view is shareable/bookmarkable, and read back out on page load. The featured post at the top is never affected by filtering — it's shown unconditionally, independent of the grid below it.
+The category and tag dropdowns on the Blog page are custom button+list widgets, not `<select>` elements — a native select's open popup is browser chrome that can't be restyled to match the theme. `setupDropdown(root, onSelect, onClear)` wires up one dropdown: a trigger button, a `role="listbox"` menu, and a small × button that only appears once a value is picked (living *inside* the same pill as the trigger, not a separate "clear all" button).
+
+A text search box sits alongside the two dropdowns and filters the same grid live, on every keystroke (`input` event, no debounce needed — it's a plain array of ~10 cards). Each card carries a `data-search` attribute that Liquid bakes at build time from its title, summary, category, and tags (lowercased, HTML-stripped), so matching at runtime is just `card.dataset.search.includes(query)` — no DOM text extraction on every keystroke. All three filters (category, tag, search) combine with AND: a card only shows if it passes all of the currently-active ones.
+
+Filtering itself just toggles `.d-none` on each post card client-side and re-runs `assignRevealDirections()` since the visible set (and so each card's row) just changed; an empty result shows a "No posts match that filter" message. The current category/tag/search state is mirrored into the URL query string (`syncUrl`, via `history.replaceState`, search as `?q=`) so a filtered view is shareable/bookmarkable, and read back out on page load. The featured post at the top is never affected by any of this filtering — it's shown unconditionally, independent of the grid below it.
 
 <figure>
-  <img src="/docs/assets/screenshots/blog-filter-open.png" alt="Blog page with the category filter dropdown open, showing the custom listbox menu">
-  <figcaption>The category dropdown open — a custom `role="listbox"` menu, not a native `&lt;select&gt;`.</figcaption>
+  <img src="/docs/assets/screenshots/blog-filter-open.png" alt="Blog page with the category filter dropdown open, showing the custom listbox menu and the search box">
+  <figcaption>The category dropdown open — a custom `role="listbox"` menu, not a native `&lt;select&gt;` — next to the live search box.</figcaption>
+</figure>
+
+<figure>
+  <img src="/docs/assets/screenshots/blog-search-live.png" alt="Blog page with a search query typed in, showing the grid narrowed to matching posts">
+  <figcaption>Typing into the search box narrows the grid live, no submit button — matches here are against title, summary, category, and tags.</figcaption>
 </figure>
 
 ## Nav scroll state

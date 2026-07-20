@@ -23,7 +23,9 @@ Four background classes give a section its base texture, all built the same way 
   <figcaption>`.section-light-grid` — the one place on the site that uses a grid instead of dots, to visually set the stats apart as "data."</figcaption>
 </figure>
 
-Every dark (and the one light) dotted header/section also includes `{% raw %}{% include contour-lines.html %}{% endraw %}` as its first child — drifting SVG contour lines behind the content (see [JavaScript](/docs/javascript.html#contour-line-backgrounds)).
+`.section-light-dotted` also carries a built-in top/bottom inset shadow, so it reads as a shallow recess when it's sandwiched between two differently-toned sections (its original and still-primary use, Home's Featured Roles between two `.bg-c4` bands). A `.dots-seamless` modifier strips that shadow for the one place two `.section-light-dotted` sections instead sit back-to-back with nothing between them and are meant to read as a single continuous section rather than two stacked ones — the Blog page's Featured Post + Post Grid, both dotted, no seam.
+
+Most dark (and some light) dotted headers/sections also include `{% raw %}{% include contour-lines.html %}{% endraw %}` as their first child — drifting SVG contour lines behind the content (see [JavaScript](/docs/javascript.html#contour-line-backgrounds)). Not every dotted section has them, though: Home's "From the Blog" section is plain `.section-light-dotted` with no contour lines at all, matching the flatter, quieter treatment of Areas of Focus rather than Featured Roles' animated one.
 
 ## Decorative blobs
 
@@ -42,7 +44,7 @@ Every blob position class (`.home-hero-blob-1/2`, `.about-header-blob/-2`, `.blo
 
 <figure>
   <img src="/docs/assets/screenshots/about-header.png" alt="About page header showing two decorative blobs and the section jump-nav">
-  <figcaption>About header: a cyan blob top-right, a fainter teal blob bottom-left, both drifting independently.</figcaption>
+  <figcaption>About header: a sky blob top-right, a fainter cobalt blob bottom-left, both drifting independently.</figcaption>
 </figure>
 
 All blob animation is skipped under `prefers-reduced-motion: reduce`.
@@ -68,7 +70,7 @@ The stats section's wave is the one exception to "just an SVG path": it's a real
 Three card variants, all sharing `.hover-card` for the lift-on-hover behavior (`translateY(-4px)` + shadow):
 
 - **`.post-card`** — blog grid cards: icon, category/date label, title, summary
-- **`.role-card`** — the home page's "Featured Roles" cards: logo, company, title, blurb, "Read full role" link
+- **`.role-card`** — company/logo cards on Home's "Featured Roles", reused as-is by "From the Blog" (icon in place of a logo, "latest"/"featured" label instead of a date range) so both sections share one visual language
 - **`.featured-post-card`** — the Blog page's single featured post, a two-column grid (icon, then text) rather than stacked
 
 `.pillar-card` (Home's "Areas of Focus") and `.info-card` (About page's highlighted current-role box) are simpler — a top accent border or flat background, no hover lift, since they aren't links.
@@ -76,6 +78,11 @@ Three card variants, all sharing `.hover-card` for the lift-on-hover behavior (`
 <figure>
   <img src="/docs/assets/screenshots/home-pillars-roles.png" alt="Home page showing pillar cards and role cards side by side">
   <figcaption>`.pillar-card` (top, no hover lift) and `.role-card` (bottom, `.hover-card` lift) on the Home page.</figcaption>
+</figure>
+
+<figure>
+  <img src="/docs/assets/screenshots/home-blog-section.png" alt="Home page's From the Blog section showing two role-card-styled post cards">
+  <figcaption>Home's "From the Blog" section — the latest post and a second (featured, or next-most-recent) post, `.role-card` reused with an icon instead of a logo.</figcaption>
 </figure>
 
 ## Putting it together: the header pattern

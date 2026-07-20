@@ -18,7 +18,7 @@ A quick map of everything in the repo — what it is and where to look for it.
 
 | Path | What it is |
 |---|---|
-| `_layouts/default.html` | Base HTML shell used by every page: fonts, stylesheets, nav, footer, scripts |
+| `_layouts/default.html` | Base HTML shell used by every page: fonts, stylesheets, nav, footer, scripts, and site-wide GoatCounter/Umami analytics tags |
 | `_layouts/post.html` | Wraps a blog post's Markdown body with the header/CTA structure |
 | `_layouts/docs.html` | This documentation site's layout — sidebar nav, on-page TOC, docs styling |
 | `_includes/nav.html` | The fixed top nav bar |

@@ -11,11 +11,11 @@ This is the internal documentation for **nekarantanis.co.uk** — a Jekyll site 
 
 A static site built with [Jekyll](https://jekyllrb.com/), hosted on GitHub Pages, with three main page types:
 
-- **Home** (`index.html`) — hero intro, impact stats, leadership pillars, featured roles, education strip
+- **Home** (`index.html`) — hero intro, impact stats, leadership pillars, featured roles, education strip, latest blog posts, a closing CTA
 - **About** (`About.html`) — a CV-style page with four jump-linked sections (Leadership, Digital, Research, Education)
-- **Blog** (`Blog.html` + `_posts/*.md`) — a featured post, a filterable grid of the rest, and individual post pages
+- **Blog** (`Blog.html` + `_posts/*.md`) — a featured post, a live-searchable/filterable grid of the rest, and individual post pages
 
-There's no build tooling beyond Jekyll itself — no bundler, no npm dependencies for the front end. `css/custom.css` and `js/site.js` are hand-written and loaded directly on every page via `_layouts/default.html`.
+There's no build tooling beyond Jekyll itself — no bundler, no npm dependencies for the front end. `css/custom.css` and `js/site.js` are hand-written and loaded directly on every page via `_layouts/default.html`, which also loads [GoatCounter](https://www.goatcounter.com/) and [Umami](https://umami.is/) analytics site-wide — both are just a `<script>` tag apiece, added once in the shared layout rather than per page.
 
 ## The three things that make up the theme
 
@@ -27,7 +27,7 @@ This is the short version — each has its own full page in the sidebar.
 
 **2. A handful of reusable section-level components** — dotted/grid textured backgrounds, decorative floating "blobs," animated wave dividers, and drifting SVG contour lines — that combine to give each page header and section its own quiet motion without any of it being page-specific code. See **[Sections & Components](/docs/sections-components.html)**.
 
-**3. One JavaScript file, `js/site.js`**, that layers in every animated behavior — scroll reveals, the homepage's staged intro, the typewriter effect, counting-up stats, the wave drift, and the blog's filter dropdowns — all gated behind `prefers-reduced-motion` and `IntersectionObserver` so nothing animates when it doesn't need to. The contour-line backgrounds are pure CSS, not JS — see **[JavaScript](/docs/javascript.html)**.
+**3. One JavaScript file, `js/site.js`**, that layers in every animated behavior — scroll reveals, the homepage's staged intro, the typewriter effect, counting-up stats, the wave drift, and the blog's category/tag/search filtering — all gated behind `prefers-reduced-motion` and `IntersectionObserver` so nothing animates when it doesn't need to. The contour-line backgrounds are pure CSS, not JS — see **[JavaScript](/docs/javascript.html)**.
 
 ## Editing content
 
