@@ -1,0 +1,124 @@
+---
+layout: default
+title: Publications
+---
+<!-- PAGE HEADER -->
+<header class="section-dark-dotted text-c3 position-relative overflow-hidden">
+  {% include contour-lines.html variant="hero" %}
+  <svg viewBox="0 0 200 200" class="blog-header-blob">
+    <circle cx="100" cy="100" r="100" fill="var(--nk-c1)"></circle>
+  </svg>
+  <svg viewBox="0 0 200 200" class="blog-header-blob-2">
+    <circle cx="100" cy="100" r="100" fill="var(--nk-c2)"></circle>
+  </svg>
+  <div class="container position-relative page-header-inner z-1">
+    <div class="d-flex align-items-center gap-3 mb-3">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--xl">{% include post-icon.html icon="monkey" %}</svg>
+      <span class="eyebrow gold mb-0">Biological Research</span>
+    </div>
+    <h1 class="fs-42 fw-semibold text-c4 mb-3">Published Research</h1>
+    <p class="fs-17 text-cream mw-680 typewriter--on-dark" data-typewriter>
+      Peer-reviewed research on arboreal locomotion, positional behaviour, and ecology, from a decade studying primates and other mammals in the field and in the lab.
+    </p>
+  </div>
+  <svg class="wave-divider" viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c3"></path>
+  </svg>
+</header>
+
+{% assign all_species = "" | split: "," %}
+{% assign all_collaborators = "" | split: "," %}
+{% for pub in site.publications %}
+  {% assign all_species = all_species | concat: pub.species %}
+  {% assign all_collaborators = all_collaborators | concat: pub.authors_list %}
+{% endfor %}
+{% assign all_species = all_species | uniq %}
+{% assign all_collaborators = all_collaborators | uniq %}
+{% assign pub_years = site.publications | map: "year" | sort %}
+
+<!-- RESEARCH BY THE NUMBERS -->
+<section class="section-light-grid position-relative overflow-hidden">
+  <div class="container pad-64-12-24">
+    <div class="row g-4 text-center" data-count-group>
+      <div class="col-6 col-lg-3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stat-icon">
+          <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"></path><polyline points="14 2 14 8 20 8"></polyline><line x1="8" y1="13" x2="16" y2="13"></line><line x1="8" y1="17" x2="16" y2="17"></line>
+        </svg>
+        <div class="stat-value" data-count-to="{{ site.publications.size }}">{{ site.publications.size }}</div>
+        <div class="fs-14 text-muted-warm mt-1">Publications</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stat-icon">
+          <circle cx="6.3" cy="4" r="1.2"></circle><circle cx="12.7" cy="4" r="1.2"></circle><circle cx="9.5" cy="5.5" r="3"></circle><circle cx="9.5" cy="13" r="4.3"></circle><path d="M7,17 C5,19 3.5,20.5 2,21.5"></path><path d="M12,17 C13,19.5 12,21.7 9,22.3"></path>
+        </svg>
+        <div class="stat-value" data-count-to="{{ all_species.size }}">{{ all_species.size }}</div>
+        <div class="fs-14 text-muted-warm mt-1">Species researched</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stat-icon">
+          <circle cx="9" cy="8" r="3"></circle><path d="M2 20c0-3.5 3-5 7-5s7 1.5 7 5"></path><circle cx="17" cy="9" r="2.3"></circle><path d="M17 12.5c2.4 0 4 1.2 4 3.5"></path>
+        </svg>
+        <div class="stat-value" data-count-to="{{ all_collaborators.size }}">{{ all_collaborators.size }}</div>
+        <div class="fs-14 text-muted-warm mt-1">Collaborating researchers</div>
+      </div>
+      <div class="col-6 col-lg-3">
+        <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stat-icon">
+          <circle cx="12" cy="12" r="9"></circle><polyline points="12 7 12 12 15.5 14"></polyline>
+        </svg>
+        {% assign years_active = pub_years.last | minus: pub_years.first | plus: 1 %}
+        <div class="stat-value" data-count-to="{{ years_active }}">{{ years_active }}</div>
+        <div class="fs-14 text-muted-warm mt-1">Years in research ({{ pub_years.first }}&ndash;{{ pub_years.last }})</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- PROFILE LINKS -->
+<section class="bg-c4">
+  <div class="container pad-24-12-64 text-center" data-reveal>
+    <div class="d-flex flex-wrap gap-3 justify-content-center">
+      <a href="https://www.researchgate.net/profile/Nikolaos-Evangelos-Karantanis/publications" class="btn-nk btn-nk-outline" target="_blank" rel="noopener">View on ResearchGate &#8599;</a>
+      <a href="https://scholar.google.com/citations?user=sQlYqwIAAAAJ&hl=en" class="btn-nk btn-nk-outline" target="_blank" rel="noopener">View on Google Scholar &#8599;</a>
+    </div>
+  </div>
+</section>
+
+<!-- PUBLICATIONS GRID -->
+<section class="section-light-dotted">
+  <div class="container pad-24-12-88">
+    <div class="fs-19 fw-semibold text-c0 mb-4">All publications</div>
+    <div class="row g-4">
+      {% assign sorted_pubs = site.publications | sort: "year" | reverse %}
+      {% for pub in sorted_pubs %}
+      <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal-grid>
+        <a href="{{ pub.url | relative_url }}" class="post-card hover-card">
+          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=pub.icon %}</svg>
+          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">{{ pub.journal }} &middot; {{ pub.year }}</div>
+          <h3 class="fs-19 mb-2">{{ pub.title }}</h3>
+          <p class="fs-14-5 text-muted-warm mb-0">{{ pub.summary }}</p>
+        </a>
+      </div>
+      {% endfor %}
+    </div>
+  </div>
+  <svg class="wave-divider wave-divider--inline wave-divider--48" viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <path d="M0,50 C240,0 480,90 720,45 C960,5 1200,85 1440,40 L1440,100 L0,100 Z" class="fill-c0"></path>
+  </svg>
+</section>
+
+<!-- CTA -->
+<section class="section-dark-dotted position-relative overflow-hidden">
+  {% include contour-lines.html %}
+  <div class="container position-relative pad-88-12-72 z-1">
+    <div class="row align-items-center g-4">
+      <div class="col-lg-8">
+        <h2 class="fs-28 fw-semibold text-c4 mb-2 typewriter--on-dark" data-typewriter>Interested in the research behind the CV?</h2>
+        <p class="fs-16 text-cream mb-0">Every article links back here, and through to the original PDF and publisher page.</p>
+      </div>
+      <div class="col-lg-4 d-flex flex-lg-row flex-column gap-3 justify-content-lg-end">
+        <a href="About.html" class="btn-nk btn-nk-outline">Full CV</a>
+        <a href="https://www.linkedin.com/in/nekarantanis/" class="btn-nk btn-nk-solid-c1">LinkedIn</a>
+      </div>
+    </div>
+  </div>
+</section>

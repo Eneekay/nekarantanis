@@ -14,6 +14,9 @@ permalink: /blog/:slug.html
 collections:
   posts:
     output: true
+  publications:
+    output: true
+    permalink: /publications/:slug.html
 
 defaults:
   - scope:
@@ -26,6 +29,12 @@ defaults:
       type: posts
     values:
       layout: post
+      base: "../"
+  - scope:
+      path: ""
+      type: publications
+    values:
+      layout: publication
       base: "../"
 
 exclude:

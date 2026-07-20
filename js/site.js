@@ -227,6 +227,39 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   }
 
+  // Publication article sticky TOC: built from the article body's own h2/h3
+  // headings rather than a hand-maintained list, since kramdown already
+  // assigns each heading a stable id - same approach as the docs site's
+  // on-page TOC (docs/assets/docs.js), reimplemented here so it picks up
+  // this site's own theme instead of the docs-only stylesheet.
+  const pubTocList = document.getElementById('pubTocList');
+  const pubHeadings = document.querySelectorAll('#pubBody h2[id], #pubBody h3[id]');
+  if (pubTocList && pubHeadings.length) {
+    const pubLinks = [];
+    pubHeadings.forEach((h) => {
+      const li = document.createElement('li');
+      if (h.tagName === 'H3') li.className = 'pub-toc-h3';
+      const a = document.createElement('a');
+      a.href = '#' + h.id;
+      a.textContent = h.textContent;
+      li.appendChild(a);
+      pubTocList.appendChild(li);
+      pubLinks.push({ heading: h, link: a });
+    });
+
+    if ('IntersectionObserver' in window) {
+      const io = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          const match = pubLinks.find((l) => l.heading === entry.target);
+          if (match) match.link.classList.toggle('is-active', entry.isIntersecting);
+        });
+      }, { rootMargin: '-80px 0px -70% 0px' });
+      pubHeadings.forEach((h) => io.observe(h));
+    }
+  } else if (pubTocList) {
+    pubTocList.closest('.pub-toc').style.display = 'none';
+  }
+
   // Typewriter effect: reveals text one character at a time as each element
   // scrolls into view. The character just typed sits in the accent colour
   // until the next one appears, at which point it settles to the normal

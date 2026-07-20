@@ -689,6 +689,72 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .post-body-inner    { padding: 72px 12px 72px; max-width: 760px; }
 .post-cta-inner     { padding: 56px 12px 88px; max-width: 760px; }
 
+/* ---------- publication article ---------- */
+
+.pub-cite-outer { max-width: 980px; margin: 0 auto; padding: 32px 12px 0; }
+.pub-cite-box {
+  background: var(--nk-c3);
+  border-left: 4px solid var(--nk-c2);
+  border-radius: 6px;
+  padding: 20px 24px;
+}
+
+/* Sticky TOC + article column. Collapses to a single, non-sticky column
+   under 900px - the nav still works as click-to-scroll there, it just
+   doesn't persist on screen while reading, since there isn't room for a
+   rail alongside a comfortably-wide reading column at that width. */
+.pub-shell {
+  display: grid;
+  grid-template-columns: 220px minmax(0, 1fr);
+  gap: 48px;
+  max-width: 980px;
+  padding: 56px 12px 88px;
+}
+@media (max-width: 900px) {
+  .pub-shell { grid-template-columns: 1fr; gap: 8px; }
+  .pub-toc-inner { position: static; max-height: none; }
+}
+
+.pub-toc-inner {
+  position: sticky;
+  top: calc(var(--nav-h, 69px) + 24px);
+  max-height: calc(100vh - var(--nav-h, 69px) - 48px);
+  overflow-y: auto;
+}
+.pub-toc-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--nk-text-faint); margin-bottom: 12px; }
+.pub-toc-list { list-style: none; margin: 0; padding: 0; border-left: 2px solid rgba(var(--nk-c0-rgb), 0.1); }
+.pub-toc-list a {
+  display: block;
+  padding: 6px 0 6px 14px;
+  margin-left: -2px;
+  border-left: 2px solid transparent;
+  font-size: 13.5px;
+  color: var(--nk-text-muted);
+  text-decoration: none;
+  transition: color .2s ease, border-color .2s ease;
+}
+.pub-toc-list a:hover { color: var(--nk-c2); }
+.pub-toc-list a.is-active { color: var(--nk-c2); border-left-color: var(--nk-c2); font-weight: 600; }
+.pub-toc-list li.pub-toc-h3 a { padding-left: 28px; font-size: 13px; }
+
+.pub-body { max-width: 700px; }
+.pub-body h2 { font-size: 24px; font-weight: 600; margin: 48px 0 18px; scroll-margin-top: calc(var(--nav-h, 69px) + 16px); }
+.pub-body h2:first-child, .pub-body > :first-child { margin-top: 0; }
+.pub-body h3 { font-size: 19px; font-weight: 600; margin: 32px 0 14px; scroll-margin-top: calc(var(--nav-h, 69px) + 16px); }
+.pub-body p { font-size: 16.5px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 20px; }
+.pub-body ul, .pub-body ol { font-size: 16.5px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 20px; padding-left: 22px; }
+.pub-body li { margin-bottom: 6px; }
+.pub-body blockquote { border-left: 4px solid var(--nk-c2); margin: 32px 0; padding: 4px 0 4px 22px; color: var(--nk-text-muted); font-style: italic; }
+.pub-body figure { margin: 32px 0; }
+.pub-body figure img { max-width: 100%; border-radius: 6px; }
+.pub-body figcaption { font-size: 13.5px; color: var(--nk-text-faint); margin-top: 10px; }
+.pub-body table { width: 100%; border-collapse: collapse; margin: 8px 0 28px; font-size: 13.5px; }
+.pub-body table th, .pub-body table td { padding: 8px 10px; border: 1px solid rgba(var(--nk-c0-rgb), 0.12); text-align: left; }
+.pub-body table th { background: var(--nk-c3); font-weight: 600; }
+.pub-body a { color: var(--nk-c2); }
+.pub-body hr { border: none; border-top: 1px solid rgba(var(--nk-c0-rgb), 0.12); margin: 40px 0; }
+.pub-body .pub-refs li { font-size: 15px; line-height: 1.7; margin-bottom: 12px; }
+
 /* Drifting contour lines layered behind section content - the same
    curve family as .wave-divider, kept moving instead of static. Markup
    is the first child of the section (see _includes/contour-lines.html)

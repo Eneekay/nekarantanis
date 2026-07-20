@@ -1,0 +1,76 @@
+---
+layout: default
+---
+<!-- PUBLICATION HEADER -->
+<header class="section-dark-dotted text-c3 position-relative overflow-hidden">
+  {% include contour-lines.html %}
+  <svg viewBox="0 0 200 200" class="post-header-blob">
+    <circle cx="100" cy="100" r="100" fill="var(--nk-c1)"></circle>
+  </svg>
+  <div class="container position-relative post-header-inner z-1">
+    <a href="{{ page.base }}Publications.html" class="fs-14 fw-semibold text-gold">&larr; Back to Publications</a>
+    <div class="d-flex align-items-center gap-3 mt-4 mb-3">
+      <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-gold)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="heading-icon heading-icon--lg">{% include post-icon.html icon=page.icon %}</svg>
+      <span class="fs-13 fw-semibold text-gold text-uppercase ls-15">{{ page.journal }} &middot; {{ page.year }}</span>
+    </div>
+    <h1 class="fs-post-title fw-semibold text-c4 mb-3">{{ page.title }}</h1>
+    <div class="fs-15 text-faint-dark mb-3">{{ page.authors_display }}</div>
+    {% if page.species %}
+    <div class="d-flex flex-wrap gap-2 mb-2">
+      {% for sp in page.species %}<span class="tag-pill tag-pill--dark"><em>{{ sp }}</em></span>{% endfor %}
+    </div>
+    {% endif %}
+    {% if page.keywords %}
+    <div class="d-flex flex-wrap gap-2">
+      {% for kw in page.keywords %}<span class="tag-pill tag-pill--dark">{{ kw }}</span>{% endfor %}
+    </div>
+    {% endif %}
+  </div>
+  <svg class="wave-divider" viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c4"></path>
+  </svg>
+</header>
+
+<!-- CITE THIS ARTICLE -->
+<section class="bg-c4">
+  <div class="container pub-cite-outer">
+    <div class="pub-cite-box" data-reveal>
+      <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">Cite this article &middot; APA 7th edition</div>
+      <p class="fs-14-5 mb-0">{{ page.apa_citation }}</p>
+    </div>
+  </div>
+</section>
+
+<!-- ARTICLE BODY -->
+<section class="bg-c4">
+  <div class="container pub-shell">
+    <aside class="pub-toc">
+      <div class="pub-toc-inner">
+        <div class="pub-toc-label">On this page</div>
+        <ul class="pub-toc-list" id="pubTocList"></ul>
+      </div>
+    </aside>
+    <div class="pub-body" id="pubBody">
+      {{ content }}
+    </div>
+  </div>
+</section>
+
+<!-- DOWNLOAD / CTA -->
+<section class="section-dark-dotted position-relative overflow-hidden">
+  {% include contour-lines.html %}
+  <svg viewBox="0 0 200 200" class="post-cta-blob post-cta-blob-1">
+    <path d="M100,15 C135,10 170,35 180,70 C190,110 175,150 140,175 C105,200 60,195 35,165 C10,135 5,90 25,55 C40,28 65,20 100,15 Z" fill="var(--nk-c2)"></path>
+  </svg>
+  <svg viewBox="0 0 200 200" class="post-cta-blob post-cta-blob-2">
+    <path d="M95,10 C130,5 165,25 180,60 C198,100 185,145 150,170 C115,195 65,190 35,160 C5,130 0,80 25,45 C45,18 65,15 95,10 Z" fill="var(--nk-c2)"></path>
+  </svg>
+  <div class="container position-relative text-center post-cta-inner z-1">
+    <h2 class="fs-24 mb-4 text-c4">Read the original publication</h2>
+    <div class="d-flex flex-wrap gap-3 justify-content-center">
+      {% if page.pdf %}<a href="{{ page.pdf | relative_url }}" class="btn-nk btn-nk-solid-c1 btn-nk--sm" download>Download original PDF</a>{% endif %}
+      {% if page.doi %}<a href="{{ page.doi }}" class="btn-nk btn-nk-outline btn-nk--sm" target="_blank" rel="noopener">View on publisher site &#8599;</a>{% endif %}
+    </div>
+    <div class="mt-4"><a href="{{ page.base }}Publications.html" class="fs-14 fw-semibold text-cream">&larr; Back to all publications</a></div>
+  </div>
+</section>

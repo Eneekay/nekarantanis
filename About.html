@@ -94,6 +94,14 @@ title: About & CV
       {% assign research_companies = site.data.roles.roles | where: "section", "research" %}
       {% for company in research_companies %}{% include role-company.html company=company %}{% endfor %}
     </div>
+    <div class="mt-5" data-reveal>
+      <a href="Publications.html" class="role-card hover-card">
+        <div class="fs-13 fw-semibold text-c2 ls-1 text-uppercase mb-2">Peer-Reviewed Publications</div>
+        <h3 class="fs-20 text-c0 mb-2">Read the published research behind this work</h3>
+        <p class="fs-15 text-muted-warm mb-3">{{ site.publications.size }} peer-reviewed articles on arboreal locomotion and positional behaviour, each transcribed for the web with the original PDF available to download.</p>
+        <span class="fs-14 fw-semibold text-c2">View all publications &rarr;</span>
+      </a>
+    </div>
   </div>
   <svg class="wave-divider wave-divider--48" viewBox="0 0 1440 100" preserveAspectRatio="none">
     <path d="M0,50 C240,0 480,90 720,45 C960,5 1200,85 1440,40 L1440,100 L0,100 Z" class="fill-c0"></path>

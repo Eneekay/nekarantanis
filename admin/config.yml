@@ -70,6 +70,53 @@ collections:
       - { label: "Tags", name: "tags", widget: "list" }
       - { label: "Body", name: "body", widget: "markdown", hint: "The first paragraph is shown larger as the lede. Use a Markdown blockquote (> ...) for the pull-quote." }
 
+  - name: "publications"
+    label: "Publications"
+    label_singular: "Publication"
+    folder: "_publications"
+    create: true
+    slug: "{{slug}}"
+    identifier_field: title
+    summary: "{{title}} — {{year}}"
+    preview_path: "publications/{{slug}}.html"
+    media_folder: "/uploads/publications"
+    public_folder: "/uploads/publications"
+    sortable_fields: ["year", "title"]
+    fields:
+      - { label: "Title", name: "title", widget: "string" }
+      - { label: "Year (for sorting and the counters)", name: "year", widget: "number", value_type: "int" }
+      - { label: "Byline (natural reading order, e.g. \"Nikolaos-Evangelos Karantanis, Leszek Rychlik, Anthony Herrel, and Dionisios Youlatos\")", name: "authors_display", widget: "string" }
+      - label: "Co-authors (excluding yourself, one per entry - feeds the \"collaborators\" counter on the Publications page)"
+        name: "authors_list"
+        widget: "list"
+      - label: "Species studied (feeds the \"unique species\" counter)"
+        name: "species"
+        widget: "list"
+      - label: "Keywords (from the article's own Keywords line - shown as this article's categories)"
+        name: "keywords"
+        widget: "list"
+      - { label: "Journal", name: "journal", widget: "string" }
+      - { label: "DOI URL", name: "doi", widget: "string", required: false }
+      - label: "Icon"
+        name: "icon"
+        widget: "icon-picker"
+        hint: "Click an icon to select it."
+      - { label: "Card summary", name: "summary", widget: "text", hint: "Short blurb shown on the Publications listing card." }
+      - label: "Full APA reference-list citation"
+        name: "apa_citation"
+        widget: "text"
+        hint: "The complete, ready-to-copy APA 7th-edition reference-list entry for this work, e.g. \"Karantanis, N.-E., Rychlik, L., Herrel, A., & Youlatos, D. (2017). Arboreal gaits in three sympatric rodents... Mammalian Biology, 83, 51-63. https://doi.org/10.1016/j.mambio.2016.12.004\""
+      - label: "Original PDF"
+        name: "pdf"
+        widget: "file"
+        media_folder: "/uploads/publications"
+        public_folder: "/uploads/publications"
+        hint: "The original published PDF - powers the \"Download original PDF\" button at the end of the article."
+      - label: "Body"
+        name: "body"
+        widget: "markdown"
+        hint: "Transcribed article body. Use ## for major sections (Abstract, Introduction, Methods, Results, Discussion, References, ...) - these automatically populate the sticky on-page navigation."
+
   - name: "about"
     label: "About Page"
     files:
