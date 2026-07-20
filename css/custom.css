@@ -227,6 +227,13 @@ h1, h2, h3, h4 {
     inset 0 12px 18px -14px rgba(0, 0, 0, 0.3),
     inset 0 -12px 18px -14px rgba(0, 0, 0, 0.3);
 }
+/* Blog's Featured Post + Post Grid sections share this same dotted
+   background back-to-back and should read as one continuous section,
+   not two stacked ones - overrides the recess shadow above, which is
+   meant for when a single dotted section sits sandwiched between two
+   differently-toned ones (its only other use, Home's Featured Roles)
+   and otherwise draws a seam right across the shared boundary here. */
+.section-light-dotted.dots-seamless { box-shadow: none; }
 .section-white-dotted {
   background-color: var(--nk-c4);
   background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px);
