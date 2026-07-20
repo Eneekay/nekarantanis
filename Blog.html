@@ -62,10 +62,17 @@ title: Blog
 </section>
 
 <!-- POST GRID -->
-<section class="bg-c3">
+<section class="section-light-dotted">
   <div class="container pad-24-12-88">
     <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between mb-4">
       <div class="fs-19 fw-semibold text-c0" id="postGridHeading">All posts</div>
+      <div class="blog-search">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="blog-search-icon"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="postSearchInput" class="blog-search-input" placeholder="Search posts&hellip;" aria-label="Search posts">
+        <button type="button" class="filter-pill-x d-none" id="postSearchClear" aria-label="Clear search">
+          <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="5" y1="5" x2="15" y2="15"></line><line x1="15" y1="5" x2="5" y2="15"></line></svg>
+        </button>
+      </div>
       <div class="d-flex flex-wrap gap-3">
         <div class="filter-dropdown" data-filter="category">
           <div class="filter-select">
@@ -102,7 +109,8 @@ title: Blog
     <div class="row g-4" id="postGrid">
       {% for post in site.posts %}
       {% unless post.url == featured.url %}
-      <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal-grid data-category="{{ post.category }}" data-tags="{{ post.tags | join: '|' }}">
+      {% capture post_search_text %}{{ post.title }} {{ post.summary }} {{ post.category }} {{ post.tags | join: ' ' }}{% endcapture %}
+      <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal-grid data-category="{{ post.category }}" data-tags="{{ post.tags | join: '|' }}" data-search="{{ post_search_text | strip_html | downcase | escape }}">
         <a href="{{ post.url | relative_url }}" class="post-card hover-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=post.icon %}</svg>
           <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">{{ post.category }} &middot; {{ post.date | date: "%d %b %Y" }}</div>

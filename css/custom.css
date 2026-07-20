@@ -548,6 +548,38 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .filter-menu li:hover { background: var(--nk-sel); }
 .filter-menu li.is-active { color: var(--nk-c2); font-weight: 600; }
 
+/* Live text search for the post grid - same pill chrome as the category/
+   tag filters (border, radius, hover/focus color) so it reads as part of
+   the same control group rather than a foreign input, but grows to fill
+   the space between the heading and the two dropdowns. */
+.blog-search {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  flex: 1 1 240px;
+  max-width: 380px;
+  padding: 8px 10px 8px 14px;
+  border-radius: 20px;
+  border: 1px solid rgba(var(--nk-c0-rgb), 0.15);
+  background: var(--nk-c4);
+  color: var(--nk-c0);
+  transition: border-color .2s ease;
+}
+.blog-search:hover,
+.blog-search:focus-within { border-color: var(--nk-c2); }
+.blog-search-icon { color: var(--nk-c2); flex-shrink: 0; }
+.blog-search-input {
+  flex: 1 1 auto;
+  min-width: 0;
+  border: none;
+  background: none;
+  font: inherit;
+  font-size: 13.5px;
+  color: var(--nk-c0);
+}
+.blog-search-input:focus { outline: none; }
+.blog-search-input::placeholder { color: var(--nk-text-faint); }
+
 .tag-pill--dark {
   font-size: 13px;
   padding: 7px 14px;

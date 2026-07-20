@@ -68,16 +68,21 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Blog category/tag filtering: two custom dropdowns filter the post grid
-  // client-side (no server, so this has to run in the browser rather than
-  // Jekyll generating per-tag pages). Plain <select> elements couldn't be
-  // made to match the theme once opened - the popup itself is browser
-  // chrome, not stylable - so these are button+list combos instead. Each
-  // trigger doubles as the active-filter indicator: once a value is picked
-  // it shows a small x-in-a-circle right inside the same pill to clear
-  // just that filter, rather than a separate "clear all" button. The
-  // featured post always stays visible regardless of filtering (it's no
-  // longer duplicated into the grid).
+  // Blog category/tag/search filtering: two custom dropdowns plus a live
+  // text search filter the post grid client-side (no server, so this has
+  // to run in the browser rather than Jekyll generating per-tag pages).
+  // Plain <select> elements couldn't be made to match the theme once
+  // opened - the popup itself is browser chrome, not stylable - so the
+  // dropdowns are button+list combos instead. Each trigger doubles as the
+  // active-filter indicator: once a value is picked it shows a small
+  // x-in-a-circle right inside the same pill to clear just that filter,
+  // rather than a separate "clear all" button. The search box matches
+  // against each card's pre-baked data-search string (title + summary +
+  // category + tags, lowercased at build time by Liquid) so filtering as
+  // you type is a plain substring check, no runtime text extraction. All
+  // three filters combine with AND. The featured post always stays
+  // visible regardless of filtering (it's no longer duplicated into the
+  // grid).
   const categoryDropdown = document.querySelector('[data-filter="category"]');
   const tagDropdown = document.querySelector('[data-filter="tag"]');
   if (categoryDropdown && tagDropdown) {
@@ -88,6 +93,7 @@ document.addEventListener('DOMContentLoaded', () => {
 
     let categoryValue = '';
     let tagValue = '';
+    let searchValue = '';
 
     const dropdownApis = [];
     const closeAllDropdowns = () => dropdownApis.forEach((d) => d.close());
@@ -136,13 +142,15 @@ document.addEventListener('DOMContentLoaded', () => {
     const applyFilters = () => {
       const cat = categoryValue;
       const tag = tagValue;
-      const filtering = !!(cat || tag);
+      const search = searchValue;
+      const filtering = !!(cat || tag || search);
 
       let visibleCount = 0;
       cards.forEach((card) => {
         const matches = !cat || card.dataset.category === cat;
         const matchesTag = !tag || card.dataset.tags.split('|').includes(tag);
-        const show = matches && matchesTag;
+        const matchesSearch = !search || card.dataset.search.includes(search);
+        const show = matches && matchesTag && matchesSearch;
         card.classList.toggle('d-none', !show);
         if (show) {
           visibleCount++;
@@ -162,6 +170,7 @@ document.addEventListener('DOMContentLoaded', () => {
       const next = new URLSearchParams();
       if (categoryValue) next.set('category', categoryValue);
       if (tagValue) next.set('tag', tagValue);
+      if (searchValue) next.set('q', searchValue);
       const qs = next.toString();
       history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
     };
@@ -176,6 +185,23 @@ document.addEventListener('DOMContentLoaded', () => {
       (value) => { tagValue = value; applyFilters(); syncUrl(); },
       () => { tagValue = ''; tagApi.setValue(''); applyFilters(); syncUrl(); }
     );
+
+    const searchInput = document.getElementById('postSearchInput');
+    const searchClear = document.getElementById('postSearchClear');
+    searchInput.addEventListener('input', () => {
+      searchValue = searchInput.value.trim().toLowerCase();
+      searchClear.classList.toggle('d-none', !searchValue);
+      applyFilters();
+      syncUrl();
+    });
+    searchClear.addEventListener('click', () => {
+      searchInput.value = '';
+      searchValue = '';
+      searchClear.classList.add('d-none');
+      applyFilters();
+      syncUrl();
+      searchInput.focus();
+    });
 
     document.addEventListener('click', (e) => {
       if (!categoryDropdown.contains(e.target) && !tagDropdown.contains(e.target)) closeAllDropdowns();
@@ -192,6 +218,11 @@ document.addEventListener('DOMContentLoaded', () => {
     if (params.get('tag')) {
       tagValue = params.get('tag');
       tagApi.setValue(tagValue);
+    }
+    if (params.get('q')) {
+      searchValue = params.get('q').trim().toLowerCase();
+      searchInput.value = params.get('q');
+      searchClear.classList.remove('d-none');
     }
     applyFilters();
   }
