@@ -28,16 +28,20 @@ title: Publications
 
 {% assign all_species = "" | split: "," %}
 {% assign all_collaborators = "" | split: "," %}
+{% assign all_keywords = "" | split: "," %}
 {% for pub in site.publications %}
   {% assign all_species = all_species | concat: pub.species %}
   {% assign all_collaborators = all_collaborators | concat: pub.authors_list %}
+  {% assign all_keywords = all_keywords | concat: pub.keywords %}
 {% endfor %}
 {% assign all_species = all_species | uniq %}
 {% assign all_collaborators = all_collaborators | uniq %}
+{% assign all_keywords = all_keywords | uniq | sort %}
+{% assign all_species_sorted = all_species | sort %}
 {% assign pub_years = site.publications | map: "year" | sort %}
 
 <!-- RESEARCH BY THE NUMBERS -->
-<section class="section-light-grid position-relative overflow-hidden">
+<section class="section-light-dotted position-relative overflow-hidden">
   <div class="container pad-64-12-24">
     <div class="row g-4 text-center" data-count-group>
       <div class="col-6 col-lg-3">
@@ -77,8 +81,8 @@ title: Publications
 <section class="bg-c4">
   <div class="container pad-24-12-64 text-center" data-reveal>
     <div class="d-flex flex-wrap gap-3 justify-content-center">
-      <a href="https://www.researchgate.net/profile/Nikolaos-Evangelos-Karantanis/publications" class="btn-nk btn-nk-outline" target="_blank" rel="noopener">View on ResearchGate &#8599;</a>
-      <a href="https://scholar.google.com/citations?user=sQlYqwIAAAAJ&hl=en" class="btn-nk btn-nk-outline" target="_blank" rel="noopener">View on Google Scholar &#8599;</a>
+      <a href="https://www.researchgate.net/profile/Nikolaos-Evangelos-Karantanis/publications" class="btn-nk btn-nk-solid-c1" target="_blank" rel="noopener">View on ResearchGate &#8599;</a>
+      <a href="https://scholar.google.com/citations?user=sQlYqwIAAAAJ&hl=en" class="btn-nk btn-nk-solid-c1" target="_blank" rel="noopener">View on Google Scholar &#8599;</a>
     </div>
   </div>
 </section>
@@ -86,11 +90,53 @@ title: Publications
 <!-- PUBLICATIONS GRID -->
 <section class="section-light-dotted">
   <div class="container pad-24-12-88">
-    <div class="fs-19 fw-semibold text-c0 mb-4">All publications</div>
-    <div class="row g-4">
+    <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between mb-4">
+      <div class="fs-19 fw-semibold text-c0" id="pubGridHeading">All publications</div>
+      <div class="blog-search">
+        <svg viewBox="0 0 24 24" width="16" height="16" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" class="blog-search-icon"><circle cx="11" cy="11" r="7"></circle><line x1="21" y1="21" x2="16.65" y2="16.65"></line></svg>
+        <input type="text" id="pubSearchInput" class="blog-search-input" placeholder="Search publications&hellip;" aria-label="Search publications">
+        <button type="button" class="filter-pill-x d-none" id="pubSearchClear" aria-label="Clear search">
+          <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="7" x2="17" y2="17"></line><line x1="17" y1="7" x2="7" y2="17"></line></svg>
+        </button>
+      </div>
+      <div class="d-flex flex-wrap gap-3">
+        <div class="filter-dropdown" data-filter="keyword">
+          <div class="filter-select">
+            <button type="button" class="filter-select-btn">
+              <span class="filter-select-label">All categories</span>
+              <svg class="filter-select-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+            </button>
+            <button type="button" class="filter-pill-x d-none" aria-label="Clear category filter">
+              <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="7" x2="17" y2="17"></line><line x1="17" y1="7" x2="7" y2="17"></line></svg>
+            </button>
+          </div>
+          <ul class="filter-menu" role="listbox" hidden>
+            <li role="option" data-value="" class="is-active">All categories</li>
+            {% for kw in all_keywords %}<li role="option" data-value="{{ kw }}">{{ kw }}</li>{% endfor %}
+          </ul>
+        </div>
+        <div class="filter-dropdown" data-filter="species">
+          <div class="filter-select">
+            <button type="button" class="filter-select-btn">
+              <span class="filter-select-label">All species</span>
+              <svg class="filter-select-chevron" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><path d="M6 9l6 6 6-6"></path></svg>
+            </button>
+            <button type="button" class="filter-pill-x d-none" aria-label="Clear species filter">
+              <svg viewBox="0 0 24 24" width="10" height="10" fill="none" stroke="currentColor" stroke-width="2.5" stroke-linecap="round"><line x1="7" y1="7" x2="17" y2="17"></line><line x1="17" y1="7" x2="7" y2="17"></line></svg>
+            </button>
+          </div>
+          <ul class="filter-menu" role="listbox" hidden>
+            <li role="option" data-value="" class="is-active">All species</li>
+            {% for sp in all_species_sorted %}<li role="option" data-value="{{ sp }}"><em>{{ sp }}</em></li>{% endfor %}
+          </ul>
+        </div>
+      </div>
+    </div>
+    <div class="row g-4" id="pubGrid">
       {% assign sorted_pubs = site.publications | sort: "year" | reverse %}
       {% for pub in sorted_pubs %}
-      <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal-grid>
+      {% capture pub_search_text %}{{ pub.title }} {{ pub.summary }} {{ pub.journal }} {{ pub.species | join: ' ' }} {{ pub.keywords | join: ' ' }}{% endcapture %}
+      <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal-grid data-keywords="{{ pub.keywords | join: '|' }}" data-species="{{ pub.species | join: '|' }}" data-search="{{ pub_search_text | strip_html | downcase | escape }}">
         <a href="{{ pub.url | relative_url }}" class="post-card hover-card">
           <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=pub.icon %}</svg>
           <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">{{ pub.journal }} &middot; {{ pub.year }}</div>
@@ -100,6 +146,7 @@ title: Publications
       </div>
       {% endfor %}
     </div>
+    <p class="fs-15 text-muted-warm d-none" id="pubGridEmpty">No publications match that filter.</p>
   </div>
   <svg class="wave-divider wave-divider--inline wave-divider--48" viewBox="0 0 1440 100" preserveAspectRatio="none">
     <path d="M0,50 C240,0 480,90 720,45 C960,5 1200,85 1440,40 L1440,100 L0,100 Z" class="fill-c0"></path>

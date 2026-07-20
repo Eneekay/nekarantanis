@@ -2,7 +2,7 @@
 layout: default
 ---
 <!-- PUBLICATION HEADER -->
-<header class="section-dark-dotted text-c3 position-relative overflow-hidden">
+<header id="top" class="section-dark-dotted text-c3 position-relative overflow-hidden">
   {% include contour-lines.html %}
   <svg viewBox="0 0 200 200" class="post-header-blob">
     <circle cx="100" cy="100" r="100" fill="var(--nk-c1)"></circle>
@@ -21,10 +21,14 @@ layout: default
     </div>
     {% endif %}
     {% if page.keywords %}
-    <div class="d-flex flex-wrap gap-2">
+    <div class="d-flex flex-wrap gap-2 mb-4">
       {% for kw in page.keywords %}<span class="tag-pill tag-pill--dark">{{ kw }}</span>{% endfor %}
     </div>
     {% endif %}
+    <div class="d-flex flex-wrap gap-3">
+      {% if page.pdf %}<a href="{{ page.pdf | relative_url }}" class="btn-nk btn-nk-solid-c1 btn-nk--sm" download>Download original PDF</a>{% endif %}
+      {% if page.doi %}<a href="{{ page.doi }}" class="btn-nk btn-nk-outline btn-nk--sm" target="_blank" rel="noopener">View on publisher site &#8599;</a>{% endif %}
+    </div>
   </div>
   <svg class="wave-divider" viewBox="0 0 1440 100" preserveAspectRatio="none">
     <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c4"></path>
@@ -46,6 +50,10 @@ layout: default
   <div class="container pub-shell">
     <aside class="pub-toc">
       <div class="pub-toc-inner">
+        <a href="#top" class="pub-toc-top">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+          Back to top
+        </a>
         <div class="pub-toc-label">On this page</div>
         <ul class="pub-toc-list" id="pubTocList"></ul>
       </div>
@@ -56,7 +64,7 @@ layout: default
   </div>
 </section>
 
-<!-- DOWNLOAD / CTA -->
+<!-- CTA -->
 <section class="section-dark-dotted position-relative overflow-hidden">
   {% include contour-lines.html %}
   <svg viewBox="0 0 200 200" class="post-cta-blob post-cta-blob-1">
@@ -66,11 +74,7 @@ layout: default
     <path d="M95,10 C130,5 165,25 180,60 C198,100 185,145 150,170 C115,195 65,190 35,160 C5,130 0,80 25,45 C45,18 65,15 95,10 Z" fill="var(--nk-c2)"></path>
   </svg>
   <div class="container position-relative text-center post-cta-inner z-1">
-    <h2 class="fs-24 mb-4 text-c4">Read the original publication</h2>
-    <div class="d-flex flex-wrap gap-3 justify-content-center">
-      {% if page.pdf %}<a href="{{ page.pdf | relative_url }}" class="btn-nk btn-nk-solid-c1 btn-nk--sm" download>Download original PDF</a>{% endif %}
-      {% if page.doi %}<a href="{{ page.doi }}" class="btn-nk btn-nk-outline btn-nk--sm" target="_blank" rel="noopener">View on publisher site &#8599;</a>{% endif %}
-    </div>
-    <div class="mt-4"><a href="{{ page.base }}Publications.html" class="fs-14 fw-semibold text-cream">&larr; Back to all publications</a></div>
+    <h2 class="fs-24 mb-4 text-c4">Continue reading</h2>
+    <a href="{{ page.base }}Publications.html" class="btn-nk btn-nk-solid-c1 btn-nk--sm">Back to all publications</a>
   </div>
 </section>

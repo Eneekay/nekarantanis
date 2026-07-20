@@ -227,6 +227,156 @@ document.addEventListener('DOMContentLoaded', () => {
     applyFilters();
   }
 
+  // Publications grid category/species/search filtering: same custom
+  // dropdown + live-search pattern as the Blog page, but both dropdowns
+  // filter against a list (a publication can have several keywords and
+  // several species) rather than a single value, so both use the same
+  // "is this value in the list" check the Blog page's tag filter uses.
+  // Kept as its own independent block (own setupDropdown copy) rather
+  // than sharing the Blog page's, since the two pages never render
+  // together and duplicating ~15 lines is simpler than threading a
+  // shared helper through two unrelated call sites.
+  const pubKeywordDropdown = document.querySelector('[data-filter="keyword"]');
+  const pubSpeciesDropdown = document.querySelector('[data-filter="species"]');
+  if (pubKeywordDropdown && pubSpeciesDropdown) {
+    const grid = document.getElementById('pubGrid');
+    const heading = document.getElementById('pubGridHeading');
+    const empty = document.getElementById('pubGridEmpty');
+    const cards = Array.from(grid.querySelectorAll(':scope > [data-keywords]'));
+
+    let keywordValue = '';
+    let speciesValue = '';
+    let pubSearchValue = '';
+
+    const pubDropdownApis = [];
+    const closeAllPubDropdowns = () => pubDropdownApis.forEach((d) => d.close());
+
+    const setupPubDropdown = (root, onSelect, onClear) => {
+      const pill = root.querySelector('.filter-select');
+      const btn = root.querySelector('.filter-select-btn');
+      const label = root.querySelector('.filter-select-label');
+      const clearBtn = root.querySelector('.filter-pill-x');
+      const menu = root.querySelector('.filter-menu');
+      const options = Array.from(menu.querySelectorAll('[role="option"]'));
+      const defaultLabel = label.textContent;
+
+      const close = () => { menu.hidden = true; pill.classList.remove('is-open'); btn.setAttribute('aria-expanded', 'false'); };
+      const open = () => { closeAllPubDropdowns(); menu.hidden = false; pill.classList.add('is-open'); btn.setAttribute('aria-expanded', 'true'); };
+
+      btn.setAttribute('aria-haspopup', 'listbox');
+      btn.setAttribute('aria-expanded', 'false');
+      btn.addEventListener('click', () => { menu.hidden ? open() : close(); });
+      clearBtn.addEventListener('click', () => { close(); onClear(); });
+
+      options.forEach((opt) => {
+        opt.addEventListener('click', () => {
+          const value = opt.dataset.value;
+          options.forEach((o) => o.classList.toggle('is-active', o === opt));
+          label.textContent = value ? opt.textContent : defaultLabel;
+          clearBtn.classList.toggle('d-none', !value);
+          close();
+          onSelect(value);
+        });
+      });
+
+      const api = {
+        close,
+        setValue(value) {
+          const match = options.find((o) => o.dataset.value === value) || options[0];
+          options.forEach((o) => o.classList.toggle('is-active', o === match));
+          label.textContent = value ? match.textContent : defaultLabel;
+          clearBtn.classList.toggle('d-none', !value);
+        },
+      };
+      pubDropdownApis.push(api);
+      return api;
+    };
+
+    const applyPubFilters = () => {
+      const kw = keywordValue;
+      const sp = speciesValue;
+      const search = pubSearchValue;
+      const filtering = !!(kw || sp || search);
+
+      let visibleCount = 0;
+      cards.forEach((card) => {
+        const matchesKeyword = !kw || card.dataset.keywords.split('|').includes(kw);
+        const matchesSpecies = !sp || card.dataset.species.split('|').includes(sp);
+        const matchesSearch = !search || card.dataset.search.includes(search);
+        const show = matchesKeyword && matchesSpecies && matchesSearch;
+        card.classList.toggle('d-none', !show);
+        if (show) {
+          visibleCount++;
+          card.classList.add('is-visible');
+        }
+      });
+
+      empty.classList.toggle('d-none', !filtering || visibleCount > 0);
+      heading.textContent = filtering ? 'Publications' : 'All publications';
+      assignRevealDirections();
+    };
+
+    const syncPubUrl = () => {
+      const next = new URLSearchParams();
+      if (keywordValue) next.set('category', keywordValue);
+      if (speciesValue) next.set('species', speciesValue);
+      if (pubSearchValue) next.set('q', pubSearchValue);
+      const qs = next.toString();
+      history.replaceState(null, '', qs ? `?${qs}` : window.location.pathname);
+    };
+
+    const keywordApi = setupPubDropdown(
+      pubKeywordDropdown,
+      (value) => { keywordValue = value; applyPubFilters(); syncPubUrl(); },
+      () => { keywordValue = ''; keywordApi.setValue(''); applyPubFilters(); syncPubUrl(); }
+    );
+    const speciesApi = setupPubDropdown(
+      pubSpeciesDropdown,
+      (value) => { speciesValue = value; applyPubFilters(); syncPubUrl(); },
+      () => { speciesValue = ''; speciesApi.setValue(''); applyPubFilters(); syncPubUrl(); }
+    );
+
+    const pubSearchInput = document.getElementById('pubSearchInput');
+    const pubSearchClear = document.getElementById('pubSearchClear');
+    pubSearchInput.addEventListener('input', () => {
+      pubSearchValue = pubSearchInput.value.trim().toLowerCase();
+      pubSearchClear.classList.toggle('d-none', !pubSearchValue);
+      applyPubFilters();
+      syncPubUrl();
+    });
+    pubSearchClear.addEventListener('click', () => {
+      pubSearchInput.value = '';
+      pubSearchValue = '';
+      pubSearchClear.classList.add('d-none');
+      applyPubFilters();
+      syncPubUrl();
+      pubSearchInput.focus();
+    });
+
+    document.addEventListener('click', (e) => {
+      if (!pubKeywordDropdown.contains(e.target) && !pubSpeciesDropdown.contains(e.target)) closeAllPubDropdowns();
+    });
+    document.addEventListener('keydown', (e) => {
+      if (e.key === 'Escape') closeAllPubDropdowns();
+    });
+
+    const pubParams = new URLSearchParams(window.location.search);
+    if (pubParams.get('category')) {
+      keywordValue = pubParams.get('category');
+      keywordApi.setValue(keywordValue);
+    }
+    if (pubParams.get('species')) {
+      speciesValue = pubParams.get('species');
+      speciesApi.setValue(speciesValue);
+    }
+    if (pubParams.get('q')) {
+      pubSearchValue = pubParams.get('q').trim().toLowerCase();
+      pubSearchInput.value = pubParams.get('q');
+      pubSearchClear.classList.remove('d-none');
+    }
+    applyPubFilters();
+  }
+
   // Publication article sticky TOC: built from the article body's own h2/h3
   // headings rather than a hand-maintained list, since kramdown already
   // assigns each heading a stable id - same approach as the docs site's
