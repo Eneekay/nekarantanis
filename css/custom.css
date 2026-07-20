@@ -234,6 +234,15 @@ h1, h2, h3, h4 {
    differently-toned ones (its only other use, Home's Featured Roles)
    and otherwise draws a seam right across the shared boundary here. */
 .section-light-dotted.dots-seamless { box-shadow: none; }
+/* Research/Publications page treatment: discreet grey X marks instead of
+   the dot grid, and no inset recess shadows, so the light sections read
+   as one continuous surface (matching Blog's seamless dotted feel). */
+.section-light-crosses {
+  background-color: var(--nk-c3);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='24' height='24'%3E%3Cpath d='M10 10l4 4M14 10l-4 4' stroke='%23000000' stroke-opacity='0.06' stroke-width='1' stroke-linecap='round'/%3E%3C/svg%3E");
+  background-size: 24px 24px;
+  box-shadow: none;
+}
 .section-white-dotted {
   background-color: var(--nk-c4);
   background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px);
