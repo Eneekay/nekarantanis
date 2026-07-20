@@ -1,6 +1,6 @@
 ---
 title: "Raising Standards Behind Walls: One Year in Prison Education"
-date: 2026-07-17
+date: 2026-06-23
 featured: false
 category: Change Management
 icon: shield
