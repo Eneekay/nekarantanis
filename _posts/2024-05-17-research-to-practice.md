@@ -4,7 +4,7 @@ date: 2024-05-17
 category: Research & Practice
 icon: book
 summary: Reflections from a career that moved from primate biomechanics to
-  prison education.
+  education leadership.
 tags:
   - Research
   - Evidence-Based Practice
