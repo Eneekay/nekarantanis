@@ -38,7 +38,9 @@
       "Bash(pkill -f \"http.server 820\")",
       "Bash(python3 -m http.server 8210)",
       "Bash(curl -s -o /dev/null -w \"%{http_code}\\\\n\" http://localhost:8210/Home.html)",
-      "Bash(xargs -r kill)"
+      "Bash(xargs -r kill)",
+      "Bash(mkdir -p /home/user/nekarantanis/uploads/publications)",
+      "Bash(cp \"/root/.claude/uploads/55906976-cfb7-51ae-a626-829e1ce84485/c1c8615b-animals1601632.pdf\" \"/home/user/nekarantanis/uploads/publications/2026-youlatos-et-al-acacia-rats-animals.pdf\")"
     ]
   }
 }
