@@ -440,7 +440,7 @@ h1, h2, h3, h4 {
    matches its grid lines to the section's own grid below (its box top sits
    -63px from the section top, and -63 ≡ 9 (mod 24), so -9 lands the lines
    back on the section's 24px steps). */
-.research-stats { position: relative; }
+.research-stats { position: relative; box-shadow: inset 0 -16px 20px -16px rgba(var(--nk-c0-rgb), 0.2); }
 .research-stats-wave {
   position: absolute;
   top: -63px;
@@ -531,7 +531,7 @@ h1, h2, h3, h4 {
 /* Discreet transparent button for light sections: dark outline + dark text,
    no lift and no shadow (used for the ResearchGate / Scholar profile links). */
 .btn-nk-outline-dark { background: transparent; border-color: rgba(var(--nk-c0-rgb), 0.35); color: var(--nk-c0); }
-.btn-nk-outline-dark:hover { background: rgba(var(--nk-c0-rgb), 0.05); border-color: var(--nk-c0); color: var(--nk-c0); transform: none; box-shadow: none; }
+.btn-nk-outline-dark:hover { background: transparent; border-color: var(--nk-gold); color: var(--nk-c0); }
 
 /* ---------- tag pills ---------- */
 
@@ -936,7 +936,8 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
    background, a shadow only appearing on hover read as the card
    snapping into existence rather than lifting off the page. */
 .role-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--nk-c4);
   border: 1px solid rgba(var(--nk-c0-rgb), 0.1);
   border-radius: 6px;
@@ -967,7 +968,7 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .post-card-more {
   margin-top: auto;
   padding-top: 18px;
-  align-self: flex-start;
+  align-self: flex-end;
   display: inline-flex;
   align-items: center;
   gap: 5px;
@@ -1000,6 +1001,7 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   width: clamp(32px, 7vw, 44px);
   height: clamp(32px, 7vw, 44px);
   margin: 0 auto 10px;
+  filter: drop-shadow(0 3px 6px rgba(var(--nk-c0-rgb), 0.22));
 }
 
 .stat-value {
@@ -1008,7 +1010,7 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   font-weight: 700;
   font-size: clamp(40px, 10vw, 56px);
   color: var(--nk-c2);
-  text-shadow: 0 0 28px rgba(38, 83, 217, 0.4);
+  text-shadow: 0 3px 8px rgba(var(--nk-c0-rgb), 0.25);
   /* Tabular figures keep every digit the same advance width, so the
      count-up animation doesn't jitter the number's centering per frame. */
   font-variant-numeric: tabular-nums;

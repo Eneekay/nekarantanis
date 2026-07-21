@@ -47,7 +47,7 @@
     mail: svg('<rect x="2" y="5" width="20" height="14" rx="2"></rect><path d="M3 6l9 7 9-7"></path>'),
     map: svg('<polygon points="3 6 9 3 15 6 21 3 21 18 15 21 9 18 3 21 3 6"></polygon><line x1="9" y1="3" x2="9" y2="18"></line><line x1="15" y1="6" x2="15" y2="21"></line>'),
     mic: svg('<rect x="9" y="2" width="6" height="12" rx="3"></rect><path d="M5 10a7 7 0 0 0 14 0"></path><line x1="12" y1="19" x2="12" y2="22"></line><line x1="8" y1="22" x2="16" y2="22"></line>'),
-    tree: svg('<path d="M12 22V15.5"></path><path d="M12 15.5L7 11.5"></path><path d="M12 15.5L17 11.5"></path><path d="M7 11.5L4.5 7.5"></path><path d="M7 11.5L9.5 8"></path><path d="M17 11.5L14.5 8"></path><path d="M17 11.5L19.5 7.5"></path><circle cx="4.5" cy="7.5" r="1.1"></circle><circle cx="9.5" cy="8" r="1.1"></circle><circle cx="14.5" cy="8" r="1.1"></circle><circle cx="19.5" cy="7.5" r="1.1"></circle>'),
+    tree: svg('<path d="M11.5 22 C10.5 17, 9.6 12, 9 4.8"></path><path d="M10.2 16 C12.5 15, 14.5 14.3, 16.5 12.5"></path><path d="M9.4 12 C7.5 11.6, 6 11.2, 4.5 9.5"></path><path d="M9.1 8.6 C11 8.1, 12.5 7.4, 14 6"></path><circle cx="9" cy="4.8" r="1.1"></circle><circle cx="16.5" cy="12.5" r="1.1"></circle><circle cx="4.5" cy="9.5" r="1.1"></circle><circle cx="14" cy="6" r="1.1"></circle>'),
     phone: svg('<path d="M6 3h3l2 5-2.5 1.5a11 11 0 0 0 5 5L15 12l5 2v3a2 2 0 0 1-2 2A16 16 0 0 1 4 5a2 2 0 0 1 2-2z"></path>'),
     rss: svg('<path d="M4 11a9 9 0 0 1 9 9"></path><path d="M4 4a16 16 0 0 1 16 16"></path><circle cx="5" cy="19" r="1.5"></circle>'),
     search: svg('<circle cx="10" cy="10" r="7"></circle><line x1="21" y1="21" x2="15" y2="15"></line>'),
