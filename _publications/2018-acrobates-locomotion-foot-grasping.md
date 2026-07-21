@@ -17,7 +17,7 @@ keywords:
   - "small body size"
 journal: "Journal of Human Evolution"
 doi: "https://doi.org/10.1016/j.jhevol.2018.07.007"
-icon: "monkey"
+icon: "tree"
 summary: "A captive study of the marsupial feathertail glider Acrobates pygmaeus, testing whether a versatile positional repertoire, preference for fine substrates, and hallucal grasping in this tiny arboreal marsupial can model a plausible stage in early euprimate locomotor evolution."
 apa_citation: "Youlatos, D., Moussa, D., Karantanis, N.-E., & Rychlik, L. (2018). Locomotion, postures, substrate use, and foot grasping in the marsupial feathertail glider Acrobates pygmaeus (Diprotodontia: Acrobatidae): Insights into early euprimate evolution. Journal of Human Evolution, 123, 148–159. https://doi.org/10.1016/j.jhevol.2018.07.007"
 pdf: "/uploads/publications/2018-acrobates-locomotion-foot-grasping.pdf"

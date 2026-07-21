@@ -781,7 +781,12 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   padding: 56px 12px 88px;
 }
 @media (max-width: 900px) {
-  .pub-shell { grid-template-columns: 1fr; gap: 8px; }
+  /* minmax(0, 1fr) - not a bare 1fr - so the single column can shrink to the
+     container width. A bare 1fr is minmax(auto, 1fr), whose auto minimum is
+     the widest grid item's min-content; a wide data table (or long URL) then
+     forces the track past the viewport, making the whole article scroll
+     sideways on mobile. */
+  .pub-shell { grid-template-columns: minmax(0, 1fr); gap: 8px; }
   .pub-toc-inner { position: static; max-height: none; }
 }
 
@@ -824,7 +829,7 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .pub-toc-list a.is-active { color: var(--nk-c2); border-left-color: var(--nk-c2); font-weight: 600; }
 .pub-toc-list li.pub-toc-h3 a { padding-left: 28px; font-size: 13px; }
 
-.pub-body { max-width: 700px; }
+.pub-body { max-width: 700px; min-width: 0; overflow-wrap: break-word; }
 .pub-body h2 { font-size: 24px; font-weight: 600; margin: 48px 0 18px; scroll-margin-top: calc(var(--nav-h, 69px) + 16px); }
 .pub-body h2:first-child, .pub-body > :first-child { margin-top: 0; }
 .pub-body h3 { font-size: 19px; font-weight: 600; margin: 32px 0 14px; scroll-margin-top: calc(var(--nav-h, 69px) + 16px); }
@@ -835,7 +840,11 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .pub-body figure { margin: 32px 0; }
 .pub-body figure img { max-width: 100%; border-radius: 6px; }
 .pub-body figcaption { font-size: 13.5px; color: var(--nk-text-faint); margin-top: 10px; }
-.pub-body table { width: 100%; border-collapse: collapse; margin: 8px 0 28px; font-size: 13.5px; }
+/* display:block + overflow-x:auto keeps a wide data table inside its own
+   horizontally-scrollable box instead of widening the article (and the whole
+   page) — the rows/cells still lay out as a table via an anonymous table box.
+   Narrow tables just render at their natural width. */
+.pub-body table { display: block; width: 100%; overflow-x: auto; border-collapse: collapse; margin: 8px 0 28px; font-size: 13.5px; }
 .pub-body table th, .pub-body table td { padding: 8px 10px; border: 1px solid rgba(var(--nk-c0-rgb), 0.12); text-align: left; }
 .pub-body table th { background: var(--nk-c3); font-weight: 600; }
 .pub-body a { color: var(--nk-c2); }
@@ -941,7 +950,8 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 }
 
 .post-card {
-  display: block;
+  display: flex;
+  flex-direction: column;
   background: var(--nk-c4);
   border-radius: 8px;
   padding: 32px;
@@ -951,6 +961,22 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .post-card svg { width: 30px; height: 30px; margin-bottom: 16px; }
 .post-card h3  { line-height: 1.3; }
 .post-card p   { line-height: 1.6; }
+/* Pinned to the bottom of the card (margin-top:auto) so the "Read more" links
+   line up across a row regardless of summary length. The whole card is already
+   a link; this is the visible affordance. */
+.post-card-more {
+  margin-top: auto;
+  padding-top: 18px;
+  align-self: flex-start;
+  display: inline-flex;
+  align-items: center;
+  gap: 5px;
+  color: var(--nk-c2);
+  font-weight: 600;
+  font-size: 14px;
+}
+.post-card-more svg { width: 15px; height: 15px; margin-bottom: 0; }
+.post-card:hover .post-card-more { text-decoration: underline; }
 
 .featured-post-card { grid-template-columns: auto 1fr; gap: 28px; align-items: start; border-radius: 8px; padding: 44px; }
 
