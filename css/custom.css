@@ -714,8 +714,28 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .site-nav.scrolled .nav-logo,
 .site-nav.menu-open .nav-logo { color: var(--nk-c0); }
 
-.nav-link { color: var(--nk-c4); transition: color .25s ease; }
+.nav-link { color: var(--nk-c4); transition: color .25s ease; position: relative; }
 .nav-link:hover { color: var(--nk-c4); }
+/* Gold underline that grows out from the centre of the word to both edges on
+   hover (scaleX from a centre transform-origin). left/right:0 span exactly the
+   link's own box, which is the word width in the desktop flex row. */
+.nav-link::after {
+  content: "";
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: -4px;
+  height: 2px;
+  border-radius: 1px;
+  background: var(--nk-gold);
+  transform: scaleX(0);
+  transform-origin: center;
+  transition: transform .25s ease;
+}
+.nav-link:hover::after { transform: scaleX(1); }
+@media (prefers-reduced-motion: reduce) {
+  .nav-link::after { transition: none; }
+}
 .site-nav.scrolled .nav-link,
 .site-nav.menu-open .nav-link { color: var(--nk-c0); }
 .site-nav.scrolled .nav-link:hover,
