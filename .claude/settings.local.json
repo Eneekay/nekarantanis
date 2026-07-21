@@ -41,7 +41,12 @@
       "Bash(xargs -r kill)",
       "Bash(mkdir -p /home/user/nekarantanis/uploads/publications)",
       "Bash(cp \"/root/.claude/uploads/55906976-cfb7-51ae-a626-829e1ce84485/c1c8615b-animals1601632.pdf\" \"/home/user/nekarantanis/uploads/publications/2026-youlatos-et-al-acacia-rats-animals.pdf\")",
-      "Bash(cp \"/root/.claude/uploads/55906976-cfb7-51ae-a626-829e1ce84485/f192febc-animals1501576.pdf\" \"/home/user/nekarantanis/uploads/publications/2025-pygmy-slow-loris-positional-behavior.pdf\" *)"
+      "Bash(cp \"/root/.claude/uploads/55906976-cfb7-51ae-a626-829e1ce84485/f192febc-animals1501576.pdf\" \"/home/user/nekarantanis/uploads/publications/2025-pygmy-slow-loris-positional-behavior.pdf\" *)",
+      "Bash(set -e)",
+      "Bash(cp \"/root/.claude/uploads/55906976-cfb7-51ae-a626-829e1ce84485/a9de5757-Youlatos_2016_Mamm.pdf\" uploads/publications/2016-dendrogale-murina-pedal-grasping.pdf)",
+      "Bash(cp \"/root/.claude/uploads/55906976-cfb7-51ae-a626-829e1ce84485/3e9cb1bb-Karantanisetal2017MammalianBiology.pdf\" uploads/publications/2017-apodemus-myodes-arboreal-gaits.pdf)",
+      "Bash(cp __TRACKED_VAR__/figure-1-final.png uploads/publications/2016-dendrogale-murina-pedal-grasping/figure-1-grasping-modes.png)",
+      "Bash(cp __TRACKED_VAR__/figure-2-final.png uploads/publications/2016-dendrogale-murina-pedal-grasping/figure-2-substrate-size-percentages.png)"
     ]
   }
 }
