@@ -709,7 +709,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // divider's non-uniform viewBox scale. It still rides the same drift
     // system as the rest, just normalized to 0-1. Only ever one per page.
     const pinCoverClipPath = document.querySelector('#pinCoverWaveClip path');
-    const pinCoverWaveFill = document.querySelector('.pin-cover-wave-fill');
+    // The home hero pairs the clip with .pin-cover-wave-fill; the Research
+    // stats section reuses the same #pinCoverWaveClip via .research-stats-wave.
+    // Either one is the (single) element that rides this normalized drift.
+    const pinCoverWaveFill = document.querySelector('.pin-cover-wave-fill, .research-stats-wave');
     if (pinCoverClipPath && pinCoverWaveFill) {
       waves.push({
         svg: pinCoverWaveFill,
