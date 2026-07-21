@@ -199,6 +199,7 @@ h1, h2, h3, h4 {
 .pad-56-12    { padding: 56px 12px; }
 .pad-56-12-88 { padding: 56px 12px 88px; }
 .pad-64-12-56 { padding: 64px 12px 56px; }
+.pad-64-12-80 { padding: 64px 12px 80px; }
 
 /* ---------- reveal stagger delays ---------- */
 
@@ -1003,6 +1004,15 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
    number's width is no longer shared with the icon on the narrow
    2-column mobile layout - sized against the widest stat ("5,000+")
    at a 360px viewport, the widest width still available. */
+/* Center each stat (icon, number, label) with flexbox rather than relying on
+   the inherited text-align:center on the row - some mobile webviews were
+   reported rendering the big tabular numbers off-centre, and align-items
+   centering is engine-independent. */
+[data-count-group] > [class*="col-"] {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
 .stat-icon {
   display: block;
   width: clamp(32px, 7vw, 44px);
