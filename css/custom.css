@@ -72,6 +72,17 @@ h1, h2, h3, h4 {
   transform: translateY(0);
 }
 
+/* Blog's Featured Post sits right at the top of the viewport on mobile, so
+   the fade/slide-up reveal (built for scrolling content into view) instead
+   reads as the page loading with a hole in it. Show it immediately there. */
+@media (max-width: 767.98px) {
+  #featuredSection [data-reveal] {
+    opacity: 1;
+    transform: none;
+    transition: none;
+  }
+}
+
 /* Position-aware card/row reveals - same feel as the homepage hero button
    row, but generalised. [data-reveal-grid] direction is worked out at
    runtime (see site.js) from each item's actual rendered row/column, so it
