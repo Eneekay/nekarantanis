@@ -869,11 +869,17 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
    literal (in real screen pixels) regardless of that stretch, so every
    section's lines read at the same thickness. */
 .contour-bg { position: absolute; inset: 0; overflow: hidden; pointer-events: none; }
+/* The drift is animated here, on the <svg> element (an HTML box composited at
+   screen resolution), rather than on the inner <path> - see the note in
+   _includes/contour-lines.html - so heavily stretched sections stay crisp. */
 .contour-bg svg { position: absolute; top: 0; left: 0; width: 200%; height: 100%; display: block; }
-.contour-line { fill: none; stroke-width: 1.5px; vector-effect: non-scaling-stroke; shape-rendering: geometricPrecision; stroke: rgba(var(--nk-c4-rgb), 0.22); animation: contourDriftLeft 62s linear infinite; }
-.contour-line--b { stroke-opacity: 0.7; animation-name: contourDriftRight; animation-duration: 78s; }
-.contour-line--c { animation-duration: 54s; }
-.contour-line--d { stroke-opacity: 0.5; animation-duration: 95s; }
+.contour-svg { animation: contourDriftLeft 62s linear infinite; will-change: transform; }
+.contour-svg--b { animation-name: contourDriftRight; animation-duration: 78s; }
+.contour-svg--c { animation-duration: 54s; }
+.contour-svg--d { animation-duration: 95s; }
+.contour-line { fill: none; stroke-width: 1.5px; vector-effect: non-scaling-stroke; shape-rendering: geometricPrecision; stroke: rgba(var(--nk-c4-rgb), 0.22); }
+.contour-line--b { stroke-opacity: 0.7; }
+.contour-line--d { stroke-opacity: 0.5; }
 /* Ink lines at a lighter touch, for the one section with a light
    (grey/dotted) rather than dark background - the light ink used
    elsewhere would all but vanish against it. */
@@ -883,7 +889,7 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 @keyframes contourDriftLeft  { from { transform: translateX(0); }     to { transform: translateX(-50%); } }
 @keyframes contourDriftRight { from { transform: translateX(-50%); } to { transform: translateX(0); } }
 @media (prefers-reduced-motion: reduce) {
-  .contour-line { animation: none; }
+  .contour-svg { animation: none; }
 }
 
 /* decorative header blobs */
