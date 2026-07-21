@@ -1050,10 +1050,11 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
      count-up animation doesn't jitter the number's centering per frame. */
   font-variant-numeric: tabular-nums;
   /* Same bouncy easing as the count-finish pop, so hovering lifts + grows
-     the number with the same character. */
-  transition: transform .28s cubic-bezier(.34, 1.56, .64, 1);
+     the number with the same character. The shadow only appears on hover, to
+     sell the lift - the number sits flat otherwise. */
+  transition: transform .28s cubic-bezier(.34, 1.56, .64, 1), text-shadow .28s ease;
 }
-.stat-value:hover { transform: translateY(-4px) scale(1.1); }
+.stat-value:hover { transform: translateY(-4px) scale(1.1); text-shadow: 0 7px 14px rgba(var(--nk-c0-rgb), 0.3); }
 @keyframes statPop {
   0%   { transform: scale(1); }
   45%  { transform: scale(1.14); }
