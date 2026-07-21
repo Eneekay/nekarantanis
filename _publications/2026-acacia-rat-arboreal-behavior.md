@@ -1,5 +1,5 @@
 ---
-title: "Arboreal Behavior of Captive Acacia Rats Thallomys paedulcus (Rodentia: Muridae)"
+title: "Arboreal Behavior of Captive Acacia Rats <em>Thallomys paedulcus</em> (Rodentia: Muridae)"
 year: 2026
 authors_display: "Dionisios Youlatos, Fani Koutsougianni, Nikolaos Evangelos Karantanis, and Leszek Rychlik"
 authors_list:

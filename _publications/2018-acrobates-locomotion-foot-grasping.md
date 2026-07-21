@@ -1,5 +1,5 @@
 ---
-title: "Locomotion, Postures, Substrate Use, and Foot Grasping in the Marsupial Feathertail Glider Acrobates pygmaeus: Insights into Early Euprimate Evolution"
+title: "Locomotion, Postures, Substrate Use, and Foot Grasping in the Marsupial Feathertail Glider <em>Acrobates pygmaeus</em>: Insights into Early Euprimate Evolution"
 year: 2018
 authors_display: "Dionisios Youlatos, Dimitra Moussa, Nikolaos-Evangelos Karantanis, and Leszek Rychlik"
 authors_list:

@@ -1,5 +1,5 @@
 ---
-title: "Diagonal Gaits in the Feathertail Glider Acrobates pygmaeus (Acrobatidae, Diprotodontia): Insights for the Evolution of Primate Quadrupedalism"
+title: "Diagonal Gaits in the Feathertail Glider <em>Acrobates pygmaeus</em> (Acrobatidae, Diprotodontia): Insights for the Evolution of Primate Quadrupedalism"
 year: 2015
 authors_display: "Nikolaos-Evangelos Karantanis, Dionisios Youlatos, and Leszek Rychlik"
 authors_list:

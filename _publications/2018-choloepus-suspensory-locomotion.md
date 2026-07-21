@@ -1,5 +1,5 @@
 ---
-title: "A Suspensory Way of Life: Integrating Locomotion, Postures, Limb Movements, and Forces in Two-Toed Sloths Choloepus didactylus"
+title: "A Suspensory Way of Life: Integrating Locomotion, Postures, Limb Movements, and Forces in Two-Toed Sloths <em>Choloepus didactylus</em>"
 year: 2018
 authors_display: "Michael C. Granatosky, Nikolaos E. Karantanis, Leszek Rychlik, and Dionisios Youlatos"
 authors_list:

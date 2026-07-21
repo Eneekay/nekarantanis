@@ -1,5 +1,5 @@
 ---
-title: "Comparing the Arboreal Gaits of Muscardinus avellanarius and Glis glis (Gliridae, Rodentia): A First Quantitative Analysis"
+title: "Comparing the Arboreal Gaits of <em>Muscardinus avellanarius</em> and <em>Glis glis</em> (Gliridae, Rodentia): A First Quantitative Analysis"
 year: 2017
 authors_display: "Nikolaos-Evangelos Karantanis, Leszek Rychlik, Anthony Herrel, and Dionisios Youlatos"
 authors_list:

@@ -4,7 +4,7 @@
 <script>document.documentElement.classList.add('js-tw');</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% if page.title %}{{ page.title }} — {% endif %}N. E. Karantanis</title>
+<title>{% if page.title %}{{ page.title | strip_html }} — {% endif %}N. E. Karantanis</title>
 <link rel="icon" type="image/svg+xml" href="{{ page.base }}favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ page.base }}favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ page.base }}favicon-16x16.png">

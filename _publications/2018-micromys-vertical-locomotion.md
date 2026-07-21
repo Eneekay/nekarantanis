@@ -1,5 +1,5 @@
 ---
-title: "Vertical Locomotion in Micromys minutus (Rodentia: Muridae): Insights into the Evolution of Eutherian Climbing"
+title: "Vertical Locomotion in <em>Micromys minutus</em> (Rodentia: Muridae): Insights into the Evolution of Eutherian Climbing"
 year: 2018
 authors_display: "Nikolaos-Evangelos Karantanis, Leszek Rychlik, Anthony Herrel, and Dionisios Youlatos"
 authors_list:

@@ -1,5 +1,5 @@
 ---
-title: "Spatial Ecology and Diel Activity of European Wildcat (Felis silvestris) in a Protected Lowland Area in Northern Greece"
+title: "Spatial Ecology and Diel Activity of European Wildcat (<em>Felis silvestris</em>) in a Protected Lowland Area in Northern Greece"
 year: 2021
 authors_display: "Despina Migli, Christos Astaras, George Boutsis, Anastasia Diakou, Nikolaos-Evangelos Karantanis, and Dionisios Youlatos"
 authors_list:

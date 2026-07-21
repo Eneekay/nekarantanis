@@ -1,5 +1,5 @@
 ---
-title: "Arboreal Locomotion in Eurasian Harvest Mice Micromys minutus (Rodentia: Muridae): The Gaits of Small Mammals"
+title: "Arboreal Locomotion in Eurasian Harvest Mice <em>Micromys minutus</em> (Rodentia: Muridae): The Gaits of Small Mammals"
 year: 2017
 authors_display: "Nikolaos-Evangelos Karantanis, Leszek Rychlik, Anthony Herrel, and Dionisios Youlatos"
 authors_list:

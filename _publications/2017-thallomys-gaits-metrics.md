@@ -1,5 +1,5 @@
 ---
-title: "Arboreality in Acacia Rats (Thallomys paedulcus; Rodentia, Muridae): Gaits and Gait Metrics"
+title: "Arboreality in Acacia Rats (<em>Thallomys paedulcus</em>; Rodentia, Muridae): Gaits and Gait Metrics"
 year: 2017
 authors_display: "Nikolaos-Evangelos Karantanis, Leszek Rychlik, Anthony Herrel, and Dionisios Youlatos"
 authors_list:
