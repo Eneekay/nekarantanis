@@ -1,4 +1,14 @@
 document.addEventListener('DOMContentLoaded', () => {
+  // Sticky "back to top" control (Blog / Research listings): revealed once
+  // the page has scrolled past ~a screenful, smooth-scrolls back up on click.
+  const scrollTopBtn = document.getElementById('scrollTopBtn');
+  if (scrollTopBtn) {
+    const toggleScrollTop = () => scrollTopBtn.classList.toggle('is-visible', window.scrollY > 600);
+    toggleScrollTop();
+    window.addEventListener('scroll', toggleScrollTop, { passive: true });
+    scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
+  }
+
   // The hero intro's one-shot entrance animations use fill-mode `both` so
   // the button holds its final position during the delay and doesn't snap
   // back afterwards - but that same fill-mode keeps the animation "in

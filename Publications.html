@@ -21,10 +21,13 @@ title: Publications
       Peer-reviewed research on arboreal locomotion, positional behaviour, and ecology, from a decade studying primates and other mammals in the field and in the lab.
     </p>
   </div>
-  <svg class="wave-divider" viewBox="0 0 1440 100" preserveAspectRatio="none">
-    <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c3"></path>
-  </svg>
 </header>
+
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <clipPath id="pinCoverWaveClip" clipPathUnits="objectBoundingBox">
+    <path d="M0,0.4 C0.1667,0.9 0.3333,0 0.5,0.4 C0.6667,0.8 0.8333,0.1 1,0.5 L1,1 L0,1 Z"></path>
+  </clipPath>
+</svg>
 
 {% assign all_species = "" | split: "," %}
 {% assign all_collaborators = "" | split: "," %}
@@ -41,8 +44,9 @@ title: Publications
 {% assign pub_years = site.publications | map: "year" | sort %}
 
 <!-- RESEARCH BY THE NUMBERS -->
-<section class="section-light-crosses position-relative overflow-hidden">
-  <div class="container pad-64-12-24">
+<section class="section-light-grid research-stats">
+  <div class="research-stats-wave"></div>
+  <div class="container position-relative pad-64-12-24 z-1">
     <div class="row g-4 text-center" data-count-group>
       <div class="col-6 col-lg-3">
         <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" class="stat-icon">
@@ -78,11 +82,11 @@ title: Publications
 </section>
 
 <!-- PROFILE LINKS -->
-<section class="bg-c4">
-  <div class="container pad-24-12-64 text-center" data-reveal>
+<section class="section-light-crosses">
+  <div class="container pad-56-12 text-center" data-reveal>
     <div class="d-flex flex-wrap gap-3 justify-content-center">
-      <a href="https://www.researchgate.net/profile/Nikolaos-Evangelos-Karantanis/publications" class="btn-nk btn-nk-solid-c1" target="_blank" rel="noopener">View on ResearchGate &#8599;</a>
-      <a href="https://scholar.google.com/citations?user=sQlYqwIAAAAJ&hl=en" class="btn-nk btn-nk-solid-c1" target="_blank" rel="noopener">View on Google Scholar &#8599;</a>
+      <a href="https://www.researchgate.net/profile/Nikolaos-Evangelos-Karantanis/publications" class="btn-nk btn-nk-outline-dark" target="_blank" rel="noopener">View on ResearchGate &#8599;</a>
+      <a href="https://scholar.google.com/citations?user=sQlYqwIAAAAJ&hl=en" class="btn-nk btn-nk-outline-dark" target="_blank" rel="noopener">View on Google Scholar &#8599;</a>
     </div>
   </div>
 </section>
@@ -169,3 +173,7 @@ title: Publications
     </div>
   </div>
 </section>
+
+<button type="button" class="scroll-top" id="scrollTopBtn" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>
