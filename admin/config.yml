@@ -74,6 +74,7 @@ collections:
         required: false
         hint: "Optional. If set, it's placed automatically partway through the article — no manual placement needed. Leave blank for no image."
       - { label: "Featured image alt text", name: "image_alt", widget: "string", required: false, hint: "Optional. Defaults to the post title if left blank." }
+      - { label: "Featured image caption", name: "image_caption", widget: "string", required: false, hint: "Optional. Shown as small, discreet text under the image." }
       - { label: "Body", name: "body", widget: "markdown", hint: "The first paragraph is shown larger as the lede. Use a Markdown blockquote (> ...) for the pull-quote." }
 
   - name: "publications"
