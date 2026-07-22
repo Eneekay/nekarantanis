@@ -16,6 +16,9 @@ tags:
   - Quality Improvement
 image: /uploads/posts/pexels-jorgeural-9169907.jpg
 image_alt: Letterboard with 'Be the Change' on a vibrant pink background.
+image_caption: "Photo by Jorge Urosa from Pexels:
+  https://www.pexels.com/photo/inspirational-words-in-frame-on-pink-background-\
+  9169907/"
 ---
 In a high churn, local remand prison like HMP Pentonville, the demographic tells a stark story.
 
