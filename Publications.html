@@ -132,19 +132,27 @@ title: Publications
             {% for sp in all_species_sorted %}<li role="option" data-value="{{ sp }}"><em>{{ sp }}</em></li>{% endfor %}
           </ul>
         </div>
+        <button type="button" class="view-toggle-btn" id="pubViewToggle" aria-label="Change card view">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
+          <span class="view-toggle-label">View: Card</span>
+        </button>
       </div>
     </div>
-    <div class="row g-4" id="pubGrid">
+    <div class="row g-4" id="pubGrid" data-view="card">
       {% assign sorted_pubs = site.publications | sort: "year" | reverse %}
       {% for pub in sorted_pubs %}
       {% capture pub_search_text %}{{ pub.title }} {{ pub.summary }} {{ pub.journal }} {{ pub.species | join: ' ' }} {{ pub.keywords | join: ' ' }}{% endcapture %}
       <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal-grid data-keywords="{{ pub.keywords | join: '|' }}" data-species="{{ pub.species | join: '|' }}" data-search="{{ pub_search_text | strip_html | downcase | escape }}">
         <a href="{{ pub.url | relative_url }}" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=pub.icon %}</svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">{{ pub.journal }} &middot; {{ pub.year }}</div>
-          <h3 class="fs-19 mb-2">{{ pub.title }}</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">{{ pub.summary }}</p>
-          <span class="post-card-more">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          <div class="post-card-content">
+            <div class="post-card-meta">
+              <svg class="post-card-icon" viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=pub.icon %}</svg>
+              <span class="post-card-eyebrow">{{ pub.journal }} &middot; {{ pub.year }}</span>
+            </div>
+            <h3 class="fs-19 mb-2">{{ pub.title }}</h3>
+            <p class="fs-14-5 text-muted-warm mb-0">{{ pub.summary }}</p>
+            <span class="post-card-more">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
         </a>
       </div>
       {% endfor %}

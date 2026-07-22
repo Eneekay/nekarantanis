@@ -387,6 +387,42 @@ document.addEventListener('DOMContentLoaded', () => {
     applyPubFilters();
   }
 
+  // Card/List view toggle for the Blog and Research grids: a single pill
+  // button cycles between the two layouts (see the [data-view] CSS in
+  // custom.css), remembering the visitor's choice in localStorage so it
+  // sticks across visits. Both pages use the same two-mode list and the
+  // same button/grid pairing pattern, so one helper wires up whichever
+  // pair exists on the current page.
+  const VIEW_MODES = [
+    { key: 'card', label: 'Card' },
+    { key: 'list', label: 'List' },
+  ];
+  const setupViewToggle = (btn, grid, storageKey) => {
+    if (!btn || !grid) return;
+    const labelEl = btn.querySelector('.view-toggle-label');
+    let stored = null;
+    try { stored = window.localStorage.getItem(storageKey); } catch (e) { /* private mode, etc. */ }
+    let index = Math.max(0, VIEW_MODES.findIndex((m) => m.key === stored));
+
+    const apply = () => {
+      const mode = VIEW_MODES[index];
+      grid.dataset.view = mode.key;
+      labelEl.textContent = `View: ${mode.label}`;
+      // Switching modes reflows every card into new rows/columns, so each
+      // one's reveal-entrance direction needs recalculating too.
+      assignRevealDirections();
+    };
+    apply();
+
+    btn.addEventListener('click', () => {
+      index = (index + 1) % VIEW_MODES.length;
+      apply();
+      try { window.localStorage.setItem(storageKey, VIEW_MODES[index].key); } catch (e) { /* ignore */ }
+    });
+  };
+  setupViewToggle(document.getElementById('postViewToggle'), document.getElementById('postGrid'), 'nk-blog-view');
+  setupViewToggle(document.getElementById('pubViewToggle'), document.getElementById('pubGrid'), 'nk-pub-view');
+
   // Publication article sticky TOC: built from the article body's own h2/h3
   // headings rather than a hand-maintained list, since kramdown already
   // assigns each heading a stable id - same approach as the docs site's
@@ -408,12 +444,23 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const match = pubLinks.find((l) => l.heading === entry.target);
-          if (match) match.link.classList.toggle('is-active', entry.isIntersecting);
+      // Toggling `is-active` straight off `entry.isIntersecting` only lit up
+      // a heading's TOC link while the heading itself sat inside the
+      // shrunk-root band - so the highlight vanished the moment you scrolled
+      // past a short heading, well before you'd finished reading its
+      // section. Instead, every time any heading crosses the activation
+      // line, recompute which section we're actually in: the last heading
+      // whose top has scrolled above that line. That link stays active for
+      // the section's full length, right up until the next heading crosses.
+      const activationLine = 88; // px from viewport top - matches rootMargin below
+      const updateActive = () => {
+        let current = null;
+        pubLinks.forEach((l) => {
+          if (l.heading.getBoundingClientRect().top - activationLine <= 0) current = l;
         });
-      }, { rootMargin: '-80px 0px -70% 0px' });
+        pubLinks.forEach((l) => l.link.classList.toggle('is-active', l === current));
+      };
+      const io = new IntersectionObserver(updateActive, { rootMargin: `-${activationLine}px 0px -70% 0px` });
       pubHeadings.forEach((h) => io.observe(h));
     }
   } else if (pubTocList) {

@@ -638,6 +638,32 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .filter-menu li:hover { background: var(--nk-sel); }
 .filter-menu li.is-active { color: var(--nk-c2); font-weight: 600; }
 
+/* Cycles the post/publication grid between Card and List view on click -
+   same pill shape as the filter dropdowns, but filled solid with the blue
+   accent (like .btn-nk-solid-c2) rather than outlined, so it reads as an
+   action button rather than another filter. */
+.view-toggle-btn {
+  display: inline-flex;
+  align-items: center;
+  gap: 8px;
+  padding: 9px 16px;
+  border-radius: 20px;
+  border: 1px solid transparent;
+  background: var(--nk-c2);
+  color: #fff;
+  font-size: 13.5px;
+  font-weight: 600;
+  white-space: nowrap;
+  cursor: pointer;
+  transition: transform .2s ease, box-shadow .2s ease, background .2s ease;
+}
+.view-toggle-btn:hover {
+  background: var(--nk-c0);
+  border-color: var(--nk-gold);
+  transform: translateY(-3px);
+  box-shadow: var(--nk-shadow-btn);
+}
+
 /* Live text search for the post grid - same pill chrome as the category/
    tag filters (border, radius, hover/focus color) so it reads as part of
    the same control group rather than a foreign input, but grows to fill
@@ -997,8 +1023,9 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   padding: 32px;
   height: 100%;
   color: var(--nk-c0);
+  overflow: hidden;
 }
-.post-card svg { width: 30px; height: 30px; margin-bottom: 16px; }
+.post-card-icon { display: block; width: 30px; height: 30px; margin-bottom: 16px; flex-shrink: 0; }
 .post-card h3  { line-height: 1.3; }
 .post-card p   { line-height: 1.6; }
 /* Pinned to the bottom of the card (margin-top:auto) so the "Read more" links
@@ -1017,6 +1044,72 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 }
 .post-card-more svg { width: 15px; height: 15px; margin-bottom: 0; }
 .post-card:hover .post-card-more { text-decoration: underline; }
+
+/* Card view modes ("Card" / "List"), cycled via the pill button next to the
+   filter dropdowns (see .view-toggle-btn below and js/site.js), which sets
+   [data-view] on the #postGrid/#pubGrid container. No images are shown in
+   either mode - the icon is always rendered as its own element regardless
+   of view, so there's never a card with nothing to show. Default styling
+   below (no [data-view], or [data-view="card"]) matches the original
+   icon-first card exactly. */
+.post-card-content { display: flex; flex-direction: column; flex: 1; min-width: 0; }
+.post-card-meta { display: block; }
+.post-card-eyebrow {
+  display: block;
+  font-size: 12px;
+  font-weight: 600;
+  color: var(--nk-text-faint);
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  margin-bottom: 8px;
+}
+
+/* List mode: one full-width row per article, icon + text inline. */
+#postGrid[data-view="list"] > [data-reveal-grid],
+#pubGrid[data-view="list"] > [data-reveal-grid] {
+  flex: 0 0 100% !important;
+  max-width: 100% !important;
+}
+[data-view="list"] .post-card {
+  flex-direction: row;
+  align-items: center;
+  gap: 20px;
+  padding: 18px 24px;
+}
+[data-view="list"] .post-card-meta {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  flex: 0 0 260px;
+  min-width: 0;
+  margin-bottom: 0;
+}
+[data-view="list"] .post-card-icon { width: 18px; height: 18px; margin-bottom: 0; flex-shrink: 0; }
+[data-view="list"] .post-card-eyebrow {
+  margin-bottom: 0;
+  min-width: 0;
+  white-space: nowrap;
+  overflow: hidden;
+  text-overflow: ellipsis;
+}
+[data-view="list"] .post-card-content { flex-direction: row; align-items: center; gap: 20px; }
+[data-view="list"] .post-card h3 { flex: 1; min-width: 0; margin-bottom: 0; }
+[data-view="list"] .post-card p { display: none; }
+[data-view="list"] .post-card-more { margin-top: 0; padding-top: 0; flex-shrink: 0; }
+
+/* Below this width there's no room for a single-line row (meta + title +
+   read-more all fighting for space), so list mode falls back to the same
+   stacked layout as card mode rather than squeezing everything together. */
+@media (max-width: 767.98px) {
+  [data-view="list"] .post-card { flex-direction: column; align-items: stretch; padding: 32px; }
+  [data-view="list"] .post-card-meta { display: block; flex: 0 0 auto; }
+  [data-view="list"] .post-card-icon { width: 30px; height: 30px; margin-bottom: 16px; }
+  [data-view="list"] .post-card-eyebrow { margin-bottom: 8px; white-space: normal; }
+  [data-view="list"] .post-card-content { flex-direction: column; align-items: stretch; gap: 0; }
+  [data-view="list"] .post-card h3 { margin-bottom: 8px; }
+  [data-view="list"] .post-card p { display: block; }
+  [data-view="list"] .post-card-more { margin-top: auto; padding-top: 18px; align-self: flex-end; }
+}
 
 .featured-post-card { grid-template-columns: auto 1fr; gap: 28px; align-items: start; border-radius: 8px; padding: 44px; }
 

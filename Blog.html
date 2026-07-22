@@ -104,19 +104,27 @@ title: Blog
             {% for tag in all_tags %}<li role="option" data-value="{{ tag }}">{{ tag }}</li>{% endfor %}
           </ul>
         </div>
+        <button type="button" class="view-toggle-btn" id="postViewToggle" aria-label="Change card view">
+          <svg viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="3" width="7" height="7"></rect><rect x="14" y="3" width="7" height="7"></rect><rect x="3" y="14" width="7" height="7"></rect><rect x="14" y="14" width="7" height="7"></rect></svg>
+          <span class="view-toggle-label">View: Card</span>
+        </button>
       </div>
     </div>
-    <div class="row g-4" id="postGrid">
+    <div class="row g-4" id="postGrid" data-view="card">
       {% for post in site.posts %}
       {% unless post.url == featured.url %}
       {% capture post_search_text %}{{ post.title }} {{ post.summary }} {{ post.category }} {{ post.tags | join: ' ' }}{% endcapture %}
       <div class="col-md-6 col-lg-4 {% cycle 'td-0', 'td-08', 'td-16' %}" data-reveal-grid data-category="{{ post.category }}" data-tags="{{ post.tags | join: '|' }}" data-search="{{ post_search_text | strip_html | downcase | escape }}">
         <a href="{{ post.url | relative_url }}" class="post-card hover-card">
-          <svg viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=post.icon %}</svg>
-          <div class="fs-12 fw-semibold text-faint ls-1 text-uppercase mb-2">{{ post.category }} &middot; {{ post.date | date: "%d %b %Y" }}</div>
-          <h3 class="fs-19 mb-2">{{ post.title }}</h3>
-          <p class="fs-14-5 text-muted-warm mb-0">{{ post.summary }}</p>
-          <span class="post-card-more">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          <div class="post-card-content">
+            <div class="post-card-meta">
+              <svg class="post-card-icon" viewBox="0 0 24 24" fill="none" stroke="var(--nk-c2)" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round">{% include post-icon.html icon=post.icon %}</svg>
+              <span class="post-card-eyebrow">{{ post.category }} &middot; {{ post.date | date: "%d %b %Y" }}</span>
+            </div>
+            <h3 class="fs-19 mb-2">{{ post.title }}</h3>
+            <p class="fs-14-5 text-muted-warm mb-0">{{ post.summary }}</p>
+            <span class="post-card-more">Read more <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+          </div>
         </a>
       </div>
       {% endunless %}
