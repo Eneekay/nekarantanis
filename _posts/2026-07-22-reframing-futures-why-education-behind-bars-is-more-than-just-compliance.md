@@ -1,6 +1,5 @@
 ---
-title: "Reframing Futures: Why Education Behind Bars Is More Than Just
-  Compliance"
+title: "Reframing Futures: Why Education Behind Bars Is More Than Just Compliance"
 date: 2026-07-22
 featured: false
 category: Prison Education
@@ -15,6 +14,8 @@ tags:
   - Neurodiversity
   - Social Mobility
   - Quality Improvement
+image: /uploads/posts/pexels-jorgeural-9169907.jpg
+image_alt: Letterboard with 'Be the Change' on a vibrant pink background.
 ---
 In a high churn, local remand prison like HMP Pentonville, the demographic tells a stark story.
 
