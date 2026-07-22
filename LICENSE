@@ -1,22 +1,15 @@
-Copyright (c) 2026 N. E. Karantanis, PhD. All rights reserved.
+Copyright (c) 2026 N. E. Karantanis, PhD.
 
-SOFTWARE / CODE LICENSE (proprietary)
+LICENSE
 
-All source code in this repository — including but not limited to Jekyll
-templates and layouts, HTML, CSS, JavaScript, and configuration files — is
-the exclusive property of the copyright holder. No permission is granted to
-use, copy, modify, merge, publish, distribute, sublicense, or sell any part
-of the code, in whole or in part, without prior written permission from the
-copyright holder.
-
-CONTENT LICENSE
-
-Original site content (blog posts, written article transcriptions, page
-copy, and original figures created by the author) is licensed separately
-under the Creative Commons Attribution 4.0 International License (CC BY 4.0):
+Everything in this repository — source code (Jekyll templates and layouts,
+HTML, CSS, JavaScript, and configuration files) and original site content
+(blog posts, written article transcriptions, page copy, and original
+figures created by the author) alike — is licensed under the Creative
+Commons Attribution 4.0 International License (CC BY 4.0):
 https://creativecommons.org/licenses/by/4.0/
 
-You are free to share and adapt that content for any purpose, including
+You are free to share and adapt any of it for any purpose, including
 commercially, provided appropriate credit is given to N. E. Karantanis.
 
 EXCEPTION — PUBLISHED RESEARCH
