@@ -1115,6 +1115,8 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .post-body-inner > p:first-of-type { font-size: 20px; font-weight: 500; line-height: 1.7; color: var(--nk-c0); margin-bottom: 32px; }
 .post-body-inner blockquote { border-left: 4px solid var(--nk-c2); margin: 40px 0; padding: 8px 0 8px 28px; }
 .post-body-inner blockquote p { font-size: 22px; font-weight: 500; font-family: 'Space Grotesk', sans-serif; line-height: 1.5; color: var(--nk-c0); margin: 0; }
+.post-featured-image { margin: 40px 0; border-radius: 12px; overflow: hidden; box-shadow: var(--nk-shadow-card); }
+.post-featured-image img { width: 100%; height: auto; display: block; }
 
 .scroll-hint { animation: scrollBounce 1.8s ease-in-out infinite; cursor: pointer; }
 #scrollHint svg { width: 22px; height: 34px; display: block; pointer-events: none; }

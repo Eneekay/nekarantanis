@@ -11,6 +11,12 @@ kramdown:
 
 permalink: /blog/:slug.html
 
+plugins:
+  - jekyll-feed
+
+feed:
+  path: feed.xml
+
 collections:
   posts:
     output: true
