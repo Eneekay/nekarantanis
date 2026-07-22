@@ -19,6 +19,8 @@ icon: "tree"
 summary: "The feathertail glider — at 12 g, one of the smallest gliding marsupials — turns out to walk like a primate. This study of 18 gliders on poles of varying diameter and inclination shows they preferentially use diagonal-sequence gaits, and argues that such small-bodied grasping arborealists are a compelling behavioural model for the earliest primates."
 apa_citation: "Karantanis, N.-E., Youlatos, D., & Rychlik, L. (2015). Diagonal gaits in the feathertail glider Acrobates pygmaeus (Acrobatidae, Diprotodontia): Insights for the evolution of primate quadrupedalism. Journal of Human Evolution, 86, 43–54. https://doi.org/10.1016/j.jhevol.2015.06.007"
 pdf: "/uploads/publications/2015-acrobates-diagonal-gaits.pdf"
+image: "/uploads/publications/2015-acrobates-diagonal-gaits/figure-1-glider-on-pole.png"
+image_alt: "A feathertail glider walking diagonally along a 2 mm pole marked with vertical blue lines"
 ---
 
 > **Editorial note.** This page combines the original article (*Journal of Human Evolution*, 86, 43&ndash;54) with its published corrigendum (*Journal of Human Evolution*, 90, 204&ndash;206, <a href="https://doi.org/10.1016/j.jhevol.2015.11.003" target="_blank" rel="noopener">https://doi.org/10.1016/j.jhevol.2015.11.003</a>). The corrigendum corrected an order-of-magnitude error in the reported stride-length and dimensionless parameters (centimetres had been used in place of metres). Table&nbsp;1, Figures&nbsp;5 and&nbsp;6, and the &ldquo;Velocity and stride parameters&rdquo; results below reproduce the corrected values. As the authors noted, the error has no bearing on the statistical significance of the results or on the discussion and conclusions.

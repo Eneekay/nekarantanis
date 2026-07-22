@@ -21,6 +21,8 @@ icon: "chart"
 summary: "An experimental study of vertical climbing in one of the world's smallest rodents, the Eurasian harvest mouse, measuring how it adjusts its gaits climbing up and down branches of different diameters, and what this reveals about how the earliest tiny eutherian mammals may have negotiated the arboreal world."
 apa_citation: "Karantanis, N.-E., Rychlik, L., Herrel, A., & Youlatos, D. (2018). Vertical locomotion in Micromys minutus (Rodentia: Muridae): Insights into the evolution of eutherian climbing. Journal of Mammalian Evolution, 25(2), 277–289. https://doi.org/10.1007/s10914-016-9374-5"
 pdf: "/uploads/publications/2018-micromys-vertical-locomotion.pdf"
+image: "/uploads/publications/2018-micromys-vertical-locomotion/figure-1-still-image.png"
+image_alt: "Still image from a video recording of Eurasian harvest mice climbing the vertical experimental support"
 ---
 
 ## Abstract

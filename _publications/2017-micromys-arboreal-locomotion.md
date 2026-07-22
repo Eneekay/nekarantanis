@@ -22,6 +22,8 @@ icon: "trending"
 summary: "At about 10 g, the Eurasian harvest mouse is among the smallest rodents — so how does it walk along a branch? Measuring gait metrics on poles of four diameters and three inclinations, this study finds harvest mice use slow, cautious lateral-sequence walks that grow faster and more diagonal on wider supports, and argues that gait metrics, unlike velocity, are largely independent of body size."
 apa_citation: "Karantanis, N.-E., Rychlik, L., Herrel, A., & Youlatos, D. (2017). Arboreal locomotion in Eurasian harvest mice Micromys minutus (Rodentia: Muridae): The gaits of small mammals. Journal of Experimental Zoology Part A: Ecological and Integrative Physiology, 327(4), 175–188. https://doi.org/10.1002/jez.2068"
 pdf: "/uploads/publications/2017-micromys-arboreal-locomotion.pdf"
+image: "/uploads/publications/2017-micromys-arboreal-locomotion/figure-1-still-image.png"
+image_alt: "A video still of a harvest mouse walking along a 2 mm rod marked with vertical lines every centimetre"
 ---
 
 ## Abstract

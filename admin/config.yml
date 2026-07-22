@@ -119,6 +119,12 @@ collections:
         media_folder: "/uploads/publications"
         public_folder: "/uploads/publications"
         hint: "The original published PDF - powers the \"Download original PDF\" button at the end of the article."
+      - label: "Featured image"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "Optional. Shown as the thumbnail on the Publications listing card only - not displayed within the article itself. Pick one of the figures already in the article body, ideally a photo of the animal or habitat rather than a chart."
+      - { label: "Featured image alt text", name: "image_alt", widget: "string", required: false, hint: "Optional. Defaults to the publication title if left blank." }
       - label: "Body"
         name: "body"
         widget: "markdown"

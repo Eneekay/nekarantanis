@@ -21,6 +21,8 @@ icon: "heart"
 summary: "The first quantitative study of locomotion and posture in the southern pygmy slow loris, in the wild or captivity, gathering evidence to guide conservation and reintroduction planning."
 apa_citation: "Youlatos, D., Pylarinos, D., Karantanis, N. E., & Rychlik, L. (2025). Locomotion, postures, and substrate use in captive southern pygmy slow lorises (Strepsirrhini, Primates): Implications for conservation. Animals, 15(11), 1576. https://doi.org/10.3390/ani15111576"
 pdf: "/uploads/publications/2025-pygmy-slow-loris-positional-behavior.pdf"
+image: "/uploads/publications/2025-pygmy-slow-loris-positional-behavior/figure-1-video-still.png"
+image_alt: "Video still of a study animal clambering around the surrounding environment of the enclosure"
 ---
 
 ## Abstract
