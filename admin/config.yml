@@ -61,18 +61,20 @@ collections:
         name: "category"
         widget: "select"
         hint: "Shown as the small label above the title. Pick an existing one where it fits, to keep grouping/filtering useful."
-        options: ["Leadership", "Team Leadership", "Team Management", "Change Management", "Digital & Data", "Quality & Compliance", "Research & Practice", "Mentoring", "Leadership & Personal"]
+        options: ["Leadership", "Team Leadership", "Team Management", "Change Management", "Digital & Data", "Quality & Compliance", "Research & Practice", "Mentoring", "Leadership & Personal", "Prison Education", "Education & Impact"]
       - label: "Icon"
         name: "icon"
         widget: "icon-picker"
         hint: "Click an icon to select it."
+      - { label: "Card summary", name: "summary", widget: "text", hint: "Short blurb shown on the Blog listing card (not shown on the post itself)." }
+      - { label: "Tags", name: "tags", widget: "list" }
       - label: "Featured image"
         name: "image"
         widget: "image"
         required: false
-        hint: "Optional - not currently shown anywhere on the site, reserved for future use."
-      - { label: "Card summary", name: "summary", widget: "text", hint: "Short blurb shown on the Blog listing card (not shown on the post itself)." }
-      - { label: "Tags", name: "tags", widget: "list" }
+        hint: "Optional. If set, it's placed automatically partway through the article — no manual placement needed. Leave blank for no image."
+      - { label: "Featured image alt text", name: "image_alt", widget: "string", required: false, hint: "Optional. Defaults to the post title if left blank." }
+      - { label: "Featured image caption", name: "image_caption", widget: "string", required: false, hint: "Optional. Shown as small, discreet text under the image." }
       - { label: "Body", name: "body", widget: "markdown", hint: "The first paragraph is shown larger as the lede. Use a Markdown blockquote (> ...) for the pull-quote." }
 
   - name: "publications"
@@ -106,11 +108,6 @@ collections:
         name: "icon"
         widget: "icon-picker"
         hint: "Click an icon to select it."
-      - label: "Featured image"
-        name: "image"
-        widget: "image"
-        required: false
-        hint: "Optional - not currently shown anywhere on the site, reserved for future use."
       - { label: "Card summary", name: "summary", widget: "text", hint: "Short blurb shown on the Publications listing card." }
       - label: "Full APA reference-list citation"
         name: "apa_citation"
@@ -122,6 +119,11 @@ collections:
         media_folder: "/uploads/publications"
         public_folder: "/uploads/publications"
         hint: "The original published PDF - powers the \"Download original PDF\" button at the end of the article."
+      - label: "Featured image"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "Optional - not currently shown anywhere on the Publications overview (kept icon-only there), reserved for future use."
       - label: "Body"
         name: "body"
         widget: "markdown"

@@ -24,7 +24,24 @@ layout: default
 <!-- ARTICLE BODY -->
 <section class="bg-c4 position-relative overflow-hidden">
   <div class="container post-body-inner" data-reveal>
-    {{ content }}
+    {% if page.image %}
+      {% capture para_break %}
+
+{% endcapture %}
+      {% assign blocks = content | split: para_break %}
+      {% assign mid_index = blocks.size | divided_by: 2 | at_least: 1 %}
+      {% for block in blocks %}
+        {{ block }}
+        {% if forloop.index == mid_index %}
+      <figure class="post-featured-image">
+        <img src="{{ page.image | relative_url }}" alt="{{ page.image_alt | default: page.title }}" loading="lazy">
+        {% if page.image_caption %}<figcaption>{{ page.image_caption }}</figcaption>{% endif %}
+      </figure>
+        {% endif %}
+      {% endfor %}
+    {% else %}
+      {{ content }}
+    {% endif %}
     <div class="d-flex flex-wrap gap-2 mt-4">
       {% for tag in page.tags %}<a href="{{ page.base }}Blog.html?tag={{ tag | url_encode }}" class="tag-pill on-card">{{ tag }}</a>{% endfor %}
     </div>

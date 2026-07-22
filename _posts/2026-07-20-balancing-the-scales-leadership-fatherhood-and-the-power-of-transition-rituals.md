@@ -12,7 +12,7 @@ summary: Managing workforce stress and complex change projects requires immense
 tags:
   - Leadership
   - Fatherhood
-  - ChangeManagement
+  - Change Management
   - Wellbeing
   - Resilience
 ---

@@ -22,6 +22,32 @@
       var title = entry.getIn(['data', 'title']);
       var category = entry.getIn(['data', 'category']);
       var body = this.props.widgetFor('body');
+      var image = entry.getIn(['data', 'image']);
+
+      // Best-effort mirror of the mid-article splice the real post layout
+      // does. The rendered body is a React tree, not the raw HTML string
+      // Liquid works with, so this only works when it comes back as a
+      // wrapping element with a plain array of block children; otherwise
+      // it falls back to showing the image after the body so a broken
+      // assumption here can't take down the whole preview.
+      if (image) {
+        var imageAlt = entry.getIn(['data', 'image_alt']) || title;
+        var imageCaption = entry.getIn(['data', 'image_caption']);
+        var figure = h(
+          'figure',
+          { className: 'post-featured-image' },
+          h('img', { src: this.props.getAsset(image), alt: imageAlt }),
+          imageCaption ? h('figcaption', {}, imageCaption) : null
+        );
+
+        var children = body && body.props && body.props.children;
+        if (Array.isArray(children) && children.length > 1) {
+          var mid = Math.max(1, Math.floor(children.length / 2));
+          body = h('div', {}, children.slice(0, mid), figure, children.slice(mid));
+        } else {
+          body = h('div', {}, body, figure);
+        }
+      }
 
       return h(
         'div',

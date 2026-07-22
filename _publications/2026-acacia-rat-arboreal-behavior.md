@@ -22,6 +22,8 @@ icon: "compass"
 summary: "The most recent of two studies on Acacia rats, integrating substrate size, inclination, and availability with locomotor and postural behaviour in a captive colony."
 apa_citation: "Youlatos, D., Koutsougianni, F., Karantanis, N. E., & Rychlik, L. (2026). Arboreal behavior of captive Acacia rats Thallomys paedulcus (Rodentia: Muridae). Animals, 16(11), 1632. https://doi.org/10.3390/ani16111632"
 pdf: "/uploads/publications/2026-youlatos-et-al-acacia-rats-animals.pdf"
+image: "/uploads/publications/2026-acacia-rat-arboreal-behavior/figure-1-video-stills.png"
+image_alt: "Video stills from the enclosure of Thallomys paedulcus showing the animals and the available substrates"
 ---
 
 ## Simple Summary

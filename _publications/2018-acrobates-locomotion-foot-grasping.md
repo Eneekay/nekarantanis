@@ -1,5 +1,5 @@
 ---
-title: "Locomotion, Postures, Substrate Use, and Foot Grasping in the Marsupial Feathertail Glider <em>Acrobates pygmaeus</em>: Insights into Early Euprimate Evolution"
+title: "Locomotion, Postures, Substrate Use, and Foot Grasping in the Marsupial Feathertail Glider <em>Acrobates pygmaeus</em>: Insights Into Early Euprimate Evolution"
 year: 2018
 authors_display: "Dionisios Youlatos, Dimitra Moussa, Nikolaos-Evangelos Karantanis, and Leszek Rychlik"
 authors_list:
@@ -21,6 +21,8 @@ icon: "tree"
 summary: "A captive study of the marsupial feathertail glider Acrobates pygmaeus, testing whether a versatile positional repertoire, preference for fine substrates, and hallucal grasping in this tiny arboreal marsupial can model a plausible stage in early euprimate locomotor evolution."
 apa_citation: "Youlatos, D., Moussa, D., Karantanis, N.-E., & Rychlik, L. (2018). Locomotion, postures, substrate use, and foot grasping in the marsupial feathertail glider Acrobates pygmaeus (Diprotodontia: Acrobatidae): Insights into early euprimate evolution. Journal of Human Evolution, 123, 148–159. https://doi.org/10.1016/j.jhevol.2018.07.007"
 pdf: "/uploads/publications/2018-acrobates-locomotion-foot-grasping.pdf"
+image: "/uploads/publications/2018-acrobates-locomotion-foot-grasping/figure-1-positional-modes.png"
+image_alt: "Positional modes of captive feathertail gliders Acrobates pygmaeus"
 ---
 
 ## Abstract

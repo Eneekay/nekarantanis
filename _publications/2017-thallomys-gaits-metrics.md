@@ -22,6 +22,8 @@ icon: "compass"
 summary: "The first study of locomotion in the acacia rat, examining how this small arboreal African rodent adjusts its gaits and gait metrics to substrate size and inclination on simulated branches, and how those adjustments support its life in Acacia tree canopies."
 apa_citation: "Karantanis, N.-E., Rychlik, L., Herrel, A., & Youlatos, D. (2017). Arboreality in acacia rats (Thallomys paedulcus; Rodentia, Muridae): Gaits and gait metrics. Journal of Zoology, 303(2), 107–119. https://doi.org/10.1111/jzo.12473"
 pdf: "/uploads/publications/2017-thallomys-gaits-metrics.pdf"
+image: "/uploads/publications/2017-thallomys-gaits-metrics/figure-1-still-image.png"
+image_alt: "Still image of a male Thallomys paedulcus walking on a 5 mm substrate"
 ---
 
 ## Abstract

@@ -1,7 +1,7 @@
-# Vertical Locomotion in Micromys minutus (Rodentia: Muridae): Insights into the Evolution of Eutherian Climbing
+# Vertical Locomotion in Micromys minutus (Rodentia: Muridae): Insights Into the Evolution of Eutherian Climbing
 
 **Title:**
-Vertical Locomotion in Micromys minutus (Rodentia: Muridae): Insights into the Evolution of Eutherian Climbing
+Vertical Locomotion in Micromys minutus (Rodentia: Muridae): Insights Into the Evolution of Eutherian Climbing
 
 **Year:**
 2018

@@ -19,6 +19,8 @@ icon: "target"
 summary: "Filming wild-caught northern smooth-tailed treeshrews in Vietnam to analyze how their foot mechanisms shift with substrate size and inclination, and what that reveals about the early evolution of pedal grasping in euarchontan mammals."
 apa_citation: "Youlatos, D., Karantanis, N. E., & Panyutina, A. (2016). Pedal grasping in the northern smooth-tailed treeshrew Dendrogale murina (Tupaiidae, Scandentia): Insights for euarchontan pedal evolution. Mammalia, 81(1), 61–70. https://doi.org/10.1515/mammalia-2015-0113"
 pdf: "/uploads/publications/2016-dendrogale-murina-pedal-grasping.pdf"
+image: "/uploads/publications/2016-dendrogale-murina-pedal-grasping/figure-1-grasping-modes.png"
+image_alt: "Photographs of Dendrogale murina demonstrating hallucal, convergent, and claw grasp on captive enclosure substrates"
 ---
 
 ## Abstract

@@ -21,6 +21,8 @@ icon: "star"
 summary: "A first quantitative comparison of arboreal gaits on simulated substrates of different diameters in two sympatric dormice of very different body size, the hazel dormouse and the edible dormouse, testing whether gait choice and velocity regulation scale with body mass."
 apa_citation: "Karantanis, N.-E., Rychlik, L., Herrel, A., & Youlatos, D. (2017). Comparing the arboreal gaits of Muscardinus avellanarius and Glis glis (Gliridae, Rodentia): A first quantitative analysis. Mammal Study, 42(3), 161–172. https://doi.org/10.3106/041.042.0306"
 pdf: "/uploads/publications/2017-muscardinus-glis-arboreal-gaits.pdf"
+image: "/uploads/publications/2017-muscardinus-glis-arboreal-gaits/figure-2-still-images.png"
+image_alt: "Still images of the studied dormice specimens on horizontal substrates of 25 mm diameter"
 ---
 
 ## Abstract

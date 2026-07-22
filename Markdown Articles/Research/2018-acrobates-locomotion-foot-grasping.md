@@ -1,7 +1,7 @@
-# Locomotion, Postures, Substrate Use, and Foot Grasping in the Marsupial Feathertail Glider Acrobates pygmaeus: Insights into Early Euprimate Evolution
+# Locomotion, Postures, Substrate Use, and Foot Grasping in the Marsupial Feathertail Glider Acrobates pygmaeus: Insights Into Early Euprimate Evolution
 
 **Title:**
-Locomotion, Postures, Substrate Use, and Foot Grasping in the Marsupial Feathertail Glider Acrobates pygmaeus: Insights into Early Euprimate Evolution
+Locomotion, Postures, Substrate Use, and Foot Grasping in the Marsupial Feathertail Glider Acrobates pygmaeus: Insights Into Early Euprimate Evolution
 
 **Year:**
 2018
