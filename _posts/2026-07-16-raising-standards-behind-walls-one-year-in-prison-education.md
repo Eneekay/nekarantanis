@@ -9,9 +9,9 @@ summary: Transitioning into prison education is a gear change for any
   pressure Category B environment, right as it navigated the intense operational
   pressures of an Urgent Notification is another thing entirely.
 tags:
-  - prisoneducation
-  - changemanagement
-  - personalisation
+  - Prison Education
+  - Change Management
+  - Personalisation
 ---
 Transitioning into prison education is a gear change for any educational leader. Transitioning into HMP Pentonville, a complex, high pressure Category B environment, right as it navigated the intense operational pressures of an Urgent Notification is another thing entirely.
 
