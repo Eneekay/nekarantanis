@@ -866,13 +866,14 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .pub-body h2 { font-size: 24px; font-weight: 600; margin: 48px 0 18px; scroll-margin-top: calc(var(--nav-h, 69px) + 16px); }
 .pub-body h2:first-child, .pub-body > :first-child { margin-top: 0; }
 .pub-body h3 { font-size: 19px; font-weight: 600; margin: 32px 0 14px; scroll-margin-top: calc(var(--nav-h, 69px) + 16px); }
-.pub-body p { font-size: 16.5px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 20px; }
+.pub-body p { font-size: 16.5px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 20px; text-align: justify; }
 .pub-body ul, .pub-body ol { font-size: 16.5px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 20px; padding-left: 22px; }
 .pub-body li { margin-bottom: 6px; }
 .pub-body blockquote { border-left: 4px solid var(--nk-c2); margin: 32px 0; padding: 4px 0 4px 22px; color: var(--nk-text-muted); font-style: italic; }
+.pub-body blockquote p { text-align: left; }
 .pub-body figure { margin: 32px 0; }
 .pub-body figure img { max-width: 100%; border-radius: 6px; }
-.pub-body figcaption { font-size: 13.5px; color: var(--nk-text-faint); margin-top: 10px; }
+.pub-body figcaption { font-size: 13.5px; color: var(--nk-text-faint); margin-top: 10px; text-align: center; }
 /* display:block + overflow-x:auto keeps a wide data table inside its own
    horizontally-scrollable box instead of widening the article (and the whole
    page) — the rows/cells still lay out as a table via an anonymous table box.
@@ -1111,13 +1112,13 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .wave-divider--56 { height: 56px; }
 .wave-divider--64 { height: 64px; }
 
-.post-body-inner > p { font-size: 17px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 22px; }
+.post-body-inner > p { font-size: 17px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 22px; text-align: justify; }
 .post-body-inner > p:first-of-type { font-size: 20px; font-weight: 500; line-height: 1.7; color: var(--nk-c0); margin-bottom: 32px; }
 .post-body-inner blockquote { border-left: 4px solid var(--nk-c2); margin: 40px 0; padding: 8px 0 8px 28px; }
-.post-body-inner blockquote p { font-size: 22px; font-weight: 500; font-family: 'Space Grotesk', sans-serif; line-height: 1.5; color: var(--nk-c0); margin: 0; }
+.post-body-inner blockquote p { font-size: 22px; font-weight: 500; font-family: 'Space Grotesk', sans-serif; line-height: 1.5; color: var(--nk-c0); margin: 0; text-align: left; }
 .post-featured-image { margin: 40px 0; }
 .post-featured-image img { width: 100%; height: auto; display: block; border-radius: 12px; box-shadow: var(--nk-shadow-card); }
-.post-featured-image figcaption { font-size: 13.5px; color: var(--nk-text-faint); margin-top: 10px; }
+.post-featured-image figcaption { font-size: 13.5px; color: var(--nk-text-faint); margin-top: 10px; text-align: center; }
 
 .scroll-hint { animation: scrollBounce 1.8s ease-in-out infinite; cursor: pointer; }
 #scrollHint svg { width: 22px; height: 34px; display: block; pointer-events: none; }
