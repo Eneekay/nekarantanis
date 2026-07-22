@@ -68,6 +68,12 @@ collections:
         hint: "Click an icon to select it."
       - { label: "Card summary", name: "summary", widget: "text", hint: "Short blurb shown on the Blog listing card (not shown on the post itself)." }
       - { label: "Tags", name: "tags", widget: "list" }
+      - label: "Featured image"
+        name: "image"
+        widget: "image"
+        required: false
+        hint: "Optional. If set, it's placed automatically partway through the article — no manual placement needed. Leave blank for no image."
+      - { label: "Featured image alt text", name: "image_alt", widget: "string", required: false, hint: "Optional. Defaults to the post title if left blank." }
       - { label: "Body", name: "body", widget: "markdown", hint: "The first paragraph is shown larger as the lede. Use a Markdown blockquote (> ...) for the pull-quote." }
 
   - name: "publications"
