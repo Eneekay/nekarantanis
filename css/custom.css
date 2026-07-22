@@ -849,7 +849,7 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .pub-body h2 { font-size: 24px; font-weight: 600; margin: 48px 0 18px; scroll-margin-top: calc(var(--nav-h, 69px) + 16px); }
 .pub-body h2:first-child, .pub-body > :first-child { margin-top: 0; }
 .pub-body h3 { font-size: 19px; font-weight: 600; margin: 32px 0 14px; scroll-margin-top: calc(var(--nav-h, 69px) + 16px); }
-.pub-body p { font-size: 16.5px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 20px; text-align: justify; }
+.pub-body p { font-size: 16.5px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 20px; text-align: justify; -webkit-hyphens: auto; hyphens: auto; }
 .pub-body ul, .pub-body ol { font-size: 16.5px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 20px; padding-left: 22px; }
 .pub-body li { margin-bottom: 6px; }
 .pub-body blockquote { border-left: 4px solid var(--nk-c2); margin: 32px 0; padding: 4px 0 4px 22px; color: var(--nk-text-muted); font-style: italic; }
@@ -983,6 +983,8 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   color: var(--nk-c0);
 }
 .post-card svg { width: 30px; height: 30px; margin-bottom: 16px; }
+.post-card-image { margin: -32px -32px 20px; border-radius: 8px 8px 0 0; overflow: hidden; aspect-ratio: 16 / 10; }
+.post-card-image img { width: 100%; height: 100%; object-fit: cover; display: block; }
 .post-card h3  { line-height: 1.3; }
 .post-card p   { line-height: 1.6; }
 /* Pinned to the bottom of the card (margin-top:auto) so the "Read more" links
@@ -1095,7 +1097,7 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .wave-divider--56 { height: 56px; }
 .wave-divider--64 { height: 64px; }
 
-.post-body-inner > p { font-size: 17px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 22px; text-align: justify; }
+.post-body-inner > p { font-size: 17px; line-height: 1.8; color: var(--nk-text-body-dark); margin: 0 0 22px; text-align: justify; -webkit-hyphens: auto; hyphens: auto; }
 .post-body-inner > p:first-of-type { font-size: 20px; font-weight: 500; line-height: 1.7; color: var(--nk-c0); margin-bottom: 32px; }
 .post-body-inner blockquote { border-left: 4px solid var(--nk-c2); margin: 40px 0; padding: 8px 0 8px 28px; }
 .post-body-inner blockquote p { font-size: 22px; font-weight: 500; font-family: 'Space Grotesk', sans-serif; line-height: 1.5; color: var(--nk-c0); margin: 0; text-align: left; }

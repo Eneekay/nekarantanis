@@ -23,6 +23,8 @@ icon: "zap"
 summary: "Comparing gait metrics of a burrowing mouse, a scansorial vole, and a more arboreal mouse on substrates of different size and incline, to test whether arboreal competence tracks each species' ecology."
 apa_citation: "Karantanis, N.-E., Rychlik, L., Herrel, A., & Youlatos, D. (2017). Arboreal gaits in three sympatric rodents Apodemus agrarius, Apodemus flavicollis (Rodentia, Muridae) and Myodes glareolus (Rodentia, Cricetidae). Mammalian Biology, 83, 51–63. https://doi.org/10.1016/j.mambio.2016.12.004"
 pdf: "/uploads/publications/2017-apodemus-myodes-arboreal-gaits.pdf"
+image: "/uploads/publications/2017-apodemus-myodes-arboreal-gaits/figure-1-species-stills.png"
+image_alt: "Video stills of the striped field mouse, yellow-necked mouse, and bank vole traversing a horizontal substrate"
 ---
 
 ## Abstract

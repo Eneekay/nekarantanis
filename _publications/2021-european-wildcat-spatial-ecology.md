@@ -24,6 +24,8 @@ icon: "flag"
 summary: "The first GPS-telemetry study of European wildcat spatial ecology and diel activity in Greece and the Balkans, using five collared animals in a wetland-agricultural landscape."
 apa_citation: "Migli, D., Astaras, C., Boutsis, G., Diakou, A., Karantanis, N.-E., & Youlatos, D. (2021). Spatial ecology and diel activity of European wildcat (Felis silvestris) in a protected lowland area in Northern Greece. Animals, 11(11), 3030. https://doi.org/10.3390/ani11113030"
 pdf: "/uploads/publications/2021-european-wildcat-spatial-ecology.pdf"
+image: "/uploads/publications/2021-european-wildcat-spatial-ecology/figure-4-pelage-characteristics.png"
+image_alt: "Photo of a captured European wildcat with the seven key pelage characteristics labelled"
 ---
 
 ## Simple Summary

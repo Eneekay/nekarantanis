@@ -19,6 +19,8 @@ icon: "anchor"
 summary: "The first quantitative study of positional behavior in Linnaeus's two-toed sloth, combining naturalistic observation with kinematic and kinetic data from a simulated arboreal runway to test whether sloths behave as passive linked struts while hanging and walking below branches."
 apa_citation: "Granatosky, M. C., Karantanis, N. E., Rychlik, L., & Youlatos, D. (2018). A suspensory way of life: Integrating locomotion, postures, limb movements, and forces in two-toed sloths Choloepus didactylus (Megalonychidae, Folivora, Pilosa). Journal of Experimental Zoology Part A: Ecological and Integrative Physiology, 329(10), 570–588. https://doi.org/10.1002/jez.2221"
 pdf: "/uploads/publications/2018-choloepus-suspensory-locomotion.pdf"
+image: "/uploads/publications/2018-choloepus-suspensory-locomotion/figure-1-positional-modes.png"
+image_alt: "Positional modes of captive Choloepus didactylus"
 ---
 
 ## Abstract
