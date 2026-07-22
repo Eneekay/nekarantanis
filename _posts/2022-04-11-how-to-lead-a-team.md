@@ -1,12 +1,18 @@
 ---
-title: "How to Lead a Team"
+title: How to Lead a Team
 date: 2022-04-11
-category: "Leadership"
+category: Leadership
 icon: team
-summary: "Do you believe in magic recipes for success? There are, however, things successful leaders have in common."
+summary: Do you believe in magic recipes for success? There are, however, things
+  successful leaders have in common.
 tags:
-  - "Leadership"
-  - "Team Management"
+  - Leadership
+  - Team Management
+image: /uploads/posts/pexels-padrinan-194094.jpg
+image_alt: Colorful origami paper boats arranged to depict leadership and
+  teamwork concepts.
+image_caption: "Photo by Miguel Á. Padriñán from Pexels:
+  https://www.pexels.com/photo/paper-boats-on-solid-surface-194094/"
 ---
 
 Do you believe in magic recipes for success? I don’t. There are, however, things successful leaders have in common.
