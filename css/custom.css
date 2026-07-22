@@ -829,23 +829,6 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   max-height: calc(100vh - var(--nav-h, 69px) - 48px);
   overflow-y: auto;
 }
-.pub-toc-top {
-  display: inline-flex;
-  align-items: center;
-  gap: 6px;
-  font-size: 13px;
-  font-weight: 600;
-  color: var(--nk-c0);
-  background: var(--nk-c3);
-  border: 1px solid rgba(var(--nk-c0-rgb), 0.12);
-  border-radius: 20px;
-  padding: 6px 14px;
-  margin-bottom: 20px;
-  text-decoration: none;
-  transition: transform .2s ease, box-shadow .2s ease, border-color .2s ease, color .2s ease;
-}
-.pub-toc-top:hover { transform: translateY(-2px); box-shadow: var(--nk-shadow-pill); border-color: var(--nk-c2); color: var(--nk-c2); }
-.pub-toc-top svg { width: 14px; height: 14px; flex-shrink: 0; }
 .pub-toc-label { font-size: 12px; font-weight: 700; letter-spacing: 1px; text-transform: uppercase; color: var(--nk-text-faint); margin-bottom: 12px; }
 .pub-toc-list { list-style: none; margin: 0; padding: 0; border-left: 2px solid rgba(var(--nk-c0-rgb), 0.1); }
 .pub-toc-list a {
