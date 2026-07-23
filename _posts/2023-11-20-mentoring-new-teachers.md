@@ -1,13 +1,13 @@
 ---
-title: "What I Look for When Mentoring a New Teacher Through CET/DET"
+title: What I Look for When Mentoring a New Teacher
 date: 2023-11-20
-category: "Mentoring"
+category: Mentoring
 icon: cap
-summary: "The habits that separate a competent lesson from a confident teacher."
+summary: The habits that separate a competent lesson from a confident teacher.
 tags:
-  - "Mentoring"
-  - "CET/DET"
-  - "Teacher Development"
+  - Mentoring
+  - CET/DET
+  - Teacher Development
 ---
 
 A competent lesson and a confident teacher are not the same thing — and the gap between them is exactly where mentoring earns its keep.
