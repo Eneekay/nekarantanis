@@ -1005,6 +1005,9 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 .post-card:hover .post-card-more { text-decoration: underline; }
 
 .featured-post-card { grid-template-columns: auto 1fr; gap: 28px; align-items: start; border-radius: 8px; padding: 44px; }
+@media (max-width: 767.98px) {
+  .featured-post-card { grid-template-columns: 1fr; padding: 32px; }
+}
 
 .pillar-card {
   border-top: 3px solid var(--nk-c2);
