@@ -1356,29 +1356,31 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 .heading-icon--xl  { width: 36px; height: 36px; }
 .heading-icon--xxl { width: 40px; height: 40px; }
 
-/* Draw-on reveal, first viewing only - every line icon site-wide
-   (heading-icon, stat-icon, post-card-icon). The 300 here is only a
-   hiding fallback for the instant of first paint (and for browsers
-   without getTotalLength) - it's comfortably larger than any of these
-   24x24 icons' real path lengths, so the stroke stays fully hidden
-   either way. js/site.js immediately replaces both dasharray and
-   dashoffset with each shape's own exact length (inline, so it wins over
-   this rule), then later drops dashoffset to 0 the same way to reveal it
-   - entirely inline rather than via a toggled class, since an inline
-   dashoffset set once would otherwise permanently out-rank any
-   class-based CSS reset of it. The transition below is the one thing
-   left for the stylesheet to own: it applies to inline-style changes
-   too, so it's what makes that final inline dashoffset:0 actually
-   animate instead of jumping straight there. Doing the fallback in plain
-   CSS (rather than only ever setting this via JS) means there's no flash
-   of a fully-drawn icon before JS runs. */
-:is(.heading-icon, .stat-icon, .post-card-icon) :is(path, circle, rect, line, polygon, polyline, ellipse) {
+/* Draw-on reveal, first viewing only - stat-icon and post-card-icon only.
+   heading-icon (page headers, section headings, the Blog featured card)
+   is deliberately excluded - it renders as a normal, immediately-visible
+   icon with no animation at all. The 300 here is only a hiding fallback
+   for the instant of first paint (and for browsers without
+   getTotalLength) - it's comfortably larger than any of these 24x24
+   icons' real path lengths, so the stroke stays fully hidden either way.
+   js/site.js immediately replaces both dasharray and dashoffset with
+   each shape's own exact length (inline, so it wins over this rule),
+   then later drops dashoffset to 0 the same way to reveal it - entirely
+   inline rather than via a toggled class, since an inline dashoffset set
+   once would otherwise permanently out-rank any class-based CSS reset of
+   it. The transition below is the one thing left for the stylesheet to
+   own: it applies to inline-style changes too, so it's what makes that
+   final inline dashoffset:0 actually animate instead of jumping straight
+   there. Doing the fallback in plain CSS (rather than only ever setting
+   this via JS) means there's no flash of a fully-drawn icon before JS
+   runs. */
+:is(.stat-icon, .post-card-icon) :is(path, circle, rect, line, polygon, polyline, ellipse) {
   stroke-dasharray: 300;
   stroke-dashoffset: 300;
   transition: stroke-dashoffset 1.4s ease-out, opacity .5s ease;
 }
 @media (prefers-reduced-motion: reduce) {
-  :is(.heading-icon, .stat-icon, .post-card-icon) :is(path, circle, rect, line, polygon, polyline, ellipse) {
+  :is(.stat-icon, .post-card-icon) :is(path, circle, rect, line, polygon, polyline, ellipse) {
     stroke-dasharray: none;
     stroke-dashoffset: 0;
     transition: none;

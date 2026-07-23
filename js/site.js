@@ -134,9 +134,12 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Icon draw-on: the site's line icons start hidden via plain CSS
-  // (stroke-dasharray/dashoffset - see custom.css), so this only ever has
-  // to reveal each one once, the first time it scrolls into view. Each
+  // Icon draw-on: stat-icon and post-card-icon only - heading-icon (page
+  // headers, section headings, the Blog featured card) is deliberately
+  // left out of this entirely, rendering as a normal icon with no
+  // animation. These start hidden via plain CSS (stroke-dasharray/
+  // dashoffset - see custom.css), so this only ever has to reveal each
+  // one once, the first time it scrolls into view. Each
   // shape's dasharray/dashoffset is first swapped, inline, from custom.css's
   // generic 300 placeholder to its own real getTotalLength() - otherwise
   // the 1s transition would finish "drawing" as soon as the offset passed
@@ -154,7 +157,7 @@ document.addEventListener('DOMContentLoaded', () => {
   // 2-4px - the reveal fired the instant the icon merely grazed the edge
   // of the screen, so by the time it was actually sitting in view the
   // whole 1s draw had long since finished unseen.
-  const iconEls = document.querySelectorAll('.heading-icon, .stat-icon, .post-card-icon');
+  const iconEls = document.querySelectorAll('.stat-icon, .post-card-icon');
   if (iconEls.length) {
     // A stroke-dashoffset reveal reads fine on an actual line, but on a
     // very short path - several of the icon set's shapes are little
@@ -172,12 +175,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const iconShapes = new Map();
     iconEls.forEach((svg) => {
       const shapes = Array.from(svg.querySelectorAll('path, circle, rect, line, polygon, polyline, ellipse'));
-      // Some sections (the Publications page header, its "By the Numbers"
-      // stat row - see data-icon-fade-only) want every icon inside them to
-      // just fade in as a group, not only the ones that happen to cross
-      // the shape-count line below - a lone simple icon fading in right
-      // next to a compound one popping/drawing on its own timeline still
-      // read as mismatched, so the whole section opts out of drawing.
+      // Some sections (Publications' "By the Numbers" stat row - see
+      // data-icon-fade-only) want every icon inside them to just fade in
+      // as a group, not only the ones that happen to cross the
+      // shape-count line below - a lone simple icon fading in right next
+      // to a compound one popping/drawing on its own timeline still read
+      // as mismatched, so the whole section opts out of drawing.
       const fadeOnly = !!svg.closest('[data-icon-fade-only]');
       const tooManyShapes = fadeOnly || shapes.length > MAX_ANIMATED_SHAPES;
       shapes.forEach((shape) => {
