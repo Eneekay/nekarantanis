@@ -609,51 +609,37 @@ h1, h2, h3, h4 {
 
 .btn-nk-outline {
   position: relative;
+  z-index: 0;
   background: transparent;
   border-color: rgba(var(--nk-c4-rgb), 0.35);
   color: var(--nk-c3);
+  overflow: hidden;
 }
 .btn-nk-outline:hover { background: transparent; color: var(--nk-c3); }
-/* Drawn-border reveal: two diagonally opposite L-shaped traces (top+right,
-   then bottom+left a beat later) grow from 0 to full size on hover, just
-   outside the button's own always-faint border, so the gold outline reads
-   as being traced on rather than simply appearing - the same idea as the
-   icon draw-on elsewhere on the site, without literally reusing stroke-
-   dasharray (there's no single path to draw around a rectangle's CSS box
-   the way there is for an SVG icon). Pure CSS, free to leave running. */
-.btn-nk-outline::before,
-.btn-nk-outline::after {
+/* Fill-wipe: a soft gold tint rises up from the bottom to fill the button
+   on hover, rather than tracing the border. transform/opacity only (no
+   width/height like the border-draw attempt before this), so it's plain
+   GPU-composited motion - overflow:hidden clips it to the button's own
+   rounded corners, and the negative z-index (inside the stacking context
+   z-index:0 above establishes) keeps it behind the button's text. */
+.btn-nk-outline::before {
   content: "";
   position: absolute;
-  width: 0;
-  height: 0;
-  border: 0 solid var(--nk-gold);
-  border-radius: inherit;
+  inset: 0;
+  z-index: -1;
+  background: var(--nk-gold);
+  opacity: 0.18;
+  transform: scaleY(0);
+  transform-origin: bottom;
+  transition: transform .3s ease;
   pointer-events: none;
-  transition: width .25s ease, height .25s ease;
 }
-.btn-nk-outline::before {
-  top: -3px;
-  left: -3px;
-  border-top-width: 3px;
-  border-right-width: 3px;
-}
-.btn-nk-outline::after {
-  bottom: -3px;
-  right: -3px;
-  border-bottom-width: 3px;
-  border-left-width: 3px;
-  transition-delay: .2s;
-}
-.btn-nk-outline:hover::before,
-.btn-nk-outline:hover::after {
-  width: calc(100% + 6px);
-  height: calc(100% + 6px);
+.btn-nk-outline:hover::before {
+  transform: scaleY(1);
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn-nk-outline::before,
-  .btn-nk-outline::after {
-    display: none;
+  .btn-nk-outline::before {
+    transition: none;
   }
 }
 
@@ -869,15 +855,19 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 
 /* ---------- nav ---------- */
 
-/* Post/publication pages only (see _layouts/default.html). A full-width
-   band pinned to the very bottom of the viewport, parked off-screen until
-   site.js sees the visitor actually start scrolling (past 80px), then
-   slides up into view. The right padding reserves the publication
-   layout's own scroll-top button (46px circle, bottom/right: 24px) its
-   own corner - z-index stays below it too, so even the sliver of overlap
-   at the corner still renders the button on top. pointer-events stays
-   off throughout since it's a status readout, not a control, and that
-   also keeps it from ever intercepting a tap. */
+/* Post/publication pages only (see _layouts/default.html). Pinned to the
+   very bottom of the viewport, parked off-screen until site.js sees the
+   visitor actually start scrolling (past 80px), then slides up into
+   view. Width matches the content above it - the .pub-shell TOC-and-
+   article column (reading-progress--pub) on publication pages, or plain
+   .post-body-inner on blog posts - rather than running edge to edge, so
+   it reads as a status bar for the actual article rather than a generic
+   sitewide chrome element. Comfortably clear of the publication layout's
+   own scroll-top button (46px circle, bottom/right: 24px) at ordinary
+   desktop widths since the column is centered with margin to spare; the
+   mobile override below drops back to a full-bleed line regardless.
+   pointer-events stays off throughout since it's a status readout, not a
+   control, and that also keeps it from ever intercepting a tap. */
 .reading-progress {
   position: fixed;
   left: 0;
@@ -888,13 +878,19 @@ textarea.form-input { resize: vertical; min-height: 140px; }
   align-items: center;
   gap: 16px;
   height: 40px;
-  padding: 0 100px 0 24px;
+  max-width: 760px;
+  margin: 0 auto;
+  padding: 0 12px;
   background: var(--nk-c4);
   box-shadow: 0 -2px 12px rgba(0, 0, 0, 0.08);
+  border-radius: 8px 8px 0 0;
   opacity: 0;
   transform: translateY(100%);
   transition: transform .35s ease, opacity .35s ease;
   pointer-events: none;
+}
+.reading-progress--pub {
+  max-width: 980px;
 }
 .reading-progress.is-visible {
   opacity: 1;
@@ -931,9 +927,12 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 @media (max-width: 767.98px) {
   .reading-progress {
     height: auto;
+    max-width: none;
+    margin: 0;
     padding: 0;
     background: transparent;
     box-shadow: none;
+    border-radius: 0;
   }
   .reading-progress-label { display: none; }
   .reading-progress-track {

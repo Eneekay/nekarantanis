@@ -159,34 +159,44 @@ document.addEventListener('DOMContentLoaded', () => {
     const iconShapes = new Map();
     iconEls.forEach((svg) => {
       const shapes = Array.from(svg.querySelectorAll('path, circle, rect, line, polygon, polyline, ellipse'));
-      shapes.forEach((shape, i) => {
+      shapes.forEach((shape) => {
         if (typeof shape.getTotalLength === 'function') {
           const len = shape.getTotalLength();
           shape.style.strokeDasharray = len;
           shape.style.strokeDashoffset = len;
         }
-        // Compound icons (e.g. "tree": 4 branches + 4 leaf dots) otherwise
-        // draw all their shapes at once - fine for a single-path icon, but
-        // several strokes snapping into motion together read as busy/
-        // frantic rather than as one calm reveal. A light stagger instead
-        // lets them fall in a small cascade.
-        shape.style.transitionDelay = (i * 90) + 'ms';
       });
       iconShapes.set(svg, shapes);
     });
-    const drawIcon = (svg) => {
-      (iconShapes.get(svg) || []).forEach((shape) => { shape.style.strokeDashoffset = 0; });
+    // Two layers of stagger, both applied only at reveal time (not at
+    // setup) since the second one depends on how many OTHER icons enter
+    // view in the same moment: SHAPE_STAGGER spaces out a compound icon's
+    // own shapes (e.g. "tree": 4 branches + 4 leaf dots - drawing all 8 at
+    // once read as busy/frantic rather than one calm reveal); ICON_STAGGER
+    // additionally spaces out whichever icons the observer reports
+    // intersecting in the same callback batch - a whole row of 6-8 stat
+    // icons otherwise all start (and keep repainting their stroke every
+    // frame) at once, which is real concurrent paint load, not just a
+    // visual preference, and reads as jank on top of the count-up numbers
+    // already animating in that same section.
+    const SHAPE_STAGGER_MS = 90;
+    const ICON_STAGGER_MS = 130;
+    const drawIcon = (svg, iconDelayMs) => {
+      (iconShapes.get(svg) || []).forEach((shape, i) => {
+        shape.style.transitionDelay = (iconDelayMs + i * SHAPE_STAGGER_MS) + 'ms';
+        shape.style.strokeDashoffset = '0';
+      });
     };
     if (!('IntersectionObserver' in window)) {
-      iconEls.forEach(drawIcon);
+      iconEls.forEach((el, i) => drawIcon(el, i * ICON_STAGGER_MS));
     } else {
       const iconIo = new IntersectionObserver((entries) => {
-        entries.forEach(entry => {
-          if (entry.isIntersecting) {
-            drawIcon(entry.target);
+        entries
+          .filter((entry) => entry.isIntersecting)
+          .forEach((entry, i) => {
+            drawIcon(entry.target, i * ICON_STAGGER_MS);
             iconIo.unobserve(entry.target);
-          }
-        });
+          });
       }, { threshold: 0.6 });
       iconEls.forEach(el => iconIo.observe(el));
     }

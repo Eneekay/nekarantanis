@@ -37,7 +37,7 @@
 {% include nav.html %}
 
 {% if page.layout == 'post' or page.layout == 'publication' %}
-<div class="reading-progress" id="readingProgress" aria-hidden="true">
+<div class="reading-progress{% if page.layout == 'publication' %} reading-progress--pub{% endif %}" id="readingProgress" aria-hidden="true">
   <span class="reading-progress-label">Reading Progress</span>
   <div class="reading-progress-track"><div class="reading-progress-fill" id="readingProgressFill"></div></div>
 </div>
