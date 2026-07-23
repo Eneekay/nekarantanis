@@ -134,6 +134,51 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
+  // Icon draw-on: the site's line icons (heading-icon) start hidden via
+  // plain CSS (stroke-dasharray/dashoffset - see custom.css), so this only
+  // ever has to reveal each one once, the first time it scrolls into view -
+  // same one-shot IntersectionObserver shape as the reveal above. Each
+  // shape's dasharray/dashoffset is first swapped, inline, from custom.css's
+  // generic 300 placeholder to its own real getTotalLength() - otherwise
+  // the 1s transition would finish "drawing" as soon as the offset passed
+  // the shape's actual (much shorter) length, well before the full second
+  // was up, and just sit fully-drawn for the remainder unseen. The reveal
+  // itself is done the same way, inline, rather than via a class: once an
+  // element's dashoffset has been set inline once, only another inline
+  // write can change it back - a class-based CSS rule would never win
+  // against it.
+  const iconEls = document.querySelectorAll('.heading-icon');
+  if (iconEls.length) {
+    const iconShapes = new Map();
+    iconEls.forEach((svg) => {
+      const shapes = Array.from(svg.querySelectorAll('path, circle, rect, line, polygon, polyline, ellipse'));
+      shapes.forEach((shape) => {
+        if (typeof shape.getTotalLength === 'function') {
+          const len = shape.getTotalLength();
+          shape.style.strokeDasharray = len;
+          shape.style.strokeDashoffset = len;
+        }
+      });
+      iconShapes.set(svg, shapes);
+    });
+    const drawIcon = (svg) => {
+      (iconShapes.get(svg) || []).forEach((shape) => { shape.style.strokeDashoffset = 0; });
+    };
+    if (!('IntersectionObserver' in window)) {
+      iconEls.forEach(drawIcon);
+    } else {
+      const iconIo = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+          if (entry.isIntersecting) {
+            drawIcon(entry.target);
+            iconIo.unobserve(entry.target);
+          }
+        });
+      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      iconEls.forEach(el => iconIo.observe(el));
+    }
+  }
+
   // Blog category/tag/search filtering: two custom dropdowns plus a live
   // text search filter the post grid client-side (no server, so this has
   // to run in the browser rather than Jekyll generating per-tag pages).
@@ -726,6 +771,50 @@ document.addEventListener('DOMContentLoaded', () => {
     onScroll();
     window.addEventListener('scroll', onScroll, { passive: true });
     window.addEventListener('resize', syncNavHeight);
+  }
+
+  // Reading-progress pill (post/publication pages only - see _layouts/
+  // default.html). Stays off-screen until the visitor has actually
+  // started scrolling, rather than sitting there fully visible from the
+  // moment the page loads with nothing yet read.
+  const readingProgress = document.getElementById('readingProgress');
+  const readingProgressFill = document.getElementById('readingProgressFill');
+  if (readingProgress && readingProgressFill) {
+    const updateReadingProgress = () => {
+      readingProgress.classList.toggle('is-visible', window.scrollY > 80);
+      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
+      const pct = scrollable > 0 ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)) : 0;
+      readingProgressFill.style.width = pct + '%';
+    };
+    updateReadingProgress();
+    window.addEventListener('scroll', updateReadingProgress, { passive: true });
+    window.addEventListener('resize', updateReadingProgress);
+  }
+
+  // Cursor-tilt on cards: restrained few-degree 3D rotation following the
+  // pointer's position within the card, layered on top of the existing
+  // hover-lift (see .hover-card:hover in custom.css). Gated behind the same
+  // (hover: hover) and (pointer: fine) media query as the CSS that consumes
+  // --tilt-x/--tilt-y, so touch input never sets them, and skipped entirely
+  // under reduced motion since it's a continuous pointer-driven effect
+  // rather than a one-shot entrance.
+  const canTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches
+    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  if (canTilt) {
+    const maxTilt = 6; // degrees
+    document.querySelectorAll('.hover-card').forEach((card) => {
+      card.addEventListener('mousemove', (e) => {
+        const rect = card.getBoundingClientRect();
+        const px = (e.clientX - rect.left) / rect.width;
+        const py = (e.clientY - rect.top) / rect.height;
+        card.style.setProperty('--tilt-x', ((0.5 - py) * 2 * maxTilt).toFixed(2) + 'deg');
+        card.style.setProperty('--tilt-y', ((px - 0.5) * 2 * maxTilt).toFixed(2) + 'deg');
+      });
+      card.addEventListener('mouseleave', () => {
+        card.style.setProperty('--tilt-x', '0deg');
+        card.style.setProperty('--tilt-y', '0deg');
+      });
+    });
   }
 
   const navMenu = document.getElementById('navMenu');

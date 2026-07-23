@@ -574,6 +574,39 @@ h1, h2, h3, h4 {
 .btn-nk-solid-c2 { background: var(--nk-c2); color: #fff; }
 .btn-nk-solid-c2:hover { background: var(--nk-c0); border-color: var(--nk-gold); color: var(--nk-c4); }
 
+/* Sheen sweep: a soft diagonal highlight parked just off the button's left
+   edge, swept across on hover. Pure CSS/transform, so it's free to leave
+   running - overflow:hidden (plus the button's own border-radius) clips it
+   to the pill shape without needing a separate mask. */
+.btn-nk-solid-c1,
+.btn-nk-solid-c2 {
+  position: relative;
+  overflow: hidden;
+}
+.btn-nk-solid-c1::after,
+.btn-nk-solid-c2::after {
+  content: "";
+  position: absolute;
+  top: 0;
+  left: -40%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg) translateX(0);
+  transition: transform .6s ease;
+  pointer-events: none;
+}
+.btn-nk-solid-c1:hover::after,
+.btn-nk-solid-c2:hover::after {
+  transform: skewX(-20deg) translateX(500%);
+}
+@media (prefers-reduced-motion: reduce) {
+  .btn-nk-solid-c1::after,
+  .btn-nk-solid-c2::after {
+    display: none;
+  }
+}
+
 .btn-nk-outline { background: transparent; border-color: rgba(var(--nk-c4-rgb), 0.35); color: var(--nk-c3); }
 .btn-nk-outline:hover { background: transparent; border-color: var(--nk-gold); color: var(--nk-c3); }
 
@@ -788,6 +821,77 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 }
 
 /* ---------- nav ---------- */
+
+/* Post/publication pages only (see _layouts/default.html). A floating pill
+   parked off-screen below the viewport until site.js sees the visitor
+   actually start scrolling (past 80px), then slides/fades in - bottom-left
+   so it never fights the publication layout's own bottom-right scroll-top
+   button. pointer-events stays off throughout since it's a status readout,
+   not a control, and that also keeps it from ever intercepting a tap. */
+.reading-progress {
+  position: fixed;
+  left: 24px;
+  bottom: 24px;
+  z-index: 45;
+  display: flex;
+  align-items: center;
+  gap: 10px;
+  background: var(--nk-c4);
+  border-radius: 999px;
+  padding: 10px 16px;
+  box-shadow: var(--nk-shadow-card);
+  opacity: 0;
+  transform: translateY(140%);
+  transition: transform .35s ease, opacity .35s ease;
+  pointer-events: none;
+}
+.reading-progress.is-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+.reading-progress-label {
+  font-size: 12px;
+  font-weight: 700;
+  letter-spacing: .5px;
+  text-transform: uppercase;
+  color: var(--nk-text-faint);
+  white-space: nowrap;
+}
+.reading-progress-track {
+  width: 120px;
+  height: 4px;
+  border-radius: 999px;
+  background: rgba(var(--nk-c0-rgb), 0.1);
+  overflow: hidden;
+}
+.reading-progress-fill {
+  height: 100%;
+  width: 0%;
+  background: var(--nk-c2);
+  border-radius: inherit;
+  transition: width .1s linear;
+}
+/* Mobile: drop the pill/label entirely for a bare thick line anchored to
+   the very bottom edge of the viewport - the label reads as clutter at
+   that width, and a full-bleed bar reads clearly on its own without one. */
+@media (max-width: 767.98px) {
+  .reading-progress {
+    left: 0;
+    bottom: 0;
+    width: 100%;
+    padding: 0;
+    background: transparent;
+    box-shadow: none;
+    border-radius: 0;
+  }
+  .reading-progress-label { display: none; }
+  .reading-progress-track {
+    width: 100%;
+    height: 6px;
+    border-radius: 0;
+    background: rgba(var(--nk-c0-rgb), 0.12);
+  }
+}
 
 .site-nav {
   position: fixed;
@@ -1044,6 +1148,17 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 .hover-card { transition: transform .25s ease, box-shadow .25s ease; }
 .hover-card:hover { transform: translateY(-4px); box-shadow: var(--nk-shadow-card); }
 
+/* Cursor-follow tilt: only where a mouse can actually hover (site.js
+   gates the mousemove listener behind the same media query, so --tilt-x/y
+   never get set on touch), and only while :hover is active - the moment
+   the pointer leaves, this rule stops applying and the plain lift/shadow
+   above takes back over with its own transition, no separate reset needed. */
+@media (hover: hover) and (pointer: fine) {
+  .hover-card:hover {
+    transform: perspective(800px) rotateX(var(--tilt-x, 0deg)) rotateY(var(--tilt-y, 0deg)) translateY(-4px);
+  }
+}
+
 /* Overrides .hover-card's shared hover shadow with a deeper one of its
    own (same rest-to-hover idea, just a bigger jump) - sitting on the
    grey dotted section rather than that class's usual white/cream
@@ -1175,6 +1290,45 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 .heading-icon--lg  { width: 34px; height: 34px; }
 .heading-icon--xl  { width: 36px; height: 36px; }
 .heading-icon--xxl { width: 40px; height: 40px; }
+
+/* Draw-on reveal, first viewing only. The 300 here is only a hiding
+   fallback for the instant of first paint (and for browsers without
+   getTotalLength) - it's comfortably larger than any of these 24x24
+   icons' real path lengths, so the stroke stays fully hidden either way.
+   js/site.js immediately replaces both dasharray and dashoffset with each
+   shape's own exact length (inline, so it wins over this rule), then
+   later drops dashoffset to 0 the same way to reveal it - entirely inline
+   rather than via a toggled class, since an inline dashoffset set once
+   would otherwise permanently out-rank any class-based CSS reset of it.
+   The transition below is the one thing left for the stylesheet to own:
+   it applies to inline-style changes too, so it's what makes that final
+   inline dashoffset:0 actually animate instead of jumping straight there.
+   Doing the fallback in plain CSS (rather than only ever setting this via
+   JS) means there's no flash of a fully-drawn icon before JS runs. */
+.heading-icon path,
+.heading-icon circle,
+.heading-icon rect,
+.heading-icon line,
+.heading-icon polygon,
+.heading-icon polyline,
+.heading-icon ellipse {
+  stroke-dasharray: 300;
+  stroke-dashoffset: 300;
+  transition: stroke-dashoffset 1s ease;
+}
+@media (prefers-reduced-motion: reduce) {
+  .heading-icon path,
+  .heading-icon circle,
+  .heading-icon rect,
+  .heading-icon line,
+  .heading-icon polygon,
+  .heading-icon polyline,
+  .heading-icon ellipse {
+    stroke-dasharray: none;
+    stroke-dashoffset: 0;
+    transition: none;
+  }
+}
 
 /* Icon stacks above the number rather than sitting beside it, so the
    number's width is no longer shared with the icon on the narrow
