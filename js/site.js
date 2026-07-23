@@ -9,6 +9,51 @@ document.addEventListener('DOMContentLoaded', () => {
     scrollTopBtn.addEventListener('click', () => window.scrollTo({ top: 0, behavior: 'smooth' }));
   }
 
+  // Contact form: progressively enhances the plain POST-and-redirect
+  // Formspree form into an in-page submit, so a successful send shows an
+  // inline confirmation instead of leaving the page. Falls back to the
+  // form's native action/method (a real page navigation) if fetch fails
+  // for a reason other than Formspree itself rejecting the request, e.g.
+  // no network at all.
+  const contactForm = document.getElementById('contactForm');
+  if (contactForm) {
+    const statusEl = document.getElementById('contactStatus');
+    const submitBtn = document.getElementById('contactSubmit');
+    contactForm.addEventListener('submit', (e) => {
+      e.preventDefault();
+      statusEl.textContent = '';
+      statusEl.classList.remove('is-success', 'is-error');
+      submitBtn.disabled = true;
+      submitBtn.textContent = 'Sending…';
+
+      fetch(contactForm.action, {
+        method: 'POST',
+        body: new FormData(contactForm),
+        headers: { Accept: 'application/json' },
+      })
+        .then((response) => {
+          if (response.ok) {
+            statusEl.textContent = "Thanks — your message has been sent. I'll get back to you soon.";
+            statusEl.classList.add('is-success');
+            contactForm.reset();
+          } else {
+            return response.json().then((data) => {
+              const message = data && data.errors ? data.errors.map((err) => err.message).join(', ') : 'Something went wrong sending that. Please try again.';
+              throw new Error(message);
+            });
+          }
+        })
+        .catch((err) => {
+          statusEl.textContent = err.message || 'Something went wrong sending that. Please try again.';
+          statusEl.classList.add('is-error');
+        })
+        .finally(() => {
+          submitBtn.disabled = false;
+          submitBtn.textContent = 'Send message';
+        });
+    });
+  }
+
   // The hero intro's one-shot entrance animations use fill-mode `both` so
   // the button holds its final position during the delay and doesn't snap
   // back afterwards - but that same fill-mode keeps the animation "in
