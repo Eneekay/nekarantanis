@@ -61,7 +61,7 @@ collections:
         name: "category"
         widget: "select"
         hint: "Shown as the small label above the title. Pick an existing one where it fits, to keep grouping/filtering useful."
-        options: ["Leadership", "Team Leadership", "Team Management", "Change Management", "Digital & Data", "Quality & Compliance", "Research & Practice", "Mentoring", "Leadership & Personal", "Prison Education", "Education & Impact"]
+        options: ["Leadership", "Team Leadership", "Team Management", "Change Management", "Digital & Data", "Quality & Compliance", "Research & Practice", "Mentoring", "Leadership & Personal", "Prison Education", "Education & Impact", "Career Development"]
       - label: "Icon"
         name: "icon"
         widget: "icon-picker"
