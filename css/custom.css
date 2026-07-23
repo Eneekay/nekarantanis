@@ -1398,7 +1398,7 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 :is(.heading-icon, .stat-icon, .post-card-icon) :is(path, circle, rect, line, polygon, polyline, ellipse) {
   stroke-dasharray: 300;
   stroke-dashoffset: 300;
-  transition: stroke-dashoffset 1s ease;
+  transition: stroke-dashoffset 1.4s ease-out;
 }
 @media (prefers-reduced-motion: reduce) {
   :is(.heading-icon, .stat-icon, .post-card-icon) :is(path, circle, rect, line, polygon, polyline, ellipse) {

@@ -159,12 +159,18 @@ document.addEventListener('DOMContentLoaded', () => {
     const iconShapes = new Map();
     iconEls.forEach((svg) => {
       const shapes = Array.from(svg.querySelectorAll('path, circle, rect, line, polygon, polyline, ellipse'));
-      shapes.forEach((shape) => {
+      shapes.forEach((shape, i) => {
         if (typeof shape.getTotalLength === 'function') {
           const len = shape.getTotalLength();
           shape.style.strokeDasharray = len;
           shape.style.strokeDashoffset = len;
         }
+        // Compound icons (e.g. "tree": 4 branches + 4 leaf dots) otherwise
+        // draw all their shapes at once - fine for a single-path icon, but
+        // several strokes snapping into motion together read as busy/
+        // frantic rather than as one calm reveal. A light stagger instead
+        // lets them fall in a small cascade.
+        shape.style.transitionDelay = (i * 90) + 'ms';
       });
       iconShapes.set(svg, shapes);
     });
