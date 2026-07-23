@@ -1082,17 +1082,20 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
 [data-view="list"] .post-card-more { margin-top: 0; padding-top: 0; flex-shrink: 0; }
 
 /* Below this width there's no room for a single-line row (meta + title +
-   read-more all fighting for space), so list mode falls back to the same
-   stacked layout as card mode rather than squeezing everything together. */
+   read-more all fighting for space), so the row stacks into a single
+   column instead - but it needs to stay visibly denser than card mode
+   (smaller inline icon, no summary paragraph, tight padding), or the
+   view toggle reads as broken: tapping it changes the label but nothing
+   about the card below visibly changes. */
 @media (max-width: 767.98px) {
-  [data-view="list"] .post-card { flex-direction: column; align-items: stretch; padding: 32px; }
-  [data-view="list"] .post-card-meta { display: block; flex: 0 0 auto; }
-  [data-view="list"] .post-card-icon { width: 30px; height: 30px; margin-bottom: 16px; }
-  [data-view="list"] .post-card-eyebrow { margin-bottom: 8px; white-space: normal; }
+  [data-view="list"] .post-card { flex-direction: column; align-items: stretch; padding: 18px 20px; gap: 0; }
+  /* flex-basis is a HEIGHT once the parent switches to column direction
+     below - without resetting it, the 260px basis from desktop list mode
+     would make this row 260px tall instead of just wrapping its content. */
+  [data-view="list"] .post-card-meta { flex: 0 0 auto; width: 100%; margin-bottom: 6px; }
   [data-view="list"] .post-card-content { flex-direction: column; align-items: stretch; gap: 0; }
-  [data-view="list"] .post-card h3 { margin-bottom: 8px; }
-  [data-view="list"] .post-card p { display: block; }
-  [data-view="list"] .post-card-more { margin-top: auto; padding-top: 18px; align-self: flex-end; }
+  [data-view="list"] .post-card h3 { margin-bottom: 0; font-size: 16px; }
+  [data-view="list"] .post-card-more { margin-top: 8px; padding-top: 0; align-self: flex-end; }
 }
 
 .featured-post-card { grid-template-columns: auto 1fr; gap: 28px; align-items: start; border-radius: 8px; padding: 44px; }
