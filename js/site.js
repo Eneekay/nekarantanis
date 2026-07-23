@@ -38,7 +38,18 @@ document.addEventListener('DOMContentLoaded', () => {
             contactForm.reset();
           } else {
             return response.json().then((data) => {
-              const message = data && data.errors ? data.errors.map((err) => err.message).join(', ') : 'Something went wrong sending that. Please try again.';
+              // Formspree's error shape varies: validation failures come back
+              // as { errors: [{ message }] }, but account-level rejections
+              // (e.g. the destination email hasn't been confirmed yet) come
+              // back as a single { error } string instead - check both so
+              // whatever Formspree actually says reaches the visitor instead
+              // of a generic fallback that hides the real reason.
+              let message = 'Something went wrong sending that. Please try again.';
+              if (data && Array.isArray(data.errors) && data.errors.length) {
+                message = data.errors.map((err) => err.message).join(', ');
+              } else if (data && data.error) {
+                message = data.error;
+              }
               throw new Error(message);
             });
           }
