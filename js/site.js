@@ -156,6 +156,13 @@ document.addEventListener('DOMContentLoaded', () => {
   // whole 1s draw had long since finished unseen.
   const iconEls = document.querySelectorAll('.heading-icon, .stat-icon, .post-card-icon');
   if (iconEls.length) {
+    // A stroke-dashoffset reveal reads fine on an actual line, but on a
+    // very short path - the "tree" icon's four leaf-dot circles are
+    // r:1.1, circumference ~7 units - the growing arc is barely a couple
+    // of pixels across, and looks like a rapid, jittery flicker rather
+    // than a draw. Below this length, skip the animation entirely and
+    // just let the shape pop in with the rest of the icon.
+    const NO_DRAW_LENGTH = 10;
     const iconShapes = new Map();
     iconEls.forEach((svg) => {
       const shapes = Array.from(svg.querySelectorAll('path, circle, rect, line, polygon, polyline, ellipse'));
@@ -164,6 +171,7 @@ document.addEventListener('DOMContentLoaded', () => {
           const len = shape.getTotalLength();
           shape.style.strokeDasharray = len;
           shape.style.strokeDashoffset = len;
+          shape.dataset.tinyShape = len > 0 && len < NO_DRAW_LENGTH ? '1' : '';
         }
       });
       iconShapes.set(svg, shapes);
@@ -183,7 +191,12 @@ document.addEventListener('DOMContentLoaded', () => {
     const ICON_STAGGER_MS = 130;
     const drawIcon = (svg, iconDelayMs) => {
       (iconShapes.get(svg) || []).forEach((shape, i) => {
-        shape.style.transitionDelay = (iconDelayMs + i * SHAPE_STAGGER_MS) + 'ms';
+        if (shape.dataset.tinyShape === '1') {
+          shape.style.transition = 'none';
+          shape.style.transitionDelay = '0ms';
+        } else {
+          shape.style.transitionDelay = (iconDelayMs + i * SHAPE_STAGGER_MS) + 'ms';
+        }
         shape.style.strokeDashoffset = '0';
       });
     };
@@ -628,12 +641,26 @@ document.addEventListener('DOMContentLoaded', () => {
     const runTypewriter = (el) => {
       const text = el.textContent.trim();
       if (!text) return;
+      // The CTA headings (data-tw-static) keep the trailing blinking
+      // cursor as a small decorative touch, but skip the letter-by-letter
+      // reveal itself - full text, cursor appended right after it, no
+      // animation timeline to run at all.
+      const cursorOnly = el.hasAttribute('data-tw-static');
       el.textContent = '';
       // The CSS hides [data-typewriter] text by default (via .js-tw) to
       // avoid a flash of the full static text before this runs; restore
       // visibility now that the content has been cleared synchronously,
       // so the browser never gets a chance to paint that in-between state.
       el.style.opacity = '1';
+
+      if (cursorOnly) {
+        el.textContent = text;
+        const cursor = document.createElement('span');
+        cursor.className = 'tw-cursor tw-cursor--blink';
+        cursor.textContent = '_';
+        el.appendChild(cursor);
+        return;
+      }
 
       if (reduceMotion) {
         el.textContent = text;
