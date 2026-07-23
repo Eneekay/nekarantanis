@@ -15,6 +15,12 @@ tags:
   - Change Management
   - Wellbeing
   - Resilience
+image: /uploads/posts/pexels-mickey-h-660550196-18493310.jpg
+image_alt: Family enjoying a playful autumn walk in a forest, lifting a child
+  among colorful leaves.
+image_caption: "Photo by Mickey H from Pexels:
+  https://www.pexels.com/photo/legs-of-a-couple-walking-in-autumn-forest-with-a\
+  -child-18493310/"
 ---
 Holding a senior leadership role in education requires a high degree of emotional availability. Coming home to young children requires exactly the same thing. Balancing the emotional demands of both roles is one of the most complex challenges a leader can face. 
 
