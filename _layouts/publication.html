@@ -49,8 +49,11 @@ layout: default
 <section class="bg-c4">
   <div class="container pub-shell">
     <aside class="pub-toc">
-      <div class="pub-toc-inner">
-        <div class="pub-toc-label">On this page</div>
+      <div class="pub-toc-inner" id="pubTocInner">
+        <button type="button" class="pub-toc-label pub-toc-toggle" id="pubTocToggle" aria-expanded="false" aria-controls="pubTocList">
+          <span>On this page</span>
+          <svg class="pub-toc-toggle-icon" viewBox="0 0 24 24" width="14" height="14" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="M6 9l6 6 6-6"></path></svg>
+        </button>
         <ul class="pub-toc-list" id="pubTocList"></ul>
       </div>
     </aside>

@@ -134,10 +134,9 @@ document.addEventListener('DOMContentLoaded', () => {
     }
   }
 
-  // Icon draw-on: the site's line icons (heading-icon) start hidden via
-  // plain CSS (stroke-dasharray/dashoffset - see custom.css), so this only
-  // ever has to reveal each one once, the first time it scrolls into view -
-  // same one-shot IntersectionObserver shape as the reveal above. Each
+  // Icon draw-on: the site's line icons start hidden via plain CSS
+  // (stroke-dasharray/dashoffset - see custom.css), so this only ever has
+  // to reveal each one once, the first time it scrolls into view. Each
   // shape's dasharray/dashoffset is first swapped, inline, from custom.css's
   // generic 300 placeholder to its own real getTotalLength() - otherwise
   // the 1s transition would finish "drawing" as soon as the offset passed
@@ -147,7 +146,15 @@ document.addEventListener('DOMContentLoaded', () => {
   // element's dashoffset has been set inline once, only another inline
   // write can change it back - a class-based CSS rule would never win
   // against it.
-  const iconEls = document.querySelectorAll('.heading-icon');
+  //
+  // Deliberately a much stricter threshold than the [data-reveal] observer
+  // above (0.6 visible, no rootMargin) rather than reusing its 0.1/-40px
+  // config: that config was tuned for whole cards/sections, where 10% is
+  // still a substantial, noticeable sliver. For a 26-40px icon, 10% is
+  // 2-4px - the reveal fired the instant the icon merely grazed the edge
+  // of the screen, so by the time it was actually sitting in view the
+  // whole 1s draw had long since finished unseen.
+  const iconEls = document.querySelectorAll('.heading-icon, .stat-icon, .post-card-icon');
   if (iconEls.length) {
     const iconShapes = new Map();
     iconEls.forEach((svg) => {
@@ -174,7 +181,7 @@ document.addEventListener('DOMContentLoaded', () => {
             iconIo.unobserve(entry.target);
           }
         });
-      }, { threshold: 0.1, rootMargin: '0px 0px -40px 0px' });
+      }, { threshold: 0.6 });
       iconEls.forEach(el => iconIo.observe(el));
     }
   }
@@ -568,6 +575,29 @@ document.addEventListener('DOMContentLoaded', () => {
     pubTocList.closest('.pub-toc').style.display = 'none';
   }
 
+  // Mobile-only collapse for the publication TOC above (see .pub-toc-toggle
+  // in custom.css) - above 900px the button is just a static-looking label
+  // over an always-expanded list, unchanged from before; this only matters
+  // once that breakpoint drops the sticky sidebar and the full link list
+  // would otherwise sit fully expanded above the article on every load.
+  const pubTocToggle = document.getElementById('pubTocToggle');
+  const pubTocInner = document.getElementById('pubTocInner');
+  if (pubTocToggle && pubTocInner) {
+    pubTocToggle.addEventListener('click', () => {
+      const isOpen = pubTocInner.classList.toggle('is-open');
+      pubTocToggle.setAttribute('aria-expanded', String(isOpen));
+    });
+    // Jumping to a section via a tapped link should leave the list closed
+    // again rather than sitting open (and covering the top of the article)
+    // once the reader has already gone where they meant to go.
+    pubTocInner.querySelectorAll('.pub-toc-list a').forEach((a) => {
+      a.addEventListener('click', () => {
+        pubTocInner.classList.remove('is-open');
+        pubTocToggle.setAttribute('aria-expanded', 'false');
+      });
+    });
+  }
+
   // Typewriter effect: reveals text one character at a time as each element
   // scrolls into view. The character just typed sits in the accent colour
   // until the next one appears, at which point it settles to the normal
@@ -789,32 +819,6 @@ document.addEventListener('DOMContentLoaded', () => {
     updateReadingProgress();
     window.addEventListener('scroll', updateReadingProgress, { passive: true });
     window.addEventListener('resize', updateReadingProgress);
-  }
-
-  // Cursor-tilt on cards: restrained few-degree 3D rotation following the
-  // pointer's position within the card, layered on top of the existing
-  // hover-lift (see .hover-card:hover in custom.css). Gated behind the same
-  // (hover: hover) and (pointer: fine) media query as the CSS that consumes
-  // --tilt-x/--tilt-y, so touch input never sets them, and skipped entirely
-  // under reduced motion since it's a continuous pointer-driven effect
-  // rather than a one-shot entrance.
-  const canTilt = window.matchMedia('(hover: hover) and (pointer: fine)').matches
-    && !window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  if (canTilt) {
-    const maxTilt = 6; // degrees
-    document.querySelectorAll('.hover-card').forEach((card) => {
-      card.addEventListener('mousemove', (e) => {
-        const rect = card.getBoundingClientRect();
-        const px = (e.clientX - rect.left) / rect.width;
-        const py = (e.clientY - rect.top) / rect.height;
-        card.style.setProperty('--tilt-x', ((0.5 - py) * 2 * maxTilt).toFixed(2) + 'deg');
-        card.style.setProperty('--tilt-y', ((px - 0.5) * 2 * maxTilt).toFixed(2) + 'deg');
-      });
-      card.addEventListener('mouseleave', () => {
-        card.style.setProperty('--tilt-x', '0deg');
-        card.style.setProperty('--tilt-y', '0deg');
-      });
-    });
   }
 
   const navMenu = document.getElementById('navMenu');
