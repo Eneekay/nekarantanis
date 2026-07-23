@@ -23,14 +23,22 @@ description: "What this site collects: a short explanation of the cookieless ana
     </p>
   </div>
   <svg class="wave-divider" viewBox="0 0 1440 100" preserveAspectRatio="none">
-    <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c4"></path>
+    <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c3"></path>
   </svg>
+  <div class="header-wave-texture section-light-mesh"></div>
 </header>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <clipPath id="pinCoverWaveClip" clipPathUnits="objectBoundingBox">
+    <path d="M0,0.4 C0.1667,0.9 0.3333,0 0.5,0.4 C0.6667,0.8 0.8333,0.1 1,0.5 L1,1 L0,1 Z"></path>
+  </clipPath>
+</svg>
+
 <!-- CONTENT -->
-<section class="bg-c4">
+<section class="section-light-mesh">
   <div class="container pad-64-12-96">
     <div class="mx-auto mw-680">
+    <div class="content-card" data-reveal>
 
       <h2 class="fs-24 fw-semibold text-c0 mb-3">Analytics</h2>
       <p class="fs-16-5 text-body-dark mb-4" style="line-height:1.8;">
@@ -47,14 +55,15 @@ description: "What this site collects: a short explanation of the cookieless ana
 
       <h2 class="fs-24 fw-semibold text-c0 mb-3 mt-5">Third-party content</h2>
       <p class="fs-16-5 text-body-dark mb-4" style="line-height:1.8;">
-        Fonts are loaded from Google Fonts, and this page's own links may point to external sites (LinkedIn, ResearchGate, Google Scholar, academic journals, and similar). Those third parties operate under their own privacy policies, which are outside this site's control.
+        Fonts are loaded from Google Fonts, and this page's own links may point to external sites (LinkedIn, ResearchGate, Google Scholar, academic journals, and similar). The <a href="{{ page.base }}Contact.html">contact form</a> is handled by <a href="https://formspree.io" target="_blank" rel="noopener">Formspree</a>, which receives whatever name, email, and message you choose to submit, solely to deliver it as an email. Those third parties operate under their own privacy policies, which are outside this site's control.
       </p>
 
       <h2 class="fs-24 fw-semibold text-c0 mb-3 mt-5">Questions</h2>
       <p class="fs-16-5 text-body-dark mb-0" style="line-height:1.8;">
-        If you have any questions about this page, feel free to <a href="https://www.linkedin.com/in/nekarantanis/" target="_blank" rel="noopener">get in touch on LinkedIn</a>.
+        If you have any questions about this page, feel free to <a href="{{ page.base }}Contact.html">use the contact form</a> or <a href="https://www.linkedin.com/in/nekarantanis/" target="_blank" rel="noopener">get in touch on LinkedIn</a>.
       </p>
 
+    </div>
     </div>
   </div>
 </section>

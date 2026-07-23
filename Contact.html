@@ -23,32 +23,41 @@ description: "Get in touch directly — no need to go through LinkedIn."
     </p>
   </div>
   <svg class="wave-divider" viewBox="0 0 1440 100" preserveAspectRatio="none">
-    <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c4"></path>
+    <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,50 L1440,100 L0,100 Z" class="fill-c3"></path>
   </svg>
+  <div class="header-wave-texture section-light-ripple"></div>
 </header>
 
+<svg width="0" height="0" style="position:absolute" aria-hidden="true">
+  <clipPath id="pinCoverWaveClip" clipPathUnits="objectBoundingBox">
+    <path d="M0,0.4 C0.1667,0.9 0.3333,0 0.5,0.4 C0.6667,0.8 0.8333,0.1 1,0.5 L1,1 L0,1 Z"></path>
+  </clipPath>
+</svg>
+
 <!-- CONTACT FORM -->
-<section class="bg-c4">
+<section class="section-light-ripple">
   <div class="container pad-64-12-96">
     <div class="mx-auto mw-620">
-      <form id="contactForm" class="contact-form" action="https://formspree.io/f/mnjebleo" method="POST" data-reveal>
-        <input type="text" name="_gotcha" class="d-none" tabindex="-1" autocomplete="off" aria-hidden="true">
-        <input type="hidden" name="_subject" value="New message from nekarantanis.co.uk">
-        <div class="form-group">
-          <label for="contactName" class="form-label">Name</label>
-          <input type="text" id="contactName" name="name" class="form-input" required autocomplete="name">
-        </div>
-        <div class="form-group">
-          <label for="contactEmail" class="form-label">Email</label>
-          <input type="email" id="contactEmail" name="_replyto" class="form-input" required autocomplete="email">
-        </div>
-        <div class="form-group">
-          <label for="contactMessage" class="form-label">Message</label>
-          <textarea id="contactMessage" name="message" class="form-input" rows="6" required></textarea>
-        </div>
-        <button type="submit" class="btn-nk btn-nk-solid-c2" id="contactSubmit">Send message</button>
-        <p class="fs-14 mt-3 mb-0" id="contactStatus" role="status" aria-live="polite"></p>
-      </form>
+      <div class="content-card" data-reveal>
+        <form id="contactForm" class="contact-form" action="https://formspree.io/f/mnjebleo" method="POST">
+          <input type="text" name="_gotcha" class="d-none" tabindex="-1" autocomplete="off" aria-hidden="true">
+          <input type="hidden" name="_subject" value="New message from nekarantanis.co.uk">
+          <div class="form-group">
+            <label for="contactName" class="form-label">Name</label>
+            <input type="text" id="contactName" name="name" class="form-input" required autocomplete="name">
+          </div>
+          <div class="form-group">
+            <label for="contactEmail" class="form-label">Email</label>
+            <input type="email" id="contactEmail" name="_replyto" class="form-input" required autocomplete="email">
+          </div>
+          <div class="form-group">
+            <label for="contactMessage" class="form-label">Message</label>
+            <textarea id="contactMessage" name="message" class="form-input" rows="6" required></textarea>
+          </div>
+          <button type="submit" class="btn-nk btn-nk-solid-c2" id="contactSubmit">Send message</button>
+          <p class="fs-14 mt-3 mb-0" id="contactStatus" role="status" aria-live="polite"></p>
+        </form>
+      </div>
     </div>
   </div>
 </section>

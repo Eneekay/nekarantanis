@@ -287,6 +287,60 @@ h1, h2, h3, h4 {
   background-image: radial-gradient(rgba(0, 0, 0, 0.035) 1px, transparent 1px);
   background-size: 24px 24px;
 }
+/* Contact page: faint concentric ripple-lines rather than a dot grid or
+   the Research X marks - two soft wave-strokes per 32px tile, the same
+   curve language as the site's own wave dividers, echoing a signal/ping
+   radiating outward (a nod to "reaching out"/getting in touch) rather
+   than an arbitrary abstract pattern. */
+.section-light-ripple {
+  background-color: var(--nk-c3);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='32' height='32'%3E%3Cpath d='M0 10 Q8 4 16 10 T32 10' stroke='%23000000' stroke-opacity='0.055' stroke-width='1' fill='none'/%3E%3Cpath d='M0 24 Q8 18 16 24 T32 24' stroke='%23000000' stroke-opacity='0.055' stroke-width='1' fill='none'/%3E%3C/svg%3E");
+  background-size: 32px 32px;
+  box-shadow: none;
+}
+/* Privacy page: a fine diagonal lattice - a woven screen/mesh rather than
+   dots or crosses, standing in for the idea of a protective filter/weave
+   over what's shown to the outside world. */
+.section-light-mesh {
+  background-color: var(--nk-c3);
+  background-image:
+    repeating-linear-gradient(45deg, rgba(0, 0, 0, 0.045) 0, rgba(0, 0, 0, 0.045) 1px, transparent 1px, transparent 12px),
+    repeating-linear-gradient(-45deg, rgba(0, 0, 0, 0.045) 0, rgba(0, 0, 0, 0.045) 1px, transparent 1px, transparent 12px);
+  background-size: 24px 24px;
+  box-shadow: none;
+}
+/* Both sit on the stone background rather than paper, with the actual
+   reading content lifted onto its own white "letter"/"notice" card so it
+   still reads clearly against the texture behind it. */
+.content-card {
+  background: var(--nk-c4);
+  border-radius: 8px;
+  padding: 40px;
+  box-shadow: var(--nk-shadow-card);
+}
+@media (max-width: 575.98px) {
+  .content-card { padding: 28px 20px; }
+}
+/* Continues a page header's own wave-drift animation (js/site.js already
+   drives every svg.wave-divider) into a real CSS-textured div rather than
+   an SVG fill, for the same reason .pin-cover-wave-fill does on Home/
+   Research: a background-image tiles at true pixels here, where an SVG
+   pattern would be squeezed through the divider's non-uniform viewBox
+   scale (preserveAspectRatio="none") and alias into uneven lines. Shares
+   the site's #pinCoverWaveClip curve (each page defines its own copy of
+   that id/path, same shape as the plain wave-divider beneath it) so the
+   texture is clipped to the exact silhouette of the animated wave and
+   drifts in sync with it - see js/site.js's wave rider list. */
+.header-wave-texture {
+  position: absolute;
+  left: 0;
+  bottom: -1px;
+  width: 100%;
+  height: 45px;
+  z-index: 1;
+  pointer-events: none;
+  clip-path: url(#pinCoverWaveClip);
+}
 /* A flat (non-wave) seam that still reads as a real boundary: the
    negative vertical offset projects the shadow upward, onto whatever
    the previous section is, rather than inset into this one's own top.
