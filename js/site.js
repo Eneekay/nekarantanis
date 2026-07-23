@@ -172,7 +172,14 @@ document.addEventListener('DOMContentLoaded', () => {
     const iconShapes = new Map();
     iconEls.forEach((svg) => {
       const shapes = Array.from(svg.querySelectorAll('path, circle, rect, line, polygon, polyline, ellipse'));
-      const tooManyShapes = shapes.length > MAX_ANIMATED_SHAPES;
+      // Some sections (the Publications page header, its "By the Numbers"
+      // stat row - see data-icon-fade-only) want every icon inside them to
+      // just fade in as a group, not only the ones that happen to cross
+      // the shape-count line below - a lone simple icon fading in right
+      // next to a compound one popping/drawing on its own timeline still
+      // read as mismatched, so the whole section opts out of drawing.
+      const fadeOnly = !!svg.closest('[data-icon-fade-only]');
+      const tooManyShapes = fadeOnly || shapes.length > MAX_ANIMATED_SHAPES;
       shapes.forEach((shape) => {
         if (typeof shape.getTotalLength === 'function') {
           const len = shape.getTotalLength();
