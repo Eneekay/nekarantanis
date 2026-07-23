@@ -299,26 +299,6 @@ h1, h2, h3, h4 {
 @media (max-width: 575.98px) {
   .content-card { padding: 28px 20px; }
 }
-/* Continues a page header's own wave-drift animation (js/site.js already
-   drives every svg.wave-divider) into a real CSS-textured div rather than
-   an SVG fill, for the same reason .pin-cover-wave-fill does on Home/
-   Research: a background-image tiles at true pixels here, where an SVG
-   pattern would be squeezed through the divider's non-uniform viewBox
-   scale (preserveAspectRatio="none") and alias into uneven lines. Shares
-   the site's #pinCoverWaveClip curve (each page defines its own copy of
-   that id/path, same shape as the plain wave-divider beneath it) so the
-   texture is clipped to the exact silhouette of the animated wave and
-   drifts in sync with it - see js/site.js's wave rider list. */
-.header-wave-texture {
-  position: absolute;
-  left: 0;
-  bottom: -1px;
-  width: 100%;
-  height: 45px;
-  z-index: 1;
-  pointer-events: none;
-  clip-path: url(#pinCoverWaveClip);
-}
 /* A flat (non-wave) seam that still reads as a real boundary: the
    negative vertical offset projects the shadow upward, onto whatever
    the previous section is, rather than inset into this one's own top.

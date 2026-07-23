@@ -813,12 +813,10 @@ document.addEventListener('DOMContentLoaded', () => {
     // system as the rest, just normalized to 0-1. Only ever one per page.
     const pinCoverClipPath = document.querySelector('#pinCoverWaveClip path');
     // The home hero pairs the clip with .pin-cover-wave-fill; the Research
-    // stats section reuses the same #pinCoverWaveClip via .research-stats-wave;
-    // plain page headers (Contact, Privacy, ...) that just need their own
-    // texture to continue through the wave (no sticky-pin behaviour) use
-    // .header-wave-texture instead. Whichever is present is the (single)
-    // element that rides this normalized drift.
-    const pinCoverWaveFill = document.querySelector('.pin-cover-wave-fill, .research-stats-wave, .header-wave-texture');
+    // stats section reuses the same #pinCoverWaveClip via .research-stats-wave.
+    // Whichever is present is the (single) element that rides this
+    // normalized drift.
+    const pinCoverWaveFill = document.querySelector('.pin-cover-wave-fill, .research-stats-wave');
     if (pinCoverClipPath && pinCoverWaveFill) {
       waves.push({
         svg: pinCoverWaveFill,
