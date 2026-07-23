@@ -176,9 +176,19 @@ document.addEventListener('DOMContentLoaded', () => {
       shapes.forEach((shape) => {
         if (typeof shape.getTotalLength === 'function') {
           const len = shape.getTotalLength();
-          shape.style.strokeDasharray = len;
-          shape.style.strokeDashoffset = len;
-          shape.dataset.tinyShape = tooManyShapes || (len > 0 && len < NO_DRAW_LENGTH) ? '1' : '';
+          const tiny = tooManyShapes || (len > 0 && len < NO_DRAW_LENGTH);
+          shape.dataset.tinyShape = tiny ? '1' : '';
+          if (tiny) {
+            // Skipping the stroke-draw for these - cancel the dash-hidden
+            // state entirely (a plain continuous stroke) and hide/reveal
+            // with opacity instead, a plain fade rather than a hard pop.
+            shape.style.strokeDasharray = 'none';
+            shape.style.strokeDashoffset = '0';
+            shape.style.opacity = '0';
+          } else {
+            shape.style.strokeDasharray = len;
+            shape.style.strokeDashoffset = len;
+          }
         }
       });
       iconShapes.set(svg, shapes);
@@ -186,25 +196,27 @@ document.addEventListener('DOMContentLoaded', () => {
     // Two layers of stagger, both applied only at reveal time (not at
     // setup) since the second one depends on how many OTHER icons enter
     // view in the same moment: SHAPE_STAGGER spaces out a compound icon's
-    // own shapes (e.g. "tree": 4 branches + 4 leaf dots - drawing all 8 at
+    // own shapes (e.g. "team": circle+path+circle+path - drawing all 4 at
     // once read as busy/frantic rather than one calm reveal); ICON_STAGGER
     // additionally spaces out whichever icons the observer reports
     // intersecting in the same callback batch - a whole row of 6-8 stat
     // icons otherwise all start (and keep repainting their stroke every
     // frame) at once, which is real concurrent paint load, not just a
     // visual preference, and reads as jank on top of the count-up numbers
-    // already animating in that same section.
+    // already animating in that same section. Icons past MAX_ANIMATED_
+    // SHAPES (e.g. "tree") skip both layers - all their shapes just fade
+    // in together, once, at the icon's own batch delay.
     const SHAPE_STAGGER_MS = 90;
     const ICON_STAGGER_MS = 130;
     const drawIcon = (svg, iconDelayMs) => {
       (iconShapes.get(svg) || []).forEach((shape, i) => {
         if (shape.dataset.tinyShape === '1') {
-          shape.style.transition = 'none';
-          shape.style.transitionDelay = '0ms';
+          shape.style.transitionDelay = iconDelayMs + 'ms';
+          shape.style.opacity = '1';
         } else {
           shape.style.transitionDelay = (iconDelayMs + i * SHAPE_STAGGER_MS) + 'ms';
+          shape.style.strokeDashoffset = '0';
         }
-        shape.style.strokeDashoffset = '0';
       });
     };
     if (!('IntersectionObserver' in window)) {
