@@ -30,7 +30,13 @@
       "
     >View site ↗</a>
   </div>
-  <script src="https://unpkg.com/decap-cms@^3.0.0/dist/decap-cms.js"></script>
+  <!-- Pinned (not ^3.0.0) - 3.15.0 crashes with "Minified React error #130"
+       whenever an entry is saved with publish_mode: editorial_workflow (this
+       config's mode - see admin/config.yml), reproduced and bisected down to
+       exactly that release: 3.14.1 saves cleanly, 3.15.0 doesn't. A floating
+       range would silently pick up 3.15.0 (or any future regression) again;
+       revisit this pin once upstream ships a fixed release. -->
+  <script src="https://unpkg.com/decap-cms@3.14.1/dist/decap-cms.js"></script>
   <script src="icon-picker.js"></script>
   <script src="preview.js"></script>
 </body>
