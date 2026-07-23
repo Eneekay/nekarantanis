@@ -157,21 +157,28 @@ document.addEventListener('DOMContentLoaded', () => {
   const iconEls = document.querySelectorAll('.heading-icon, .stat-icon, .post-card-icon');
   if (iconEls.length) {
     // A stroke-dashoffset reveal reads fine on an actual line, but on a
-    // very short path - the "tree" icon's four leaf-dot circles are
-    // r:1.1, circumference ~7 units - the growing arc is barely a couple
-    // of pixels across, and looks like a rapid, jittery flicker rather
-    // than a draw. Below this length, skip the animation entirely and
-    // just let the shape pop in with the rest of the icon.
+    // very short path - several of the icon set's shapes are little
+    // arcs/dots a couple of pixels across - the growing arc looks like a
+    // rapid, jittery flicker rather than a draw. Below this length, skip
+    // the animation entirely and just let the shape pop in with the rest
+    // of the icon.
     const NO_DRAW_LENGTH = 10;
+    // Beyond a few shapes, even shapes individually long enough to draw
+    // smoothly add up to a busy icon (the "tree" icon - 4 branches + 4
+    // leaf dots - kept reading as frantic no matter how the remaining
+    // shapes were staggered or slowed). Past this count, skip the
+    // animation for the WHOLE icon rather than trying to tune it further.
+    const MAX_ANIMATED_SHAPES = 4;
     const iconShapes = new Map();
     iconEls.forEach((svg) => {
       const shapes = Array.from(svg.querySelectorAll('path, circle, rect, line, polygon, polyline, ellipse'));
+      const tooManyShapes = shapes.length > MAX_ANIMATED_SHAPES;
       shapes.forEach((shape) => {
         if (typeof shape.getTotalLength === 'function') {
           const len = shape.getTotalLength();
           shape.style.strokeDasharray = len;
           shape.style.strokeDashoffset = len;
-          shape.dataset.tinyShape = len > 0 && len < NO_DRAW_LENGTH ? '1' : '';
+          shape.dataset.tinyShape = tooManyShapes || (len > 0 && len < NO_DRAW_LENGTH) ? '1' : '';
         }
       });
       iconShapes.set(svg, shapes);

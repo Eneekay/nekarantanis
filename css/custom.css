@@ -569,81 +569,54 @@ h1, h2, h3, h4 {
 .btn-nk--lg  { padding: 14px 28px; }
 
 .btn-nk-solid-c1 { background: var(--nk-c1); color: var(--nk-c0); }
-.btn-nk-solid-c1:hover { border-color: var(--nk-gold); color: var(--nk-c4); }
+.btn-nk-solid-c1:hover { background: var(--nk-c0); border-color: var(--nk-gold); color: var(--nk-c4); }
 
 .btn-nk-solid-c2 { background: var(--nk-c2); color: #fff; }
-.btn-nk-solid-c2:hover { border-color: var(--nk-gold); color: var(--nk-c4); }
-
-/* Sheen-fill: same single sliding gradient block as .btn-nk-outline below
-   (mostly the dark header/CTA colour, with a bright sheen streak baked in
-   near its own trailing edge) - here it's what actually performs the
-   hover-to-dark background change these used to do with a plain
-   background-color transition, so the colour change and the sheen are one
-   motion instead of two unrelated effects landing at the same time. */
-.btn-nk-solid-c1,
-.btn-nk-solid-c2 {
-  position: relative;
-  z-index: 0;
-  overflow: hidden;
-}
-.btn-nk-solid-c1::before,
-.btn-nk-solid-c2::before {
-  content: "";
-  position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(100deg, var(--nk-c0) 0%, var(--nk-c0) 82%, rgba(255, 255, 255, 0.3) 90%, var(--nk-c0) 100%);
-  transform: translateX(-100%);
-  transition: transform .5s ease;
-  pointer-events: none;
-}
-.btn-nk-solid-c1:hover::before,
-.btn-nk-solid-c2:hover::before {
-  transform: translateX(0);
-}
-@media (prefers-reduced-motion: reduce) {
-  .btn-nk-solid-c1::before,
-  .btn-nk-solid-c2::before {
-    transition: none;
-  }
-}
+.btn-nk-solid-c2:hover { background: var(--nk-c0); border-color: var(--nk-gold); color: var(--nk-c4); }
 
 .btn-nk-outline {
-  position: relative;
-  z-index: 0;
   background: transparent;
   border-color: rgba(var(--nk-c4-rgb), 0.35);
   color: var(--nk-c3);
+}
+.btn-nk-outline:hover { background: var(--nk-c0); border-color: var(--nk-gold); color: var(--nk-c3); }
+
+/* Sheen sweep: a soft diagonal highlight parked just off the button's left
+   edge, swept across on hover - independent of the plain background-color
+   fade above (the .btn-nk base transition already covers that), rather
+   than baked into one combined element. Pure CSS/transform, so it's free
+   to leave running - overflow:hidden (plus the button's own border-radius)
+   clips it to the pill shape without needing a separate mask. */
+.btn-nk-solid-c1,
+.btn-nk-solid-c2,
+.btn-nk-outline {
+  position: relative;
   overflow: hidden;
 }
-.btn-nk-outline:hover { background: transparent; border-color: var(--nk-gold); color: var(--nk-c3); }
-/* Sheen-fill: a single sliding diagonal gradient block - mostly the dark
-   header/CTA background colour, with a bright sheen streak baked in near
-   its own trailing edge - parked off to the left at rest and slid fully
-   into place on hover. Because the sheen sits inside the fill rather than
-   as a separate layer, the highlight rides along the fill's advancing
-   edge as it goes: the button reads as filling with colour in the same
-   left-to-right motion the sheen travels, rather than two independent
-   effects. transform-only, so it's plain GPU-composited motion; overflow:
-   hidden clips it to the button's own rounded corners, and the negative
-   z-index (inside the stacking context z-index:0 above establishes) keeps
-   it behind the button's text. */
-.btn-nk-outline::before {
+.btn-nk-solid-c1::after,
+.btn-nk-solid-c2::after,
+.btn-nk-outline::after {
   content: "";
   position: absolute;
-  inset: 0;
-  z-index: -1;
-  background: linear-gradient(100deg, var(--nk-c0) 0%, var(--nk-c0) 82%, rgba(255, 255, 255, 0.3) 90%, var(--nk-c0) 100%);
-  transform: translateX(-100%);
-  transition: transform .5s ease;
+  top: 0;
+  left: -40%;
+  width: 30%;
+  height: 100%;
+  background: linear-gradient(115deg, transparent, rgba(255, 255, 255, 0.35), transparent);
+  transform: skewX(-20deg) translateX(0);
+  transition: transform .6s ease;
   pointer-events: none;
 }
-.btn-nk-outline:hover::before {
-  transform: translateX(0);
+.btn-nk-solid-c1:hover::after,
+.btn-nk-solid-c2:hover::after,
+.btn-nk-outline:hover::after {
+  transform: skewX(-20deg) translateX(500%);
 }
 @media (prefers-reduced-motion: reduce) {
-  .btn-nk-outline::before {
-    transition: none;
+  .btn-nk-solid-c1::after,
+  .btn-nk-solid-c2::after,
+  .btn-nk-outline::after {
+    display: none;
   }
 }
 
