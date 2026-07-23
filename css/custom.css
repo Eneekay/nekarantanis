@@ -23,7 +23,7 @@
   --nk-sel: rgba(38, 83, 217, 0.2);
 
   --nk-text-muted: #5b5348;
-  --nk-text-faint: #8a8175;
+  --nk-text-faint: #665e51;
   --nk-text-faint-dark: #a39a8d;
   --nk-text-cream: #c9c2b6;
   --nk-text-cream-strong: #e8e4da;
@@ -60,6 +60,30 @@ h1, h2, h3, h4 {
 
 ::selection {
   background: var(--nk-sel);
+}
+
+/* Single site-wide keyboard-focus ring, rather than relying on each
+   browser's own default outline (inconsistent across Chrome/Firefox/
+   Safari, and easy to lose track of on dark sections). :focus-visible
+   only fires for keyboard/programmatic focus, not mouse clicks, so this
+   never appears as an unwanted ring around a button someone just clicked -
+   the accent-colour outline shows up exactly when someone's tabbing
+   through the page and needs to see where they are. */
+:focus-visible {
+  outline: 2px solid var(--nk-c2);
+  outline-offset: 2px;
+  border-radius: 2px;
+}
+/* The blue accent doesn't hold up against dark ink backgrounds, so the
+   hero sections (and the nav bar, which sits transparent over each page's
+   dark hero until scrolled past it) switch the ring to gold instead -
+   mirrors the existing text-colour swap .site-nav.scrolled already does. */
+.section-dark-dotted :focus-visible,
+.site-nav :focus-visible {
+  outline-color: var(--nk-gold);
+}
+.site-nav.scrolled :focus-visible {
+  outline-color: var(--nk-c2);
 }
 
 [data-reveal] {
@@ -693,7 +717,6 @@ a.tag-pill:hover { color: var(--nk-c2); border-color: var(--nk-c2); }
   font-size: 13.5px;
   color: var(--nk-c0);
 }
-.blog-search-input:focus { outline: none; }
 .blog-search-input::placeholder { color: var(--nk-text-faint); }
 
 .tag-pill--dark {

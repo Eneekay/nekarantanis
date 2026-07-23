@@ -4,7 +4,23 @@
 <script>document.documentElement.classList.add('js-tw');</script>
 <meta charset="utf-8">
 <meta name="viewport" content="width=device-width, initial-scale=1">
-<title>{% if page.title %}{{ page.title | strip_html }} — {% endif %}N. E. Karantanis</title>
+{% assign meta_title = page.title | strip_html | default: site.title %}
+{% assign meta_description = page.description | default: page.summary | strip_html | strip_newlines | default: site.description %}
+{% assign meta_image = page.image | default: "/apple-touch-icon.png" %}
+{% assign meta_url = page.url | absolute_url %}
+<title>{% if page.title %}{{ meta_title }} — {% endif %}N. E. Karantanis</title>
+<meta name="description" content="{{ meta_description | escape }}">
+<link rel="canonical" href="{{ meta_url }}">
+<meta property="og:site_name" content="N. E. Karantanis">
+<meta property="og:type" content="{% if page.layout == 'post' or page.layout == 'publication' %}article{% else %}website{% endif %}">
+<meta property="og:title" content="{{ meta_title }}">
+<meta property="og:description" content="{{ meta_description | escape }}">
+<meta property="og:url" content="{{ meta_url }}">
+<meta property="og:image" content="{{ meta_image | absolute_url }}">
+<meta name="twitter:card" content="summary_large_image">
+<meta name="twitter:title" content="{{ meta_title }}">
+<meta name="twitter:description" content="{{ meta_description | escape }}">
+<meta name="twitter:image" content="{{ meta_image | absolute_url }}">
 <link rel="icon" type="image/svg+xml" href="{{ page.base }}favicon.svg">
 <link rel="icon" type="image/png" sizes="32x32" href="{{ page.base }}favicon-32x32.png">
 <link rel="icon" type="image/png" sizes="16x16" href="{{ page.base }}favicon-16x16.png">
@@ -26,7 +42,6 @@
 
 <script src="{{ page.base }}js/bootstrap.bundle.min.js"></script>
 <script src="{{ page.base }}js/site.js?v={{ site.time | date: '%s' }}"></script>
-<script data-goatcounter="https://eneekay.goatcounter.com/count" async src="//gc.zgo.at/count.js"></script>
 <script defer src="https://cloud.umami.is/script.js" data-website-id="c1352a5b-f0e2-40c2-95cd-293414c7ba5e"></script>
 </body>
 </html>
