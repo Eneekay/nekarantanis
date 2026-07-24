@@ -22,7 +22,7 @@ A quick map of everything in the repo — what it is and where to look for it.
 
 | Path | What it is |
 |---|---|
-| `_layouts/default.html` | Base HTML shell used by every page: fonts, stylesheets, nav, footer, scripts, and the site-wide Umami analytics tag |
+| `_layouts/default.html` | Base HTML shell used by every page: fonts, stylesheets, nav, footer, scripts, the site-wide Umami analytics tag, and a sitewide `Person` JSON-LD block (name, alternate names, social profile links) for search-engine entity matching |
 | `_layouts/post.html` | Wraps a blog post's Markdown body with the header/CTA structure |
 | `_layouts/publication.html` | Wraps a publication's Markdown body with the `.pub-shell` sticky-TOC + article structure |
 | `_layouts/docs.html` | This documentation site's layout — sidebar nav, on-page TOC, docs styling |

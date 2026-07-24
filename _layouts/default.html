@@ -31,6 +31,20 @@
 <link href="{{ page.base }}css/bootstrap.min.css" rel="stylesheet">
 <link href="{{ page.base }}css/custom.css?v={{ site.time | date: '%s' }}" rel="stylesheet">
 {% feed_meta %}
+<script type="application/ld+json">
+{
+  "@context": "https://schema.org",
+  "@type": "Person",
+  "name": "N. E. Karantanis, PhD",
+  "alternateName": ["Nikolaos-Evangelos Karantanis", "Nikos Karantanis", "Niko Karantanis", "Niko"],
+  "url": "{{ '/' | absolute_url }}",
+  "sameAs": [
+    "https://www.linkedin.com/in/nekarantanis/",
+    "https://www.researchgate.net/profile/Nikolaos-Evangelos-Karantanis/publications",
+    "https://scholar.google.com/citations?user=sQlYqwIAAAAJ&hl=en"
+  ]
+}
+</script>
 </head>
 <body{% if page.hero_intro %} class="home-hero-intro"{% endif %}>
 
