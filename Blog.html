@@ -3,7 +3,7 @@ layout: default
 title: Blog
 ---
 <!-- PAGE HEADER -->
-<header class="section-dark-dotted text-c3 position-relative overflow-hidden">
+<header class="section-dark-dotted text-c3 position-relative overflow-hidden" data-kbd-stop>
   {% include contour-lines.html variant="hero" %}
   <svg viewBox="0 0 200 200" class="blog-header-blob">
     <circle cx="100" cy="100" r="100" fill="var(--nk-c1)"></circle>
@@ -43,7 +43,7 @@ title: Blog
 {% assign all_tags = all_tags | uniq | sort %}
 
 <!-- FEATURED POST -->
-<section class="section-light-dotted dots-seamless" id="featuredSection">
+<section class="section-light-dotted dots-seamless" id="featuredSection" data-kbd-stop>
   <div class="container pad-64-12-24">
     <div class="row" data-reveal>
       <div class="col-12">
@@ -62,7 +62,7 @@ title: Blog
 </section>
 
 <!-- POST GRID -->
-<section class="section-light-dotted dots-seamless">
+<section class="section-light-dotted dots-seamless" data-kbd-stop>
   <div class="container pad-24-12-88">
     <div class="d-flex flex-wrap gap-3 align-items-center justify-content-between mb-4">
       <div class="fs-19 fw-semibold text-c0" id="postGridHeading">All posts</div>
@@ -138,7 +138,7 @@ title: Blog
 </section>
 
 <!-- CTA -->
-<section class="section-dark-dotted position-relative overflow-hidden">
+<section class="section-dark-dotted position-relative overflow-hidden" data-kbd-stop>
   {% include contour-lines.html %}
   <div class="container position-relative pad-88-12-72 z-1">
     <div class="row align-items-center g-4">

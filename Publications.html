@@ -3,7 +3,7 @@ layout: default
 title: Publications
 ---
 <!-- PAGE HEADER -->
-<header class="section-dark-dotted text-c3 position-relative overflow-hidden">
+<header class="section-dark-dotted text-c3 position-relative overflow-hidden" data-kbd-stop>
   {% include contour-lines.html variant="hero" %}
   <svg viewBox="0 0 200 200" class="blog-header-blob">
     <circle cx="100" cy="100" r="100" fill="var(--nk-c1)"></circle>
@@ -44,7 +44,7 @@ title: Publications
 {% assign pub_years = site.publications | map: "year" | sort %}
 
 <!-- RESEARCH BY THE NUMBERS -->
-<section class="section-light-grid research-stats" data-icon-fade-only>
+<section class="section-light-grid research-stats" data-icon-fade-only data-kbd-stop>
   <div class="research-stats-wave"></div>
   <div class="container position-relative pad-64-12-80 z-1">
     <div class="mx-auto text-center mb-5 mw-640">
@@ -86,7 +86,7 @@ title: Publications
 </section>
 
 <!-- PUBLICATIONS GRID -->
-<section class="section-light-crosses">
+<section class="section-light-crosses" data-kbd-stop>
   <div class="container pad-56-12-88">
     <div class="d-flex flex-wrap gap-3 justify-content-center mb-5" data-reveal>
       <a href="https://www.researchgate.net/profile/Nikolaos-Evangelos-Karantanis/publications" class="btn-nk btn-nk-outline-dark" target="_blank" rel="noopener">View on ResearchGate &#8599;</a>
@@ -165,7 +165,7 @@ title: Publications
 </section>
 
 <!-- CTA -->
-<section class="section-dark-dotted position-relative overflow-hidden">
+<section class="section-dark-dotted position-relative overflow-hidden" data-kbd-stop>
   {% include contour-lines.html %}
   <div class="container position-relative pad-88-12-72 z-1">
     <div class="row align-items-center g-4">

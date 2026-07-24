@@ -507,9 +507,9 @@ h1, h2, h3, h4 {
   background-size: 24px 24px;
   background-position: 0 -9px;
 }
-/* Sticky "back to top" control (Blog and Research listing pages): a discreet
-   light disc with a dark outline and arrow, no shadow, revealed once the
-   page has been scrolled a little. */
+/* Sticky "back to top" control (Home, Blog, Research listing, and individual
+   publication pages): a discreet light disc with a dark outline and arrow,
+   no shadow, revealed once the page has been scrolled a little. */
 .scroll-top {
   position: fixed;
   right: 24px;
@@ -918,6 +918,68 @@ textarea.form-input { resize: vertical; min-height: 140px; }
     border-radius: 0;
     background: rgba(var(--nk-c0-rgb), 0.14);
   }
+}
+
+/* Keyboard section-nav: every element the ArrowLeft/ArrowRight handler in
+   site.js can land on (page-level sections, About's job-role entries,
+   publication headings) gets this so scrollIntoView() lands it clear of the
+   fixed nav instead of tucked half underneath it - same convention already
+   used for the publication TOC's own heading targets. */
+[data-kbd-stop],
+.info-card,
+.subrole {
+  scroll-margin-top: calc(var(--nav-h, 69px) + 16px);
+}
+
+/* Discreet keyboard-shortcut hint (desktop only - see js/site.js). Fades in
+   shortly after load, then fades back out on its own or the moment the
+   visitor actually uses the keys, rather than sitting on screen the whole
+   visit. Bottom-left, since the reading-progress pill already owns
+   bottom-center and .scroll-top owns bottom-right. */
+.kbd-hint {
+  position: fixed;
+  left: 16px;
+  bottom: 16px;
+  z-index: 55;
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  padding: 10px 14px;
+  background: var(--nk-c4);
+  border-radius: 8px;
+  box-shadow: var(--nk-shadow-pill);
+  opacity: 0;
+  visibility: hidden;
+  transform: translateY(8px);
+  transition: opacity .35s ease, transform .35s ease, visibility .35s;
+  pointer-events: none;
+}
+.kbd-hint.is-visible { opacity: 1; visibility: visible; transform: translateY(0); }
+.kbd-hint-keys {
+  display: grid;
+  grid-template-columns: repeat(3, 22px);
+  grid-template-rows: repeat(2, 22px);
+  gap: 3px;
+  flex-shrink: 0;
+}
+.kbd-hint-key {
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  border: 1px solid rgba(var(--nk-c0-rgb), 0.2);
+  border-radius: 4px;
+  background: var(--nk-c3);
+  color: var(--nk-c0);
+}
+.kbd-hint-key svg { width: 12px; height: 12px; }
+.kbd-hint-key--up { grid-column: 2; grid-row: 1; }
+.kbd-hint-key--left { grid-column: 1; grid-row: 2; }
+.kbd-hint-key--down { grid-column: 2; grid-row: 2; }
+.kbd-hint-key--right { grid-column: 3; grid-row: 2; }
+.kbd-hint-text { font-size: 12.5px; line-height: 1.4; color: var(--nk-text-muted); white-space: nowrap; }
+.kbd-hint-text strong { color: var(--nk-c0); font-weight: 600; }
+@media (max-width: 900px), (hover: none) and (pointer: coarse) {
+  .kbd-hint { display: none; }
 }
 
 .site-nav {

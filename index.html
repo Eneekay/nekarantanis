@@ -4,7 +4,7 @@ hero_intro: true
 ---
 <!-- HERO -->
 <div class="pin-cover-wrap">
-<header class="section-dark-dotted text-c3 d-flex align-items-center justify-content-center overflow-hidden min-vh-100 home-hero-header pin-cover-header">
+<header class="section-dark-dotted text-c3 d-flex align-items-center justify-content-center overflow-hidden min-vh-100 home-hero-header pin-cover-header" data-kbd-stop>
   {% include contour-lines.html variant="hero" %}
   <svg viewBox="0 0 200 200" class="home-hero-blob-1">
     <circle cx="100" cy="100" r="100" fill="var(--nk-c1)"></circle>
@@ -37,7 +37,7 @@ hero_intro: true
 </div>
 
 <!-- IMPACT STATS -->
-<section class="position-relative pin-cover-section">
+<section class="position-relative pin-cover-section" data-kbd-stop>
   <svg width="0" height="0" style="position: absolute">
     <clipPath id="pinCoverWaveClip" clipPathUnits="objectBoundingBox">
       <path d="M0,0.4 C0.1667,0.9 0.3333,0 0.5,0.4 C0.6667,0.8 0.8333,0.1 1,0.5 L1,1 L0,1 Z"></path>
@@ -123,7 +123,7 @@ hero_intro: true
 </section>
 
 <!-- LEADERSHIP PILLARS -->
-<section class="bg-c4 section-top-shadow">
+<section class="bg-c4 section-top-shadow" data-kbd-stop>
   <div class="container pad-88-12">
     <div class="mw-640 mb-52">
       <span class="eyebrow">Areas of Focus</span>
@@ -162,7 +162,7 @@ hero_intro: true
 </section>
 
 <!-- FEATURED ROLES -->
-<section class="section-light-dotted position-relative overflow-hidden">
+<section class="section-light-dotted position-relative overflow-hidden" data-kbd-stop>
   {% include contour-lines.html tone="light" %}
   <div class="container position-relative pad-88-12 z-1">
     <div class="mw-640 mb-52">
@@ -199,7 +199,7 @@ hero_intro: true
 </section>
 
 <!-- EDUCATION STRIP -->
-<section class="bg-c4 position-relative overflow-hidden">
+<section class="bg-c4 position-relative overflow-hidden" data-kbd-stop>
   <div class="container position-relative pad-80-12 z-1">
     <div class="mw-640 mb-44">
       <span class="eyebrow">Academic Foundation</span>
@@ -238,7 +238,7 @@ hero_intro: true
 {% else %}
   {% assign home_featured = site.posts[1] | default: home_latest %}
 {% endif %}
-<section class="section-light-dotted position-relative overflow-hidden">
+<section class="section-light-dotted position-relative overflow-hidden" data-kbd-stop>
   <div class="container pad-88-12-72">
     <div class="mw-640 mb-52">
       <span class="eyebrow">From the Blog</span>
@@ -274,7 +274,7 @@ hero_intro: true
 </section>
 
 <!-- CTA -->
-<section class="section-dark-dotted position-relative overflow-hidden">
+<section class="section-dark-dotted position-relative overflow-hidden" data-kbd-stop>
   {% include contour-lines.html %}
   <div class="container position-relative pad-88-12-72 z-1">
     <div class="row align-items-center g-4">
@@ -290,3 +290,7 @@ hero_intro: true
     </div>
   </div>
 </section>
+
+<button type="button" class="scroll-top" id="scrollTopBtn" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>

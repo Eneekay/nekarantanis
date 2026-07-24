@@ -1117,5 +1117,76 @@ document.addEventListener('DOMContentLoaded', () => {
     };
     requestAnimationFrame(tick);
   }
+
+  // Keyboard section navigation (desktop): ArrowRight/ArrowLeft step through
+  // a page's own major sections - marked with [data-kbd-stop] per layout -
+  // interleaved with any finer-grained sub-stops that exist on that page:
+  // each job-role entry on the About page (.info-card/.subrole), and each
+  // on-page-TOC heading inside a publication's body. Interleaving both kinds
+  // in one sorted-by-position list, rather than keeping them separate, is
+  // what makes "next section" and "next job role"/"next heading" the same
+  // keypress: pressing right just walks to whatever the next stop down the
+  // page happens to be, section or sub-stop alike.
+  const kbdStopEls = document.querySelectorAll('[data-kbd-stop]');
+  if (kbdStopEls.length) {
+    const SUBSTOP_SELECTOR = '.info-card, .subrole, #pubBody h2[id], #pubBody h3[id]';
+    // How far from the viewport's top edge a stop still counts as "the
+    // current one" rather than "the next one" - has to clear each stop's
+    // own scroll-margin-top (nav height + a little breathing room, ~85px)
+    // or landing on a stop would immediately look like it's still "ahead"
+    // of you by that same offset, and the very next keypress would just
+    // re-select the section you're already on instead of advancing past it.
+    const ACTIVATION_LINE = 110;
+    const isTypingTarget = (el) => {
+      if (!el) return false;
+      const tag = el.tagName;
+      return tag === 'INPUT' || tag === 'TEXTAREA' || tag === 'SELECT' || el.isContentEditable;
+    };
+    const getStops = () => {
+      const els = Array.from(kbdStopEls).concat(Array.from(document.querySelectorAll(SUBSTOP_SELECTOR)));
+      return els
+        .map((el) => ({ el, top: el.getBoundingClientRect().top }))
+        .sort((a, b) => a.top - b.top);
+    };
+
+    document.addEventListener('keydown', (e) => {
+      if (e.key !== 'ArrowRight' && e.key !== 'ArrowLeft') return;
+      if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
+      if (isTypingTarget(document.activeElement)) return;
+      const stops = getStops();
+      // The current stop is the last one whose top has already crossed the
+      // activation line - same "recompute on every check" approach as the
+      // publication TOC's scrollspy, rather than trusting a cached position.
+      let currentIndex = -1;
+      stops.forEach((s, i) => { if (s.top <= ACTIVATION_LINE) currentIndex = i; });
+      const target = e.key === 'ArrowRight'
+        ? stops[currentIndex + 1]
+        : (currentIndex > 0 ? stops[currentIndex - 1] : null);
+      if (!target) return;
+      e.preventDefault();
+      target.el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+      dismissKbdHint();
+    });
+  }
+
+  // Discreet keyboard-shortcut hint: only worth showing on pages the nav
+  // above actually does something on, so it never advertises a shortcut
+  // that wouldn't do anything here. Fades in shortly after load, then fades
+  // back out either on its own or the moment the visitor actually presses
+  // one of the keys - whichever comes first - rather than sitting on screen
+  // for the whole visit.
+  const kbdHint = document.getElementById('kbdHint');
+  let kbdHintTimer = null;
+  const dismissKbdHint = () => {
+    if (!kbdHint) return;
+    kbdHint.classList.remove('is-visible');
+    if (kbdHintTimer) { clearTimeout(kbdHintTimer); kbdHintTimer = null; }
+  };
+  if (kbdHint && kbdStopEls.length) {
+    setTimeout(() => {
+      kbdHint.classList.add('is-visible');
+      kbdHintTimer = setTimeout(dismissKbdHint, 5000);
+    }, 900);
+  }
 });
 

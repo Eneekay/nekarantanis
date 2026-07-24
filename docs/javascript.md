@@ -91,7 +91,7 @@ Filtering itself just toggles `.d-none` on each post card client-side and re-run
 
 ## Reading progress
 
-`readingProgress`/`readingProgressFill` (present on blog post and publication pages only, injected by `_layouts/default.html`) track scroll position on every `scroll` event: the pill gains `.is-visible` once the reader has scrolled past 80px, and the fill's `width` is set to `(scrollY / (documentHeight - viewportHeight)) * 100`, clamped to 0–100. It starts off-screen rather than fully visible on load, since there's nothing "read" yet the moment the page appears. See [Reading progress](/docs/sections-components.html#reading-progress) on the Sections & Components page for the visual/layout side.
+`readingProgress`/`readingProgressFill` (present on blog post and publication pages only, injected by `_layouts/default.html`) track scroll position against the article body itself — `.post-body-inner` or `.pub-body` — rather than the whole document, re-measured fresh on every `scroll`/`resize` tick rather than cached once at load (a post's lazily-loaded featured image can still be growing the article's height for a moment after the page first settles, and a stale measurement would throw off exactly where "100%" lands). 0% is the article's own first line, 100% is its last; the pill is visible once the reader has scrolled past 80px and hides again 80px past "done" (`REVEAL_PX`), so it doesn't sit fixed over the CTA/footer once there's nothing left to track. See [Reading progress](/docs/sections-components.html#reading-progress) on the Sections & Components page for the visual/layout side.
 
 ## Card/list view toggle
 
@@ -112,3 +112,15 @@ The Contact page's form posts to Formspree; `js/site.js` progressively enhances 
 ## Nav scroll state
 
 `site.js` toggles `.scrolled` on `#siteNav` once `window.scrollY > 24`, which is what switches the nav from transparent-over-the-hero to a solid background with the logo/links flipping from light to dark text (all handled in CSS via `.site-nav.scrolled` variants). It also keeps a `--nav-h` CSS custom property in sync with the nav's actual rendered height (recalculated on scroll and resize) — used by `.section-subnav`'s `top: var(--nav-h, 69px)` so the About page's sticky jump-nav sits flush under the main nav at any width rather than at a hardcoded offset.
+
+## Keyboard section navigation
+
+ArrowRight/ArrowLeft step through a page's own major sections on desktop — marked per layout with `[data-kbd-stop]` — interleaved with any finer-grained sub-stops that exist on that page: each job-role entry on the About page (`.info-card`/`.subrole`), and each on-page-TOC heading inside a publication's body (`#pubBody h2[id], h3[id]`). Interleaving both kinds into one list sorted by page position, rather than keeping them separate, is what makes "next section" and "next job role"/"next heading" the same keypress — pressing right just walks to whatever the next stop down the page happens to be, section or sub-stop alike. Blog posts have no sub-stops (no post currently uses `##` headings), so they naturally get plain section-to-section stepping only.
+
+The handler is disabled while focus is in a text input, textarea, select, or contenteditable element (so it never hijacks typing in the Contact form or Blog search box), and skips entirely if any modifier key is held. On each keypress it recomputes every stop's `getBoundingClientRect().top` fresh — the same "recompute on every check" approach as the publication TOC's scrollspy, rather than trusting a cached position — and finds the current stop as the *last* one whose top has crossed an 88px-ish activation line (`ACTIVATION_LINE`), then steps to the next/previous entry in the sorted list. Comparing live viewport position rather than cached absolute document coordinates matters here: every stop's `scroll-margin-top` (nav height + padding) means the browser doesn't scroll it flush to `y: 0`, so a naive "is this stop's absolute Y past my current scrollY" check would find the section you just landed on again instead of advancing past it.
+
+Pages with zero `[data-kbd-stop]` elements (Contact, Privacy, the docs site) don't wire up the listener at all, so arrow keys keep their unremarkable native behavior there.
+
+## Keyboard-shortcut hint
+
+A small "arrow keys" hint (`#kbdHint`, injected sitewide by `_layouts/default.html`) fades in about 900ms after load and fades back out either on its own after 5 seconds or the moment the visitor actually presses ArrowLeft/ArrowRight, whichever comes first — it only ever shows on a page that has `[data-kbd-stop]` elements, so it never advertises a shortcut that wouldn't do anything there. Hidden entirely under 900px width and on coarse/no-hover (touch) input via CSS media queries, since physical arrow keys aren't the relevant input there regardless of viewport width.

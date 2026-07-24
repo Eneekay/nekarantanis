@@ -157,3 +157,11 @@ The home hero, About header, Blog header, and every post header are all this sam
 </figure>
 
 Content sections between headers alternate `.bg-c4` (plain) and `.section-white-dotted` / `.section-light-dotted` to keep a long page from feeling flat, as seen across the About page's four jump-linked sections (Leadership, Digital, Research, Education).
+
+## Back to top
+
+`.scroll-top` (`#scrollTopBtn`) is a small fixed circular button, bottom-right, revealed once the page has been scrolled past ~600px — present on Home, Blog, Publications, and individual publication pages. The mechanics (reveal threshold, smooth-scroll-to-top on click) are generic in `site.js` and apply to any `#scrollTopBtn` present, so adding it to a new page is just adding the markup.
+
+## Keyboard section nav + shortcut hint
+
+Desktop visitors can step through a page's major sections with ArrowLeft/ArrowRight — see [Keyboard section navigation](/docs/javascript.html#keyboard-section-navigation) on the JavaScript page for the mechanics. A small keycap-cluster hint (bottom-left, `#kbdHint`) fades in briefly on any page the feature is active on, to surface it without being permanently on screen.
