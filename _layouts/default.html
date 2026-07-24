@@ -62,14 +62,20 @@
 {% include footer.html %}
 
 <div class="kbd-hint" id="kbdHint" aria-hidden="true">
-  <div class="kbd-hint-keys">
-    <span class="kbd-hint-key kbd-hint-key--up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg></span>
-    <span class="kbd-hint-key kbd-hint-key--left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 5 5 12 12 19"></polyline></svg></span>
-    <span class="kbd-hint-key kbd-hint-key--down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg></span>
-    <span class="kbd-hint-key kbd-hint-key--right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+  <div class="kbd-hint-inner">
+    <div class="kbd-hint-keys">
+      <span class="kbd-hint-key kbd-hint-key--up"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg></span>
+      <span class="kbd-hint-key kbd-hint-key--left"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="19" y1="12" x2="5" y2="12"></line><polyline points="12 5 5 12 12 19"></polyline></svg></span>
+      <span class="kbd-hint-key kbd-hint-key--down"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="5" x2="12" y2="19"></line><polyline points="19 12 12 19 5 12"></polyline></svg></span>
+      <span class="kbd-hint-key kbd-hint-key--right"><svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="5" y1="12" x2="19" y2="12"></line><polyline points="12 5 19 12 12 19"></polyline></svg></span>
+    </div>
+    <div class="kbd-hint-text"><strong>&larr; &rarr;</strong> jump between sections<br><strong>&uarr; &darr;</strong> scroll the page</div>
   </div>
-  <div class="kbd-hint-text"><strong>&larr; &rarr;</strong> jump between sections<br><strong>&uarr; &darr;</strong> scroll the page</div>
 </div>
+
+<button type="button" class="scroll-top" id="scrollTopBtn" aria-label="Back to top">
+  <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><line x1="12" y1="19" x2="12" y2="5"></line><polyline points="5 12 12 5 19 12"></polyline></svg>
+</button>
 
 <script src="{{ page.base }}js/bootstrap.bundle.min.js"></script>
 <script src="{{ page.base }}js/site.js?v={{ site.time | date: '%s' }}"></script>

@@ -1193,10 +1193,11 @@ document.addEventListener('DOMContentLoaded', () => {
   // Discreet keyboard-shortcut hint: only worth showing on pages the nav
   // above actually does something on, so it never advertises a shortcut
   // that wouldn't do anything here. Fades in shortly after load, fades back
-  // out the moment the visitor actually uses the keys, and fades back in
-  // again on an upward scroll - a reasonable proxy for "still reading, might
-  // want to jump back" - rather than only ever getting the one chance to
-  // notice it before it disappears for good.
+  // out the moment the visitor actually uses the keys or scrolls down, and
+  // fades back in on an upward scroll - the same hide-on-scroll-down/show-
+  // on-scroll-up idea as a lot of mobile browser chrome - rather than
+  // sitting on screen (or gone for good) regardless of what the visitor's
+  // doing.
   const kbdHint = document.getElementById('kbdHint');
   const dismissKbdHint = () => {
     if (kbdHint) kbdHint.classList.remove('is-visible');
@@ -1207,7 +1208,8 @@ document.addEventListener('DOMContentLoaded', () => {
     let lastScrollY = window.scrollY;
     window.addEventListener('scroll', () => {
       const y = window.scrollY;
-      if (y < lastScrollY - 4) kbdHint.classList.add('is-visible');
+      if (y > lastScrollY + 4) dismissKbdHint();
+      else if (y < lastScrollY - 4) kbdHint.classList.add('is-visible');
       lastScrollY = y;
     }, { passive: true });
   }

@@ -160,7 +160,7 @@ Content sections between headers alternate `.bg-c4` (plain) and `.section-white-
 
 ## Back to top
 
-`.scroll-top` (`#scrollTopBtn`) is a small fixed circular button, bottom-right, revealed once the page has been scrolled past ~600px — present on Home, Blog, Publications, and individual publication pages. The mechanics (reveal threshold, smooth-scroll-to-top on click) are generic in `site.js` and apply to any `#scrollTopBtn` present, so adding it to a new page is just adding the markup.
+`.scroll-top` (`#scrollTopBtn`) is a small fixed circular button, bottom-right, revealed once the page has been scrolled past ~600px. It's injected once, sitewide, by `_layouts/default.html` — a standard part of the shared chrome rather than markup repeated per page — so every page gets it automatically and there's nothing to remember when adding a new one.
 
 ## Keyboard section nav + shortcut hint
 
