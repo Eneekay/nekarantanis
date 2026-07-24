@@ -1171,22 +1171,24 @@ document.addEventListener('DOMContentLoaded', () => {
 
   // Discreet keyboard-shortcut hint: only worth showing on pages the nav
   // above actually does something on, so it never advertises a shortcut
-  // that wouldn't do anything here. Fades in shortly after load, then fades
-  // back out either on its own or the moment the visitor actually presses
-  // one of the keys - whichever comes first - rather than sitting on screen
-  // for the whole visit.
+  // that wouldn't do anything here. Fades in shortly after load, fades back
+  // out the moment the visitor actually uses the keys, and fades back in
+  // again on an upward scroll - a reasonable proxy for "still reading, might
+  // want to jump back" - rather than only ever getting the one chance to
+  // notice it before it disappears for good.
   const kbdHint = document.getElementById('kbdHint');
-  let kbdHintTimer = null;
   const dismissKbdHint = () => {
-    if (!kbdHint) return;
-    kbdHint.classList.remove('is-visible');
-    if (kbdHintTimer) { clearTimeout(kbdHintTimer); kbdHintTimer = null; }
+    if (kbdHint) kbdHint.classList.remove('is-visible');
   };
   if (kbdHint && kbdStopEls.length) {
-    setTimeout(() => {
-      kbdHint.classList.add('is-visible');
-      kbdHintTimer = setTimeout(dismissKbdHint, 5000);
-    }, 900);
+    setTimeout(() => kbdHint.classList.add('is-visible'), 900);
+
+    let lastScrollY = window.scrollY;
+    window.addEventListener('scroll', () => {
+      const y = window.scrollY;
+      if (y < lastScrollY - 4) kbdHint.classList.add('is-visible');
+      lastScrollY = y;
+    }, { passive: true });
   }
 });
 
