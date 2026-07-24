@@ -53,7 +53,7 @@ A quick map of everything in the repo — what it is and where to look for it.
 
 | Path | What it is |
 |---|---|
-| `admin/index.html` | The CMS entry point (`/admin`) — loads Decap CMS (pinned to `3.14.1`) plus the two custom scripts below, and the pinned "Umami ↗" / "View site ↗" buttons |
+| `admin/index.html` | The CMS entry point (`/admin`) — loads Decap CMS (pinned to `3.14.1`) plus the two custom scripts below, and the pinned "Umami ↗" / "Docs ↗" / "View site ↗" buttons |
 | `admin/config.yml` | Collections (Blog Posts, Publications, About Page), fields, auth backend, editorial workflow settings — see [CMS Guide](/docs/cms-guide.html) |
 | `admin/icon-picker.js` | Custom `icon-picker` widget — the clickable icon grid, shared by posts, publications, and career roles |
 | `admin/preview.js` | Real-stylesheet live preview for the post editor |

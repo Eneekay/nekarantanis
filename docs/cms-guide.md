@@ -13,7 +13,7 @@ Decap's editor UI itself needs a live GitHub OAuth login to open, so it can't be
 
 ## Opening it
 
-Go to `https://nekarantanis.co.uk/admin/`, sign in with GitHub when prompted, and you'll land on a list of three collections: **Blog Posts**, **Publications**, and **About Page**. Two small buttons are pinned to the bottom-right corner of every CMS screen (`admin/index.html`): "Umami ↗" jumps straight to the Umami analytics dashboard, and "View site ↗" jumps back to the live site — both so you don't have to hunt for a separate tab while editing.
+Go to `https://nekarantanis.co.uk/admin/`, sign in with GitHub when prompted, and you'll land on a list of three collections: **Blog Posts**, **Publications**, and **About Page**. Three small icon-labeled buttons are pinned to the bottom-right corner of every CMS screen (`admin/index.html`): "Umami ↗" jumps to the analytics dashboard, "Docs ↗" jumps to this documentation site, and "View site ↗" jumps back to the live site — all so you don't have to hunt for a separate tab while editing.
 
 ## How saving works: editorial workflow
 
