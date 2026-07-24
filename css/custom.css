@@ -939,18 +939,17 @@ textarea.form-input { resize: vertical; min-height: 140px; }
    shortly after load, fades back out the moment the visitor scrolls down or
    actually uses the keys, and fades back in on an upward scroll. Bottom-
    left, since the reading-progress pill already owns bottom-center and
-   .scroll-top owns bottom-right. Only ever handles opacity/visibility here -
-   the bounce (below) owns transform on a separate inner element instead of
-   this one, so the two motions never fight over the same property. */
+   .scroll-top owns bottom-right. The outer element only ever handles
+   position/opacity/visibility - the visible pill (background, padding,
+   shadow) and the bounce (below) both live on .kbd-hint-inner instead, so
+   the whole box - not just its contents - moves as one piece, without
+   putting a looping transform animation on the same element that's also
+   mid fade-transition on a different property. */
 .kbd-hint {
   position: fixed;
   left: 16px;
   bottom: 16px;
   z-index: 55;
-  padding: 10px 14px;
-  background: var(--nk-c4);
-  border-radius: 8px;
-  box-shadow: var(--nk-shadow-pill);
   opacity: 0;
   visibility: hidden;
   transition: opacity .35s ease, visibility .35s;
@@ -961,13 +960,17 @@ textarea.form-input { resize: vertical; min-height: 140px; }
   display: flex;
   align-items: center;
   gap: 12px;
+  padding: 10px 14px;
+  background: var(--nk-c4);
+  border-radius: 8px;
+  box-shadow: var(--nk-shadow-pill);
 }
-/* Bounced on its own inner element, not .kbd-hint itself - stacking a
-   looping transform animation directly on the element handling the fade
-   transition would fight it exactly the way the hero buttons' entrance
-   animation once silently blocked their hover lift (see javascript.md's
-   hero-intro-sequence note) - so the bounce and the fade are kept on
-   separate elements entirely rather than sharing the transform property. */
+/* Bounced on .kbd-hint-inner (the whole visible pill), not .kbd-hint itself -
+   stacking a looping transform animation directly on the element handling
+   the fade transition would fight it exactly the way the hero buttons'
+   entrance animation once silently blocked their hover lift (see
+   javascript.md's hero-intro-sequence note) - so the bounce and the fade
+   are kept on separate elements entirely rather than sharing a property. */
 @keyframes kbdHintBounce {
   0%, 100% { transform: translateY(0); }
   50% { transform: translateY(4px); }
