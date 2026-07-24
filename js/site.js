@@ -809,7 +809,10 @@ document.addEventListener('DOMContentLoaded', () => {
       const targets = counters.map(el => parseFloat(el.dataset.countTo));
 
       if (countReduceMotion) {
-        counters.forEach((el, i) => renderCount(el, targets[i]));
+        counters.forEach((el, i) => {
+          el.style.opacity = '1';
+          renderCount(el, targets[i]);
+        });
         return;
       }
 
