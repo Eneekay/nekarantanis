@@ -879,17 +879,31 @@ document.addEventListener('DOMContentLoaded', () => {
   }
 
   // Reading-progress pill (post/publication pages only - see _layouts/
-  // default.html). Stays off-screen until the visitor has actually
-  // started scrolling, rather than sitting there fully visible from the
-  // moment the page loads with nothing yet read.
+  // default.html). Tracked against the article body itself - .post-body-inner
+  // on blog posts, .pub-body on publications - rather than the whole
+  // document, so 0%/100% land on the article's own first and last line
+  // instead of the page's header and footer. Stays off-screen until the
+  // visitor has actually started scrolling, and hides again REVEAL_PX past
+  // "done" rather than lingering fixed over the CTA/footer once there's
+  // nothing left to track. Re-measures the article's position on every tick
+  // rather than caching it at load - a post's featured image (loaded lazily,
+  // no explicit width/height) can still be growing the article's height for
+  // a moment after the page first settles, and a stale measurement would
+  // throw off exactly where "100%" and the post-completion hide point land.
   const readingProgress = document.getElementById('readingProgress');
   const readingProgressFill = document.getElementById('readingProgressFill');
-  if (readingProgress && readingProgressFill) {
+  const articleEl = document.querySelector('.post-body-inner, .pub-body');
+  if (readingProgress && readingProgressFill && articleEl) {
+    const REVEAL_PX = 80;
     const updateReadingProgress = () => {
-      readingProgress.classList.toggle('is-visible', window.scrollY > 80);
-      const scrollable = document.documentElement.scrollHeight - window.innerHeight;
-      const pct = scrollable > 0 ? Math.min(100, Math.max(0, (window.scrollY / scrollable) * 100)) : 0;
+      const rect = articleEl.getBoundingClientRect();
+      const articleStart = rect.top + window.scrollY;
+      const articleEnd = articleStart + articleEl.offsetHeight - window.innerHeight;
+      const span = Math.max(1, articleEnd - articleStart);
+      const pct = Math.min(100, Math.max(0, ((window.scrollY - articleStart) / span) * 100));
       readingProgressFill.style.width = pct + '%';
+      const visible = window.scrollY > REVEAL_PX && window.scrollY < articleEnd + REVEAL_PX;
+      readingProgress.classList.toggle('is-visible', visible);
     };
     updateReadingProgress();
     window.addEventListener('scroll', updateReadingProgress, { passive: true });
