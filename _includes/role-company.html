@@ -7,7 +7,7 @@
   {% if c.subtitle and c.subtitle != "" %}<div class="fs-13 text-faint">{{ c.subtitle }}</div>{% endif %}
   <div class="fs-13 text-faint{% if c.subtitle and c.subtitle != "" %} mt-1{% endif %}">{{ c.dates }}</div>
 </div>
-<div class="col-lg-9 td-1" data-reveal-split="right">
+<div class="col-lg-9 td-1" data-reveal-split="right" data-kbd-stop>
   <div class="timeline-accent">
     <p class="fs-15 text-muted-warm mb-4">{{ c.blurb }}</p>
     {% for position in c.positions %}

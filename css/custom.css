@@ -921,14 +921,17 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 }
 
 /* Keyboard section-nav: every element the ArrowLeft/ArrowRight handler in
-   site.js can land on (page-level sections, About's job-role entries,
-   publication headings) gets this so scrollIntoView() lands it clear of the
-   fixed nav instead of tucked half underneath it - same convention already
-   used for the publication TOC's own heading targets. */
+   site.js can land on (page-level sections, About's workplace/job-role
+   entries, publication headings) gets this so scrollIntoView() lands it
+   clear of the fixed nav instead of tucked half underneath it - same
+   convention already used for the publication TOC's own heading targets.
+   --subnav-h (synced in site.js) is 0 on every page without a
+   .section-subnav bar - only About has one - so this is safe to apply
+   sitewide rather than needing an About-specific rule. */
 [data-kbd-stop],
 .info-card,
 .subrole {
-  scroll-margin-top: calc(var(--nav-h, 69px) + 16px);
+  scroll-margin-top: calc(var(--nav-h, 69px) + var(--subnav-h, 0px) + 16px);
 }
 
 /* Discreet keyboard-shortcut hint (desktop only - see js/site.js). Fades in
@@ -961,6 +964,19 @@ textarea.form-input { resize: vertical; min-height: 140px; }
   grid-template-rows: repeat(2, 22px);
   gap: 3px;
   flex-shrink: 0;
+}
+/* Bounced on its own inner element, not .kbd-hint itself - that outer
+   element's own transform is already busy with the fade/slide-in transition
+   (translateY(8px) -> 0), and stacking a looping animation on the same
+   property on the same element would fight that transition exactly the way
+   the hero buttons' entrance animation once silently blocked their hover
+   lift (see javascript.md's hero-intro-sequence note). */
+@keyframes kbdHintBounce {
+  0%, 100% { transform: translateY(0); }
+  50% { transform: translateY(4px); }
+}
+@media (prefers-reduced-motion: no-preference) {
+  .kbd-hint.is-visible .kbd-hint-keys { animation: kbdHintBounce 1.6s ease-in-out infinite; }
 }
 .kbd-hint-key {
   display: flex;

@@ -878,6 +878,18 @@ document.addEventListener('DOMContentLoaded', () => {
     window.addEventListener('resize', syncNavHeight);
   }
 
+  // About page's sticky section jump-nav (.section-subnav) sits directly
+  // under the main nav once pinned, so anything scrolled to underneath it -
+  // section headings, the keyboard section-nav's stops - needs to clear its
+  // height too, not just the main nav's. Synced the same way as --nav-h,
+  // since the pill row can wrap to two lines at narrower widths.
+  const subnav = document.querySelector('.section-subnav');
+  if (subnav) {
+    const syncSubnavHeight = () => document.documentElement.style.setProperty('--subnav-h', subnav.getBoundingClientRect().height + 'px');
+    syncSubnavHeight();
+    window.addEventListener('resize', syncSubnavHeight);
+  }
+
   // Reading-progress pill (post/publication pages only - see _layouts/
   // default.html). Tracked against the article body itself - .post-body-inner
   // on blog posts, .pub-body on publications - rather than the whole
@@ -1130,13 +1142,18 @@ document.addEventListener('DOMContentLoaded', () => {
   const kbdStopEls = document.querySelectorAll('[data-kbd-stop]');
   if (kbdStopEls.length) {
     const SUBSTOP_SELECTOR = '.info-card, .subrole, #pubBody h2[id], #pubBody h3[id]';
-    // How far from the viewport's top edge a stop still counts as "the
-    // current one" rather than "the next one" - has to clear each stop's
-    // own scroll-margin-top (nav height + a little breathing room, ~85px)
-    // or landing on a stop would immediately look like it's still "ahead"
-    // of you by that same offset, and the very next keypress would just
-    // re-select the section you're already on instead of advancing past it.
-    const ACTIVATION_LINE = 110;
+    // A stop counts as "already reached" once its own scroll-margin-adjusted
+    // position (i.e. exactly where scrollIntoView would land it) is at or
+    // above this small, fixed slack - not the nav height itself. Reading
+    // each element's live computed scroll-margin-top rather than
+    // replicating the --nav-h/--subnav-h math here means this stays correct
+    // even though --nav-h itself shrinks once the nav's .scrolled state
+    // kicks in mid-scroll: re-deriving that number after the fact (rather
+    // than reading what the browser actually used) once caused a stop to
+    // stop counting as "reached" a keypress after landing on it, since the
+    // nav had shrunk in between and the activation math no longer agreed
+    // with where the element had actually settled.
+    const REACHED_SLACK = 20;
     const isTypingTarget = (el) => {
       if (!el) return false;
       const tag = el.tagName;
@@ -1145,8 +1162,11 @@ document.addEventListener('DOMContentLoaded', () => {
     const getStops = () => {
       const els = Array.from(kbdStopEls).concat(Array.from(document.querySelectorAll(SUBSTOP_SELECTOR)));
       return els
-        .map((el) => ({ el, top: el.getBoundingClientRect().top }))
-        .sort((a, b) => a.top - b.top);
+        .map((el) => {
+          const marginTop = parseFloat(getComputedStyle(el).scrollMarginTop) || 0;
+          return { el, effectiveTop: el.getBoundingClientRect().top - marginTop };
+        })
+        .sort((a, b) => a.effectiveTop - b.effectiveTop);
     };
 
     document.addEventListener('keydown', (e) => {
@@ -1154,11 +1174,12 @@ document.addEventListener('DOMContentLoaded', () => {
       if (e.altKey || e.ctrlKey || e.metaKey || e.shiftKey) return;
       if (isTypingTarget(document.activeElement)) return;
       const stops = getStops();
-      // The current stop is the last one whose top has already crossed the
-      // activation line - same "recompute on every check" approach as the
-      // publication TOC's scrollspy, rather than trusting a cached position.
+      // The current stop is the last one whose effective position has
+      // already crossed the slack line - same "recompute on every check"
+      // approach as the publication TOC's scrollspy, rather than trusting a
+      // cached position.
       let currentIndex = -1;
-      stops.forEach((s, i) => { if (s.top <= ACTIVATION_LINE) currentIndex = i; });
+      stops.forEach((s, i) => { if (s.effectiveTop <= REACHED_SLACK) currentIndex = i; });
       const target = e.key === 'ArrowRight'
         ? stops[currentIndex + 1]
         : (currentIndex > 0 ? stops[currentIndex - 1] : null);
