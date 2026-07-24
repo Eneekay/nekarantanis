@@ -9,14 +9,22 @@ The site's visual rhythm comes from a small set of section-level building blocks
 
 ## Section backgrounds
 
-Four background classes give a section its base texture, all built the same way — a `background-color` plus a repeating `background-image` at `24px 24px`, so every dotted or gridded surface on the site shares one visual rhythm:
+Five background classes give a section its base texture, all built the same way — a `background-color` plus a repeating `background-image` at `24px 24px`, so every dotted, gridded, or crossed surface on the site shares one visual rhythm:
 
 ```css
 .section-dark-dotted   /* --nk-c0, white dots at 5% opacity — used for headers/CTAs */
 .section-light-dotted  /* --nk-c3, dark dots at 3.5% — used for secondary content bands */
 .section-white-dotted  /* --nk-c4, dark dots at 3.5% — About page's alternating sections */
 .section-light-grid    /* --nk-c3, dark grid lines at 1.8% — Home's "By the Numbers" only */
+.section-light-crosses /* --nk-c3, small grey X marks at 6% — Research/Publications pages */
 ```
+
+`.section-light-crosses` swaps the dot/grid pattern for discreet grey X marks and, like `.dots-seamless` below, carries no inset recess shadow — so a Publications page's stacked light sections read as one continuous surface rather than a stack of distinct bands, matching the Blog page's seamless dotted treatment.
+
+<figure>
+  <img src="/docs/assets/screenshots/publications-overview.png" alt="Publications overview page showing the crosses texture and By the Numbers stats">
+  <figcaption>The Publications page: `.section-light-crosses` texture behind the header and "By the Numbers" stats.</figcaption>
+</figure>
 
 <figure>
   <img src="/docs/assets/screenshots/home-stats.png" alt="Impact stats section showing the grid texture and wave divider">
@@ -83,6 +91,42 @@ Three card variants, all sharing `.hover-card` for the lift-on-hover behavior (`
 <figure>
   <img src="/docs/assets/screenshots/home-blog-section.png" alt="Home page's From the Blog section showing two role-card-styled post cards">
   <figcaption>Home's "From the Blog" section — the latest post and a second (featured, or next-most-recent) post, `.role-card` reused with an icon instead of a logo.</figcaption>
+</figure>
+
+## Icon draw-on
+
+Every inline icon SVG on the site (the small stroke icons used in cards, pillars, and stat groups) can animate its strokes on to the page rather than just appearing — each `<path>`/`<circle>` reveals itself via a `stroke-dasharray`/`stroke-dashoffset` sweep, with each shape in a multi-shape icon staggered slightly after the last so the whole icon draws in like a quick sketch rather than snapping in at once. Icon groups with more than four shapes fall back to a plain fade instead (`data-icon-fade-only`) — animating that many strokes in sequence reads as sluggish rather than snappy, so past that threshold it's simpler to just fade the whole icon in. The animation itself lives in `site.js`; see [Icon draw-on](/docs/javascript.html#icon-draw-on) for the mechanics.
+
+## Reading progress
+
+A small pill, fixed to the bottom of the viewport, that appears once a reader scrolls past the top of a blog post or publication article and fills a thin progress track as they read. It sits centered and width-matched to the article column beneath it (`.post-body-inner` on blog posts, the wider `.pub-shell` column on publication pages via the `.reading-progress--pub` modifier) rather than running edge-to-edge, so it reads as a status bar for *that* article specifically. On mobile it drops its label and background and becomes a bare, thicker line pinned to the very bottom edge — the only progress cue available at that width, so it needs to read clearly without any surrounding chrome.
+
+<figure>
+  <img src="/docs/assets/screenshots/reading-progress.png" alt="Reading progress pill fixed to the bottom of a publication article page, showing a partially filled progress bar">
+  <figcaption>The reading-progress pill on a publication page, mid-article.</figcaption>
+</figure>
+
+## Publication layout: TOC + article shell
+
+Publication pages (`_layouts/publication.html`) use a dedicated two-column shell, `.pub-shell` — a 220px sticky table-of-contents rail alongside a `minmax(0, 1fr)` article column, `.pub-body`. The TOC highlights whichever heading is currently in view as the reader scrolls (scrollspy, driven by `site.js`) and collapses to a single non-sticky column under 900px, where the whole nav becomes a tap-to-expand toggle (`.pub-toc-toggle`) instead of a permanent sidebar — there isn't room for a rail alongside a comfortably-wide reading column at that width, and a full list of links would otherwise push the article down before a mobile reader ever reaches it.
+
+<figure>
+  <img src="/docs/assets/screenshots/publication-article.png" alt="Publication article page showing the sticky table-of-contents sidebar and the article body">
+  <figcaption>Desktop `.pub-shell`: sticky, scrollspy'd TOC on the left, article on the right.</figcaption>
+</figure>
+
+<figure>
+  <img src="/docs/assets/screenshots/pub-toc-mobile.png" alt="Mobile publication page with the table of contents expanded via its collapsible toggle">
+  <figcaption>Mobile: the TOC collapses to a single toggle row, expanded here to show the link list.</figcaption>
+</figure>
+
+## Card/list view toggle
+
+The Blog and Publications grids can both be switched between the default card layout and a denser list layout via `.view-toggle-btn` — a pill-shaped button styled like the filter dropdowns beside it, but filled solid with the blue accent rather than outlined, so it reads as an action rather than another filter. The chosen view persists only for the current page load; toggling it re-renders the grid and swaps the button's own label/icon to reflect the new state.
+
+<figure>
+  <img src="/docs/assets/screenshots/blog-list-view.png" alt="Blog page with the post grid switched to the denser list view">
+  <figcaption>Blog's post grid in list view, toggled via the button next to the filters.</figcaption>
 </figure>
 
 ## Putting it together: the header pattern

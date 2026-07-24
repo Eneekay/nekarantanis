@@ -94,10 +94,17 @@ Every button on the site is `.btn-nk` plus a color modifier and an optional size
 <a href="#" class="btn-nk btn-nk-outline btn-nk--lg">Read the Blog</a>
 ```
 
-- **Color:** `.btn-nk-solid-c1` (sky fill), `.btn-nk-solid-c2` (cobalt fill), `.btn-nk-outline` (transparent, for dark backgrounds)
+- **Color:** `.btn-nk-solid-c1` (sky fill), `.btn-nk-solid-c2` (cobalt fill), `.btn-nk-outline` (transparent, for dark backgrounds), `.btn-nk-outline-dark` (transparent, dark outline/text, for light backgrounds)
 - **Size:** `.btn-nk--nav` (compact, for the nav bar), `.btn-nk--sm`, `.btn-nk--lg` (default padding needs no modifier)
 
 Every button lifts 3px and gains a drop shadow on `:hover` via a shared `transform`/`box-shadow` transition on the base `.btn-nk` class — colors only change the fill/border, never the hover *motion*, so the lift feels consistent everywhere. (This is also the interaction that the hero's entrance animation once silently broke — see [the animation-fill-mode note](/docs/javascript.html#hero-intro-sequence) on the JavaScript page.)
+
+On top of the lift, the three main color variants (`.btn-nk-solid-c1`, `.btn-nk-solid-c2`, `.btn-nk-outline`) layer in two more hover effects, both pure CSS:
+
+- **Background fade** — the fill/border/text colors cross-fade to ink + gold border via the same `transition` list on `.btn-nk`, rather than the hover state simply snapping in.
+- **Sheen sweep** — a soft diagonal highlight, parked just off the button's left edge as a `::after` pseudo-element, sweeps across on `:hover` via a `.6s` `transform: skewX(-20deg) translateX(...)` transition. It's independent of the background fade (its own element, own transition) and is disabled entirely under `prefers-reduced-motion: reduce`.
+
+`.btn-nk-outline-dark` is a quieter fourth variant — dark outline and text, used for the ResearchGate/Scholar profile links on the About and Publications pages where a full-color button would be too loud. It doesn't get the sheen sweep (it's not in that selector list), only the hover border/lift.
 
 ## Tags & pills
 
