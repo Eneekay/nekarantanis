@@ -44,12 +44,24 @@ document.addEventListener('DOMContentLoaded', () => {
     });
 
     if ('IntersectionObserver' in window) {
-      const io = new IntersectionObserver((entries) => {
-        entries.forEach((entry) => {
-          const match = links.find((l) => l.heading === entry.target);
-          if (match) match.link.classList.toggle('is-active', entry.isIntersecting);
+      // Toggling `is-active` straight off `entry.isIntersecting` lit up a
+      // heading's link only while the heading itself sat inside the shrunk
+      // root band, so the highlight vanished the moment you scrolled past a
+      // short section - well before you'd actually finished reading it (same
+      // issue the publication TOC's scrollspy hit - see js/site.js). Instead,
+      // every time any heading crosses the activation line, recompute which
+      // section we're actually in: the last heading whose top has scrolled
+      // above that line. That link stays active for the section's full
+      // length, right up until the next heading crosses.
+      const activationLine = 80; // px from viewport top - matches rootMargin below
+      const updateActive = () => {
+        let current = null;
+        links.forEach((l) => {
+          if (l.heading.getBoundingClientRect().top - activationLine <= 0) current = l;
         });
-      }, { rootMargin: '-80px 0px -70% 0px' });
+        links.forEach((l) => l.link.classList.toggle('is-active', l === current));
+      };
+      const io = new IntersectionObserver(updateActive, { rootMargin: `-${activationLine}px 0px -70% 0px` });
       headings.forEach((h) => io.observe(h));
     }
   } else if (tocList) {
