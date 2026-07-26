@@ -1,0 +1,23 @@
+{% if site.giscus.repo_id != "" and site.giscus.category_id != "" %}
+<!-- COMMENTS (Giscus, GitHub Discussions) -->
+<section class="bg-c4" data-kbd-stop>
+  <div class="container post-comments-outer" data-reveal>
+    <h2 class="fs-24 fw-semibold text-c0 mb-4">Comments</h2>
+    <script src="https://giscus.app/client.js"
+      data-repo="{{ site.giscus.repo }}"
+      data-repo-id="{{ site.giscus.repo_id }}"
+      data-category="{{ site.giscus.category }}"
+      data-category-id="{{ site.giscus.category_id }}"
+      data-mapping="pathname"
+      data-strict="0"
+      data-reactions-enabled="1"
+      data-emit-metadata="0"
+      data-input-position="top"
+      data-theme="light"
+      data-lang="en"
+      crossorigin="anonymous"
+      async>
+    </script>
+  </div>
+</section>
+{% endif %}
