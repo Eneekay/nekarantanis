@@ -31,7 +31,7 @@ A quick map of everything in the repo — what it is and where to look for it.
 | `_includes/post-icon.html` | Liquid `case`/`when` — renders one of 41 named icons as inline SVG path data |
 | `_includes/role-company.html` | Renders one company + its positions on the About page |
 | `_includes/contour-lines.html` | Drifting SVG contour-line background used on dotted headers/sections |
-| `_includes/giscus.html` | Giscus (GitHub Discussions) comments widget — included at the end of `_layouts/post.html` and `_layouts/publication.html` only; renders nothing until `site.giscus.category`/`category_id` are set |
+| `_includes/giscus.html` | Giscus (GitHub Discussions) comments widget — included at the end of `_layouts/post.html` and `_layouts/publication.html` only; renders nothing until `site.giscus.category`/`category_id` are set. Takes a `closing_wave` param (used by `post.html` only) to draw the light-to-dark wave divider into the CTA section that follows, since inserting comments between the article and CTA displaced the wave that used to live there |
 | `_includes/docs-nav.html` | The docs sidebar's link list |
 
 ## Data
