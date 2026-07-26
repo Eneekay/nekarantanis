@@ -52,8 +52,8 @@ defaults:
 giscus:
   repo: "Eneekay/nekarantanis"
   repo_id: "R_kgDOTUQNTw"
-  category: ""
-  category_id: ""
+  category: "Announcements"
+  category_id: "DIC_kwDOTUQNT84DCA_c"
 
 exclude:
   - README.md
