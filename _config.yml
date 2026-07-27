@@ -50,7 +50,7 @@ defaults:
 # — see docs/reference.md.
 cusdis:
   host: "https://cusdis.com"
-  app_id: ""
+  app_id: "5d5bc9bd-5348-42b7-be02-e58b21c58abd"
 
 exclude:
   - README.md
