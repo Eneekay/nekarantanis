@@ -1114,6 +1114,13 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 .post-body-inner    { padding: 72px 12px 72px; max-width: 760px; }
 .post-cta-inner     { padding: 56px 12px 88px; max-width: 760px; }
 .post-comments-outer { padding: 16px 12px 64px; max-width: 760px; }
+/* Cusdis auto-resizes its iframe to fit content once it loads, but its
+   initial height is short enough that the compose box's submit button
+   sits below the fold - this floor means the whole form fits without
+   an inner scrollbar, on any viewport width (narrower screens stack
+   the form fields taller, so this needs to be generous everywhere,
+   not just on desktop). */
+#cusdis_thread iframe { min-height: 640px !important; }
 
 /* ---------- publication article ---------- */
 
