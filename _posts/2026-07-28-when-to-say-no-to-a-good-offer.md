@@ -28,14 +28,14 @@ It didn't. The role meant relocating, and there was a baby at home who had no sa
 
 Staying was not a fallback. I invested in that role for years afterwards, built something I am still proud of, and gained the kind of experience and genuine impact that no relocation could have handed me faster. The bigger job was real. It simply was not the right job for that year.
 
-More recently, a different offer arrived, Head of Higher Education, again in HE, with a commute that would have made my daily life considerably easier and a role genuinely exciting enough that I was ready to accept it before it was even formally offered. This time the hesitation had nothing to do with family or timing. It was about terms. The flexibility I needed never materialised, despite the fact that the same employer's own structures seem to have allowed for it elsewhere. There is a particular kind of disappointment in knowing the flexibility exists, just not for you.
+More recently, a different offer arrived, Head of Higher Education, again in HE, with a commute that would have made my daily life considerably easier and a role genuinely exciting enough that I was ready to accept it before it was even formally offered. This time the hesitation had nothing to do with family or timing. It was about terms. The flexibility I needed never materialised, despite the fact that the same employer's own structures seem to have allowed for it elsewhere.
 
-It raises a fair question. Should you accept a role you genuinely want if the terms do not fit what you actually need? While I was weighing that, my existing employer came forward independently with a new package built specifically around wellbeing and work life balance, without my having asked for it. That changed the shape of the decision entirely. I turned the new role down. I have no regrets about it.
+There is a particular kind of disappointment in knowing the flexibility exists, just not for you.
+
+It raises a fair question. Should you accept a role you genuinely want if the terms do not fit what you actually need? While I was weighing that, my existing employer came forward independently with a new package built specifically around wellbeing and work life balance, without my having asked for it. That changed the shape of the decision entirely. I turned the new role down.
 
 > The terms are not the fine print around a job. Sometimes they are the job.
 
 Sometimes the timing is not right, and the only honest response is to notice that and act on it. There is always a long list of factors worth weighing, but if something does not sit well, that discomfort is usually telling you something specific, even before you can name it. Terms can matter as much as the role itself, because you live with the terms every day, after the excitement of the offer has long faded.
 
-However, my first experience shows the opposite can be just as true, that the job itself can matter more than the terms attached to it. There is no formula that resolves this in advance. Weigh what is in front of you, but ask the one question that tends to cut through the noise.
-
-> When you look back on this decision in a year's time, will you feel it was worth it?
+My first experience shows the opposite can be just as true, that the job itself can matter more than the terms attached to it. There is no formula that resolves this in advance. Both times, the harder part was noticing what was actually in front of me, not what the offer letter said I should feel about it.
