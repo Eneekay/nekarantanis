@@ -17,6 +17,8 @@ Go to `https://nekarantanis.co.uk/admin/`, sign in with GitHub when prompted, an
 
 Inside an individual Blog Post or Publication entry, there's also a **Preview** link/button in the editor toolbar that opens that specific entry's actual page on the live site in a new tab — not just Decap's own in-app preview pane. It's driven by `site_url` (top-level in `admin/config.yml`) combined with each collection's `preview_path`. For an entry that hasn't been published yet, that link 404s until it has been — expected, since the page doesn't exist there yet.
 
+For Blog Posts specifically, this link is built from the post's title (auto-slugified), since the site's actual URLs don't include the date that's in each post's filename. That matches every post's real URL from "Raising Standards Behind Walls" onward, where the filename slug is the full title — but a few older posts (e.g. "Making the SAR/QIP Cycle...", whose file is `sarqip-cycle.md`) have shorter, hand-picked slugs that don't match the title, so Preview will point to the wrong URL for those specific ones. Publications aren't affected — their slugs are never date-prefixed.
+
 ## How saving works: editorial workflow
 
 `admin/config.yml` sets `publish_mode: editorial_workflow`, which means an edit doesn't go straight to the live `main` branch the moment you save. Instead, Decap moves each entry through **Draft → In Review → Ready**, backed by a real GitHub pull request — so you can leave a post half-written, come back later, and nothing goes live until you explicitly publish it from the editor. This is the same GitHub permissions your own login already has; there's no separate CMS-only auth level.

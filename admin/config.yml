@@ -41,7 +41,17 @@ collections:
     slug: "{{year}}-{{month}}-{{day}}-{{slug}}"
     identifier_field: title
     summary: "{{title}} — {{date}}"
-    preview_path: "blog/{{slug}}.html"
+    # {{slug}} here would resolve to the full dated filename slug (e.g.
+    # "2026-07-22-some-title"), but this site's actual permalink for posts
+    # (see _config.yml) has no date in it - {{fields.title}} sidesteps that
+    # by auto-slugifying the title field instead, matching the real URL for
+    # any post whose slug is the full title (true for every post from
+    # "Raising Standards Behind Walls" onward). A handful of older posts
+    # have shorter, hand-picked slugs that don't match their title 1:1 (e.g.
+    # "Making the SAR/QIP Cycle..." -> sarqip-cycle) - Preview will be wrong
+    # for those specific ones. Renaming their files to match would fix it,
+    # but changes their live URLs, so it hasn't been done here.
+    preview_path: "blog/{{fields.title}}.html"
     media_folder: "/uploads/posts"
     public_folder: "/uploads/posts"
     sortable_fields: ["date", "title", "category"]
