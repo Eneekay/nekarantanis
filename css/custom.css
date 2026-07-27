@@ -1335,7 +1335,7 @@ textarea.form-input { resize: vertical; min-height: 140px; }
   flex-direction: column;
   background: var(--nk-c4);
   border: 1px solid rgba(var(--nk-c0-rgb), 0.1);
-  border-radius: 6px;
+  border-radius: 8px;
   padding: 36px;
   height: 100%;
   color: var(--nk-c0);

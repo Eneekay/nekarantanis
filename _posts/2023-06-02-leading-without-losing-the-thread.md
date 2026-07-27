@@ -1,7 +1,7 @@
 ---
 title: "Leading 100 People Across Five Sites Without Losing the Thread"
 date: 2023-06-02
-category: "Team Leadership"
+category: "Leadership"
 icon: person
 summary: "Notes on governance, delegation, and staying close to the work when you can’t be everywhere at once."
 tags:
