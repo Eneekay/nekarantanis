@@ -13,14 +13,14 @@ A static site built with [Jekyll](https://jekyllrb.com/), hosted on GitHub Pages
 
 - **Home** (`index.html`) — hero intro, impact stats, leadership pillars, featured roles, education strip, latest blog posts, a closing CTA
 - **About** (`About.html`) — a CV-style page with four jump-linked sections (Leadership, Digital, Research, Education)
-- **Blog** (`Blog.html` + `_posts/*.md`) — a featured post, a live-searchable/filterable grid of the rest (with a card/list view toggle), and individual post pages with Giscus comments
-- **Research / Publications** (`Publications.html` + `_publications/*.md`) — an overview page with "By the Numbers" stats and a filterable list of papers, plus individual publication pages with a sticky, scrollspy'd table of contents and Giscus comments
+- **Blog** (`Blog.html` + `_posts/*.md`) — a featured post, a live-searchable/filterable grid of the rest (with a card/list view toggle), and individual post pages with Cusdis comments
+- **Research / Publications** (`Publications.html` + `_publications/*.md`) — an overview page with "By the Numbers" stats and a filterable list of papers, plus individual publication pages with a sticky, scrollspy'd table of contents and Cusdis comments
 - **Contact** (`Contact.html`) — a contact form (submitted via Formspree)
 - **Privacy** (`Privacy.html`) — the analytics/cookies policy page
 
 There's no build tooling beyond Jekyll itself — no bundler, no npm dependencies for the front end. `css/custom.css` and `js/site.js` are hand-written and loaded directly on every page via `_layouts/default.html`, which also loads [Umami](https://umami.is/) analytics site-wide (a single `<script>` tag, added once in the shared layout rather than per page). GoatCounter has been removed — Umami is now the only analytics provider, described on the Privacy page.
 
-Individual blog posts and publications also load [Giscus](https://giscus.app) — a comments widget backed by GitHub Discussions on this repo — via `_includes/giscus.html`, included only from `_layouts/post.html` and `_layouts/publication.html`. It's configured through `site.giscus` in `_config.yml` (`repo`, `repo_id`, `category`, `category_id`) and the include renders nothing until `category`/`category_id` are filled in.
+Individual blog posts and publications also load [Cusdis](https://cusdis.com) — a lightweight, privacy-friendly comments widget — via `_includes/cusdis.html`, included only from `_layouts/post.html` and `_layouts/publication.html`. It's configured through `site.cusdis` in `_config.yml` (`host`, `app_id`) and the include renders nothing until `app_id` is filled in.
 
 ## The three things that make up the theme
 

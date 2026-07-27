@@ -44,16 +44,13 @@ defaults:
       layout: publication
       base: "../"
 
-# Giscus (GitHub Discussions-powered comments) — shown only on blog posts and
-# publications, via _includes/giscus.html, gated on repo_id/category_id both
-# being set. repo_id is this repo's own GraphQL node ID (stable, safe to commit).
-# category/category_id come from giscus.app's configurator once Discussions is
-# enabled on the repo and a category exists — see docs/reference.md.
-giscus:
-  repo: "Eneekay/nekarantanis"
-  repo_id: "R_kgDOTUQNTw"
-  category: "Announcements"
-  category_id: "DIC_kwDOTUQNT84DCA_c"
+# Cusdis (lightweight, privacy-friendly comments) — shown only on blog posts
+# and publications, via _includes/cusdis.html, gated on app_id being set.
+# app_id comes from creating a site at cusdis.com (or a self-hosted instance)
+# — see docs/reference.md.
+cusdis:
+  host: "https://cusdis.com"
+  app_id: ""
 
 exclude:
   - README.md

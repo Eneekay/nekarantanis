@@ -1,0 +1,22 @@
+{% if site.cusdis.app_id != "" %}
+<!-- COMMENTS (Cusdis) -->
+<section class="bg-c4{% if include.closing_wave %} position-relative overflow-hidden{% endif %}" data-kbd-stop>
+  <div class="container post-comments-outer" data-reveal>
+    <h2 class="fs-24 fw-semibold text-c0 mb-4">Comments</h2>
+    <div id="cusdis_thread"
+      data-host="{{ site.cusdis.host }}"
+      data-app-id="{{ site.cusdis.app_id }}"
+      data-page-id="{{ page.url }}"
+      data-page-url="{{ page.url | absolute_url }}"
+      data-page-title="{{ page.title | escape }}"
+      data-theme="light">
+    </div>
+    <script async defer src="{{ site.cusdis.host }}/js/cusdis.es.js"></script>
+  </div>
+  {% if include.closing_wave %}
+  <svg class="wave-divider wave-divider--48" viewBox="0 0 1440 100" preserveAspectRatio="none">
+    <path d="M0,50 C240,0 480,90 720,45 C960,5 1200,85 1440,40 L1440,100 L0,100 Z" class="fill-c0"></path>
+  </svg>
+  {% endif %}
+</section>
+{% endif %}
