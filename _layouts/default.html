@@ -48,6 +48,8 @@
 </head>
 <body{% if page.hero_intro %} class="home-hero-intro"{% endif %}>
 
+<a href="#main-content" class="skip-link visually-hidden-focusable">Skip to content</a>
+
 {% include nav.html %}
 
 {% if page.layout == 'post' or page.layout == 'publication' %}
@@ -57,7 +59,9 @@
 </div>
 {% endif %}
 
+<main id="main-content">
 {{ content }}
+</main>
 
 {% include footer.html %}
 

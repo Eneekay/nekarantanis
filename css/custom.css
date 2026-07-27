@@ -74,6 +74,21 @@ h1, h2, h3, h4 {
   outline-offset: 2px;
   border-radius: 2px;
 }
+/* Off-screen until focused (via Bootstrap's .visually-hidden-focusable),
+   then this positioning takes over so keyboard users can jump the fixed
+   nav instead of tabbing through it on every page. */
+.skip-link {
+  position: fixed;
+  top: 8px;
+  left: 8px;
+  z-index: 2000;
+  background: var(--nk-c0);
+  color: var(--nk-c4);
+  padding: 10px 18px;
+  border-radius: 6px;
+  font-weight: 600;
+  font-size: 14px;
+}
 /* The blue accent doesn't hold up against dark ink backgrounds, so the
    hero sections (and the nav bar, which sits transparent over each page's
    dark hero until scrolled past it) switch the ring to gold instead -
