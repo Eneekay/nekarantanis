@@ -15,6 +15,8 @@ Decap's editor UI itself needs a live GitHub OAuth login to open, so it can't be
 
 Go to `https://nekarantanis.co.uk/admin/`, sign in with GitHub when prompted, and you'll land on a list of three collections: **Blog Posts**, **Publications**, and **About Page**. Four small icon-labeled buttons are pinned to the bottom-right corner of every CMS screen (`admin/index.html`): "Umami ↗" jumps to the analytics dashboard, "Cusdis ↗" jumps to the comments dashboard (for moderating/deleting comments on blog posts and publications), "Docs ↗" jumps to this documentation site, and "View site ↗" jumps back to the live site — all so you don't have to hunt for a separate tab while editing.
 
+Inside an individual Blog Post or Publication entry, there's also a **Preview** link/button in the editor toolbar that opens that specific entry's actual page on the live site in a new tab — not just Decap's own in-app preview pane. It's driven by `site_url` (top-level in `admin/config.yml`) combined with each collection's `preview_path`. For an entry that hasn't been published yet, that link 404s until it has been — expected, since the page doesn't exist there yet.
+
 ## How saving works: editorial workflow
 
 `admin/config.yml` sets `publish_mode: editorial_workflow`, which means an edit doesn't go straight to the live `main` branch the moment you save. Instead, Decap moves each entry through **Draft → In Review → Ready**, backed by a real GitHub pull request — so you can leave a post half-written, come back later, and nothing goes live until you explicitly publish it from the editor. This is the same GitHub permissions your own login already has; there's no separate CMS-only auth level.

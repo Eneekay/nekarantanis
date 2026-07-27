@@ -19,6 +19,13 @@ local_backend:
 media_folder: "uploads"
 public_folder: "/uploads"
 
+# Combined with each collection's preview_path below, this makes Decap show
+# a "Preview" link in the entry editor that opens the entry's actual page on
+# the live site (in a new tab) - not just Decap's own in-app preview pane.
+# For an entry that hasn't been published yet, that link 404s until it has -
+# expected, since the page doesn't exist there yet.
+site_url: https://nekarantanis.co.uk
+
 # publish_mode: editorial_workflow moves entries through Draft -> In Review
 # -> Ready before they publish, instead of every save committing straight
 # to `main` (which redeploys the live site immediately). Decap does this
