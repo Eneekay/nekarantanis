@@ -1213,5 +1213,24 @@ document.addEventListener('DOMContentLoaded', () => {
       lastScrollY = y;
     }, { passive: true });
   }
+
+  // Cusdis's own widget script is supposed to postMessage its real content
+  // height so its iframe can grow/shrink to fit (comments loading in,
+  // fields expanding, etc.) instead of scrolling internally - this drives
+  // that directly rather than trusting it happens automatically, since the
+  // exact message shape isn't pinned down anywhere public, only inferred.
+  const cusdisThread = document.getElementById('cusdis_thread');
+  if (cusdisThread) {
+    window.addEventListener('message', (e) => {
+      const data = e.data;
+      if (!data || typeof data !== 'object') return;
+      const height = data.height ?? (data.data && data.data.height);
+      const looksLikeCusdis = data.context === 'cusdis' || data.type === 'cusdis-resize'
+        || (typeof e.origin === 'string' && e.origin.includes('cusdis'));
+      if (!looksLikeCusdis || typeof height !== 'number') return;
+      const iframe = cusdisThread.querySelector('iframe');
+      if (iframe) iframe.style.height = `${height}px`;
+    });
+  }
 });
 

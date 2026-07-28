@@ -1114,6 +1114,10 @@ textarea.form-input { resize: vertical; min-height: 140px; }
 .post-body-inner    { padding: 72px 12px 72px; max-width: 760px; }
 .post-cta-inner     { padding: 56px 12px 88px; max-width: 760px; }
 .post-comments-outer { padding: 76px 12px 64px; max-width: 760px; }
+/* Just a floor against the near-empty flash before Cusdis's first resize
+   postMessage arrives (handled in site.js) - not sized for a full comment
+   thread, so it stays out of the way once real content grows past it. */
+#cusdis_thread iframe { min-height: 250px; }
 
 /* ---------- publication article ---------- */
 
