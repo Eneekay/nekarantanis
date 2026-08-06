@@ -1,6 +1,6 @@
 ---
 title: When to Say No to a Good Offer
-date: 2026-07-29
+date: 2026-08-06
 featured: false
 category: Career Development
 icon: compass
