@@ -1232,5 +1232,24 @@ document.addEventListener('DOMContentLoaded', () => {
       if (iframe) iframe.style.height = `${height}px`;
     });
   }
+
+  // Blog post read count: backed by Umami via a small Cloudflare Worker
+  // proxy (site.pageviews.worker_url in _config.yml - see docs/reference.md),
+  // since Umami's own private API key can't safely live in this file. The
+  // element only exists in the DOM at all once that's configured; left
+  // empty (and hidden via CSS) on any failure rather than showing a stuck
+  // or misleading count.
+  const postReads = document.getElementById('postReads');
+  if (postReads && postReads.dataset.pageviewsUrl) {
+    const endpoint = `${postReads.dataset.pageviewsUrl}/pageviews?url=${encodeURIComponent(postReads.dataset.pageUrl)}`;
+    fetch(endpoint)
+      .then((res) => (res.ok ? res.json() : Promise.reject()))
+      .then((data) => {
+        if (typeof data.views === 'number') {
+          postReads.textContent = `${data.views.toLocaleString()} read${data.views === 1 ? '' : 's'}`;
+        }
+      })
+      .catch(() => {});
+  }
 });
 

@@ -52,6 +52,16 @@ cusdis:
   host: "https://cusdis.com"
   app_id: "5d5bc9bd-5348-42b7-be02-e58b21c58abd"
 
+# Blog post read counts, shown next to the reading-time estimate in
+# _layouts/post.html. worker_url points at the umami-pageviews-proxy
+# Cloudflare Worker (a separate small deploy, not part of this repo - see
+# docs/reference.md) which reads Umami pageview data server-side, since
+# Umami's private API key can't safely live in client-side JS. Empty until
+# that Worker is deployed and its URL is known - the "Reads" element isn't
+# even added to the page until this is set.
+pageviews:
+  worker_url: ""
+
 exclude:
   - README.md
   - LICENSE

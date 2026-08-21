@@ -23,7 +23,7 @@ A quick map of everything in the repo — what it is and where to look for it.
 | Path | What it is |
 |---|---|
 | `_layouts/default.html` | Base HTML shell used by every page: fonts, stylesheets, nav, footer, scripts, the site-wide Umami analytics tag, and a sitewide `Person` JSON-LD block (name, alternate names, social profile links) for search-engine entity matching |
-| `_layouts/post.html` | Wraps a blog post's Markdown body with the header/CTA structure |
+| `_layouts/post.html` | Wraps a blog post's Markdown body with the header/CTA structure. The header also computes a reading-time estimate at build time (word count ÷ 200wpm, `ceil`'d, minimum 1) and, if `site.pageviews.worker_url` is set, adds a `#postReads` element that `site.js` fills in client-side |
 | `_layouts/publication.html` | Wraps a publication's Markdown body with the `.pub-shell` sticky-TOC + article structure |
 | `_layouts/docs.html` | This documentation site's layout — sidebar nav, on-page TOC, docs styling |
 | `_includes/nav.html` | The fixed top nav bar |
@@ -54,10 +54,19 @@ A quick map of everything in the repo — what it is and where to look for it.
 
 | Path | What it is |
 |---|---|
-| `admin/index.html` | The CMS entry point (`/admin`) — loads Decap CMS (pinned to `3.14.1`) plus the two custom scripts below, and the pinned "Umami ↗" / "Docs ↗" / "View site ↗" buttons |
-| `admin/config.yml` | Collections (Blog Posts, Publications, About Page), fields, auth backend, editorial workflow settings — see [CMS Guide](/docs/cms-guide.html) |
+| `admin/index.html` | The CMS entry point (`/admin`) — loads Decap CMS (pinned to `3.14.1`) plus the two custom scripts below, and the pinned "Umami ↗" / "Cusdis ↗" / "Docs ↗" / "View site ↗" buttons |
+| `admin/config.yml` | Collections (Blog Posts, Publications, About Page), fields, auth backend, editorial workflow settings, `site_url` (powers Decap's per-entry live-page preview link) — see [CMS Guide](/docs/cms-guide.html) |
 | `admin/icon-picker.js` | Custom `icon-picker` widget — the clickable icon grid, shared by posts, publications, and career roles |
 | `admin/preview.js` | Real-stylesheet live preview for the post editor |
+
+## External services (not part of this repo)
+
+Two small Cloudflare Workers this site depends on but doesn't contain the code for — each holds a credential that can't safely live in this repo's client-side JS, and exposes only a narrow, purpose-built endpoint back to the site:
+
+| Worker | What it does |
+|---|---|
+| `decap-cms-auth` (github.com/Eneekay/decap-cms-auth) | Relays the GitHub OAuth handshake for Decap CMS logins — see the comment at the top of `admin/config.yml` |
+| `umami-pageviews-proxy` | Reads Umami's pageview data server-side and answers "how many times has this URL been viewed" for `site.js`'s read-count fetch, without exposing the Umami login used to query it. Its URL is set as `site.pageviews.worker_url` in `_config.yml` |
 
 ## This documentation site
 

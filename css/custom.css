@@ -211,6 +211,11 @@ h1, h2, h3, h4 {
 .text-faint       { color: var(--nk-text-faint); }
 .text-faint-dark  { color: var(--nk-text-faint-dark); }
 .text-cream       { color: var(--nk-text-cream); }
+/* Read count fills in async (site.js) once the Umami-backed Worker
+   responds - stays invisible (no dangling "· ") until it actually has a
+   number to show, rather than flashing "0 reads" or a stuck placeholder. */
+.post-reads:empty { display: none; }
+.post-reads:not(:empty)::before { content: "\00B7\0020"; }
 .text-cream-strong{ color: var(--nk-text-cream-strong); }
 .text-body-dark   { color: var(--nk-text-body-dark); }
 .text-gold        { color: var(--nk-gold); }
